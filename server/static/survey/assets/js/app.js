@@ -1,7 +1,7 @@
 //'use strict';
 var app = {};
 
-angular.module('askApp', ['ui', 'ui.bootstrap', 'ngGrid'])
+angular.module('askApp', ['ui', 'ui.bootstrap', 'ngGrid', 'shoppinpal.mobile-menu'])
     .config(function($routeProvider, $httpProvider) {
 
     // var initialHeight = $(window).height();

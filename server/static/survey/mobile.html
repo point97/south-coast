@@ -20,8 +20,10 @@
         <link rel="apple-touch-icon-precomposed" sizes="57x57" href="touch-icons/apple-touch-icon-57x57.png">
         <!-- Include the compiled Ratchet CSS -->
 
-         <link rel="stylesheet" href="assets/lib/css/ng-grid.css">
          <link rel="stylesheet" href="assets/lib/css/bootstrap.css">
+
+         <link rel="stylesheet" href="assets/lib/css/ng-grid.css">
+         <link rel="stylesheet" href="assets/lib/css/ng-mobile-menu.css">
         
         <link rel="stylesheet" href="assets/lib/css/leaflet.css">
         <link rel="stylesheet" href="assets/lib/css/leaflet.awesome-markers.css">
@@ -43,20 +45,23 @@
     <body ng-app="askApp" id="app_shell">
         <div ng-view ng-animate="'animate'"></div>
     </body>
+
     <script src="assets/lib/js/date.min.js"></script>
     <script src="assets/lib/js/jquery-1.8.2.min.js"></script>
     <script src="assets/lib/js/jquery-ui.min.js"></script>
-     <script src="assets/lib/js/angular.js"></script>
-     <script src="assets/lib/js/angular-ui.js"></script>
-     <script src="assets/js/directives/ui-bootstrap-tpls-0.2.0.js"></script>
+    <script src="assets/lib/js/angular.js"></script>
+    <script src="assets/lib/js/angular-ui.js"></script>
+    <script src="assets/lib/js/ng-mobile-menu.js"></script>
 
-     <script src="assets/lib/js/select2.js"></script>
-     <script src="assets/lib/js/underscore.js"></script>
-     <script src="assets/lib/js/underscore.string.js"></script>
-     <script src="assets/lib/js/leaflet-src.js"></script>
-     <script src="assets/lib/js/ng-grid.min.js"></script>
-     <script src="assets/lib/js/ng-grid-plugins/ng-grid-flexible-height.js"></script>
-     <script src="assets/lib/js/bootstrap.js"></script>
+    <script src="assets/js/directives/ui-bootstrap-tpls-0.2.0.js"></script>
+
+    <script src="assets/lib/js/select2.js"></script>
+    <script src="assets/lib/js/underscore.js"></script>
+    <script src="assets/lib/js/underscore.string.js"></script>
+    <script src="assets/lib/js/leaflet-src.js"></script>
+    <script src="assets/lib/js/ng-grid.min.js"></script>
+    <script src="assets/lib/js/ng-grid-plugins/ng-grid-flexible-height.js"></script>
+    <script src="assets/lib/js/bootstrap.js"></script>
 
     <script src="assets/lib/js/leaflet-pip.min.js"></script>
     <script src="assets/lib/js/Bing.js"></script>
@@ -85,6 +90,7 @@
     <script src="assets/js/controllers/complete.js"></script>
     <script src="assets/js/controllers/profile.js"></script>
     <script src="assets/js/directives/mobilemenu.js"></script>
+    <script src="assets/js/directives/mobile-left-nav.js"></script>
     <script src="assets/js/directives/titlebar.js"></script>
     <script src="assets/js/directives/tap.js"></script>
     <script src="assets/js/directives/mobilemap.js"></script>

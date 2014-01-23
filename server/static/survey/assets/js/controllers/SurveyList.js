@@ -41,6 +41,10 @@ angular.module('askApp')
     } else {
         $location.path('/');
     }
+
+    if (app.version) {
+        $scope.version = app.version;
+    }
     
     if (app.surveys) {
         $scope.surveys = app.surveys;

@@ -1,19 +1,25 @@
 <div class="navbar navbar-default navbar-fixed-top">
     <div class="status-bar"></div>
-    <a type="button" class="navbar-toggle" href="#/main">
-        <i class="icon-home"></i>
+    <!-- <a type="button" class="navbar-toggle" href="#/main">
+        <i class="icon-align-justify"></i>
+    </a> -->
+    <a id="topnav-menu-button" type="button" class="navbar-toggle" ng-click="$spMenu.toggle()">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-reorder" style="color: #ddd; cursor: pointer;"></span>
     </a>
+
+
     <a type="button" class="navbar-comment" ng-show="showFeedback" ng-click="sendingFeedback = ! sendingFeedback">
         <i class="icon-comment"></i>
     </a>
-    <a type="button" class="navbar-comment" ng-show="showUpdateSurveys" ng-click="updateSurveys()">
+    <!-- <a type="button" class="navbar-comment" ng-show="showUpdateSurveys" ng-click="updateSurveys()">
         <i class="icon-refresh"></i>
-    </a>
+    </a> -->
     <div class="container">
         <div class="navbar-header">
-            <a class="navbar-brand" href="#/main">
-                <img src="assets/img/deck-logo.svg" class="center logo" />
-            </a>
+            <div class="navbar-brand">
+                <!-- <img src="assets/img/deck-logo.svg" class="center logo" /> -->
+            </div>
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
