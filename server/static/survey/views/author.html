@@ -220,6 +220,15 @@ label {
                             <input class="col-md-12" ng-model="activeQuestion.lng" />
                             <label>Zoom Level</label>
                             <input class="col-md-12" ng-model="activeQuestion.zoom" />
+                        </div>                     
+                        <div ng-show="activeQuestion.type == 'map-set-location'">
+                            <h3>Map Settings</h3>
+                            <label>Latitude</label>
+                            <input class="col-md-12" ng-model="activeQuestion.lat" />
+                            <label>Longitude</label>
+                            <input class="col-md-12" ng-model="activeQuestion.lng" />
+                            <label>Zoom Level</label>
+                            <input class="col-md-12" ng-model="activeQuestion.zoom" />
                         </div>
                     </div>
                 </div>

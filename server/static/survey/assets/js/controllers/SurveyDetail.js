@@ -752,5 +752,4 @@ $scope.loadSurvey = function(data) {
         });    
     }
 
-
 });
