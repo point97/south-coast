@@ -1,8 +1,10 @@
 <div id="sp-nav" class="ng-scope" style="background-color: rgb(50, 50, 50); z-index: 0"> 
-    <div class="navbar" style="height: 90px; color: #ccc;">
-        <span class="icon-male icon-3x" style="position: absolute; left: 10px; top: 20px;"></span>
-        <span style="font-size: 28px; position: absolute; left: 45px; top: 25px;">{{user.username}}</span>  
-    </div>
+    <a href="#/profile">
+        <div class="navbar" style="height: 90px; color: #ccc;">
+            <span class="icon-male icon-3x" style="position: absolute; left: 10px; top: 20px;"></span>
+            <span style="font-size: 28px; position: absolute; left: 55px; top: 25px;">{{user.username}}</span>  
+        </div>
+    </a>
     <div class="container">
         <div style="margin-top: -10px">
             <a href="#/surveys">
@@ -37,6 +39,12 @@
                 <span class="icon-folder-open"></span>
                 <span class="left-align">Offline</span>
             </div>
+            <a href="#/settings">
+                <div class="sp-nav-option">
+                    <span class="icon-pencil"></span>
+                    <span class="left-align">Settings</span>
+                </div>
+            </a>
         </div>
     </div>
     <style media="screen" type="text/css">
