@@ -157,6 +157,7 @@ QUESTION_TYPE_CHOICES = (
     ('auto-single-select', 'Single Select with Autocomplete'),
     ('map-multipoint', 'Map with Multiple Points'),
     ('map-multipolygon', 'Map with Multiple Polygons'),
+    ('map-set-location', 'Map with Lat/Lon Location'),
     ('yes-no', 'Yes/No'),
     ('number-with-unit', 'Number with Unit'),
 )
