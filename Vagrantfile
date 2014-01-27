@@ -29,7 +29,13 @@ Vagrant.configure("2") do |config|
                 :password => {
                     :postgres  => "SECRET"
                 }
-            }
+            },
+            :proxies => [
+                {
+                    :location => "/buoys",
+                    :remote_addr => "http://www.ndbc.noaa.gov/get_observation_as_xml.php"
+                }
+            ]
         }
         chef.add_role "vagrant"
     end

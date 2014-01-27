@@ -38,6 +38,16 @@ server {
         auth_basic_user_file /var/cache/munin/www/.htpasswd;  #For Basic Auth
     }
 
+    <% node[:proxies].each do |proxy| %>
+        location <%= proxy["location"] %> {
+            proxy_pass       <%= proxy["remote_addr"] %>;
+            proxy_set_header Host      $host;
+            proxy_set_header X-Real-IP $remote_addr;
+        }
+    <% end %>
+
+    
+
     <% if node[:staticfiles] %>
 
     location /static/ {
