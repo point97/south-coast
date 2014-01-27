@@ -126,6 +126,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'gunicorn',
     'discover_runner',
+    'proxy',
     # 'django.contrib.gis',
 
     # Uncomment the next line to enable admin documentation:

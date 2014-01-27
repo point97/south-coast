@@ -32,7 +32,7 @@ Vagrant.configure("2") do |config|
             },
             :proxies => [
                 {
-                    :location => "/buoys",
+                    :location => "/proxies/buoys",
                     :remote_addr => "http://www.ndbc.noaa.gov/get_observation_as_xml.php"
                 }
             ]
