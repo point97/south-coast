@@ -10,6 +10,7 @@ angular.module('askApp')
     }
     $scope.server = app.server;
     
+    $scope.title = "Settings";
     $scope.path = 'sett';
     $scope.clearCache = function () {
         storage.clearCache();

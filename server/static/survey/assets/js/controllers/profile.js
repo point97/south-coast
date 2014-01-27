@@ -1,11 +1,11 @@
 //'use strict';
 
 angular.module('askApp')
-  .controller('ProfileCtrl', function ($scope, $routeParams, $http, $location, storage) {
+.controller('ProfileCtrl', function ($scope, $routeParams, $http, $location, storage) {
     //$http.defaults.headers.post['Content-Type'] = 'application/json';
     $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
 
-
+    $scope.title = "Profile";
     $scope.loading=true;
     $scope.width = 0;
     // QUESTION - something causes this to be called for SurveyList, but I'm not sure what that something is...
@@ -98,4 +98,4 @@ angular.module('askApp')
     };
 
     
-  });
+});
