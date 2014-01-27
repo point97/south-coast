@@ -99,246 +99,19 @@
 
     <!-- Single-Select -->
     <div ng-switch-when="single-select">
-        <div class="question">
-            <!-- <div class="select mrm"> -->
-            <!-- show if groupedOptions ARE present -->
-            <div ng-show="question.groupedOptions">
-                <div class="panel-group grouped-options">
-                    <div class="panel panel-default" ng-repeat="groupOption in question.groupedOptions">
-                        <!-- <div class="panel-heading" ng-click="groupOption.open = !groupOption.open"> -->
-                        <div class="panel-heading" ng-click="$parent.openOption(groupOption)">
-                            <h4 class="panel-title">
-                                <a class="accordion-toggle">
-                                  {{groupOption.optionLabel}}
-                                </a>
-                            </h4>
-                        </div>
-                        <div id="{{ groupOption.optionLabel }}" class="panel-collapse collapse" ng-class="{ 'in': groupOption.open }">
-                            <div class="panel-body">
-                                <ul class="choices list-unstyled">
-                                    <li class="option" ng-click="$parent.onSingleSelectClicked(option, $parent.question)" ng-repeat="option in groupOption.options" ng-class="{'select-unchecked': !option.checked, 'select-checked': option.checked, 'option-group-name': option.isGroupName }">
-                                        <div class="select-content">
-                                            <div class="checkbox"></div>
-                                            <h4 class="select-name option-name">
-                                                {{option.text}}
-                                            </h4>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <!-- <div ng-show="question.allow_other">
-
-                        <ul  ng-class="{'option-checked': question.answerSelected, 'option-unchecked': !question.answerSelected  }" class="select choices list-unstyled">
-                            <li class="option" ng-click="onSingleSelectClicked(question.otherOption, question)" ng-class="{'select-checked': question.otherOption.checked }" ng-model="question.otherAnswer.text">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title">
-                                        <a class="accordion-toggle">
-                                            Other
-                                        </a>
-                                    </h4>
-
-                                </div>
-                            </li>
-                        </ul>
-
-                        <div ng-show="question.allow_other && question.otherOption.checked" ng-class="{'other-input-selected': question.otherAnswer}">
-                            <div ng-show="question.otherAnswer" class="other-checkbox"></div>
-                            <input class="form-control multi-select-other" type="text" ng-class="{'with-text': question.otherAnswer}" placeholder="Enter Other Option Here" ng-model="question.otherAnswer" />
-                        </div>
-
-                        <div ng-show="question.allow_other && question.otherOption.checked" ng-class="{'other-input-selected': question.otherAnswers[0], 'select-checked': question.otherAnswers[0], 'select-unchecked': ! question.otherAnswers[0] }">
-                            <div class="other-checkbox"></div>
-                            <input class="select-content multi-select-grouped-other" type="text" ng-class="{'with-text': question.otherAnswers[0]}" placeholder="Other" ng-model="question.otherAnswers[0]" />
-                        </div>
-
-                    </div> -->
-
-
-                </div>
-            </div>
-
-            <!-- show if groupedOptions are NOT present -->
-            <div class="select mrm">
-                <div ng-show="question.groupedOptions.length == 0" ng-class="{'option-checked': $parent.question.answerSelected, 'option-unchecked': ! $parent.question.answerSelected }">
-                    <ul class="list-unstyled">
-                        <li class="option" ng-click="$parent.onSingleSelectClicked(option, $parent.question)" ng-repeat="option in question.options" ng-class="{'select-checked': option.checked, 'select-unchecked': ! option.checked  }">
-                            <div class="select-content">
-                                <div class="checkbox"></div>
-                                <h4 class="select-name option-name">
-                                    {{ option.text || option.name }}
-                                </h4>
-
-                            </div>
-                        </li>
-                        <!-- <li class="option" ng-show="question.allow_other" ng-click="$parent.onSingleSelectClicked($parent.question.otherOption, $parent.question)" ng-class="{'select-checked': $parent.question.otherOption.checked, 'select-unchecked': ! $parent.question.otherOption.checked }">
-                            <div class="select-content">
-                                <div class="checkbox"></div>
-                                <h4 class="select-name option-name">
-                                    Other
-                                </h4>
-                            </div>
-                        </li> -->
-                    </ul>
-                    <div ng-show="question.allow_other" ng-class="{'select-checked': question.otherAnswers[0], 'select-unchecked': ! question.otherAnswers[0] }" class="other-option">
-                        <div class="other-checkbox"></div>
-                        <input class="select-content single-select-other" type="text" ng-class="{'with-text': question.otherAnswers[0]}" placeholder="Other" ng-model="question.otherAnswers[0]" />
-                    </div>
-                </div>
-            </div>
-
-            <!-- <input class="form-control" type="text" placeholder="Other Option" ng-show="question.otherOption.checked" ng-model="question.otherAnswer" /> -->
-        </div>
+        <div ng-include="viewPath + 'views/singleSelect.html'"></div>
+    </div>
+    <div ng-switch-when="buoy-weather">
+        <!-- <div ng-include="viewPath + 'views/buoyWeather.html'"></div> -->
+        <div buoy-weather question="question"></div>
     </div>
 
     <!-- Multi-Select -->
     <div ng-switch-when="multi-select">
-        <div class="question multi-select">
-
-            <!-- show if groupedOptions ARE present -->
-            <div ng-show="question.groupedOptions.length != 0">
-                <div class="panel-group">
-                    <div class="panel panel-default" ng-repeat="groupOption in question.groupedOptions">
-                        <div class="panel-heading" ng-click="groupOption.open = !groupOption.open">
-                            <h4 class="panel-title">
-                                <a class="accordion-toggle">
-                                  {{groupOption.optionLabel}}
-                                </a>
-                            </h4>
-                        </div>
-                        <div id="{{ groupOption.optionLabel }}" class="panel-collapse collapse" ng-class="{ 'in': groupOption.open }">
-                            <div class="panel-body">
-                                <ul class="choices list-unstyled">
-                                    <li class="option" ng-click="$parent.onMultiSelectClicked(option, $parent.question)" ng-repeat="option in groupOption.options" ng-class="{'select-unchecked': !option.checked, 'select-checked': option.checked, 'option-group-name': option.isGroupName }">
-                                        <div class="select-content">
-                                            <div class="checkbox"></div>
-                                            <h4 class="select-name option-name">
-                                                {{option.text}}
-                                            </h4>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div ng-show="question.allow_other">
-
-                        <ul  ng-class="{'option-checked': question.answerSelected, 'option-unchecked': !question.answerSelected  }" class="select choices list-unstyled">
-                            <li class="option" ng-click="onMultiSelectClicked(question.otherOption, question)" ng-class="{'select-checked': question.otherOption.checked }" ng-model="question.otherAnswer.text">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title">
-                                        <a class="accordion-toggle">
-                                            Other Species (write in)
-                                        </a>
-                                    </h4>
-
-                                </div>
-                            </li>
-                        </ul>
-
-                        <!-- <div ng-show="question.allow_other && question.otherOption.checked" ng-class="{'other-input-selected': question.otherAnswer}">
-                            <div ng-show="question.otherAnswer" class="other-checkbox"></div>
-                            <input class="form-control multi-select-other" type="text" ng-class="{'with-text': question.otherAnswer}" placeholder="Enter Other Option Here" ng-model="question.otherAnswer" />
-                        </div> -->
-
-                        <div ng-show="question.allow_other && question.otherOption.checked" ng-class="{'other-input-selected': question.otherAnswers[0], 'select-checked': question.otherAnswers[0], 'select-unchecked': ! question.otherAnswers[0] }">
-                            <div class="other-checkbox"></div>
-                            <input class="select-content multi-select-grouped-other" type="text" ng-class="{'with-text': question.otherAnswers[0]}" placeholder="Other" ng-model="question.otherAnswers[0]" />
-                        </div>
-                        <div ng-show="question.allow_other && question.otherOption.checked && question.otherAnswers[0]" ng-class="{'other-input-selected': question.otherAnswers[1], 'select-checked': question.otherAnswers[1], 'select-unchecked': ! question.otherAnswers[1] }">
-                            <div class="other-checkbox"></div>
-                            <input class="select-content multi-select-grouped-other" type="text" ng-class="{'with-text': question.otherAnswers[1]}" placeholder="Other" ng-model="question.otherAnswers[1]" />
-                        </div>
-                        <div ng-show="question.allow_other && question.otherOption.checked && question.otherAnswers[1]" ng-class="{'other-input-selected': question.otherAnswers[2], 'select-checked': question.otherAnswers[2], 'select-unchecked': ! question.otherAnswers[2] }">
-                            <div class="other-checkbox"></div>
-                            <input class="select-content multi-select-grouped-other" type="text" ng-class="{'with-text': question.otherAnswers[2]}" placeholder="Other" ng-model="question.otherAnswers[2]" />
-                        </div>
-                        <div ng-show="question.allow_other && question.otherOption.checked && question.otherAnswers[2]" ng-class="{'other-input-selected': question.otherAnswers[3], 'select-checked': question.otherAnswers[3], 'select-unchecked': ! question.otherAnswers[3] }">
-                            <div class="other-checkbox"></div>
-                            <input class="select-content multi-select-grouped-other" type="text" ng-class="{'with-text': question.otherAnswers[3]}" placeholder="Other" ng-model="question.otherAnswers[3]" />
-                        </div>
-                        <div ng-show="question.allow_other && question.otherOption.checked && question.otherAnswers[3]" ng-class="{'other-input-selected': question.otherAnswers[4], 'select-checked': question.otherAnswers[4], 'select-unchecked': ! question.otherAnswers[4] }">
-                            <div class="other-checkbox"></div>
-                            <input class="select-content multi-select-grouped-other" type="text" ng-class="{'with-text': question.otherAnswers[4]}" placeholder="Other" ng-model="question.otherAnswers[4]" />
-                        </div>
-
-
-                    </div>
-                </div>
-            </div>
-
-            <!-- show if groupedOptions are NOT present -->
-            <div ng-show="question.groupedOptions.length == 0">
-                <h3 ng-show="question.hoisted_options.length > 0">Other Activities</h3>
-                <ul  ng-class="{'option-checked': question.answerSelected, 'option-unchecked': !question.answerSelected  }" class="select choices list-unstyled">
-                    <li class="option" ng-click="$parent.onMultiSelectClicked(option, $parent.question)" ng-repeat="option in question.options" ng-class="{'select-checked': option.checked, 'select-unchecked': ! option.checked  }">
-                        <div class="select-content">
-                            <div class="checkbox"></div>
-                            <h4 class="select-name option-name">
-                                {{option.text}}
-                            </h4>   
-
-                        </div>
-                    </li>
-                    <!-- <li ng-show="question.allow_other" ng-click="onMultiSelectClicked(question.otherOption, question)" ng-class="{'select-checked': question.otherOption.checked, 'select-unchecked': ! question.otherOption.checked }" ng-model="question.otherAnswer.text">
-                        <div class="select-content">
-                            <h4 class="select-name option-name">
-                                Other
-                            </h4>
-                        </div>
-                    </li> --><!-- 
-                    <li ng-show="question.allow_other" ng-click="onMultiSelectOtherClicked(question)" ng-repeat="n in range(5)" ng-class="{'select-checked': question.otherOption.checked, 'select-unchecked': ! question.otherOption.checked }">
-                        <div ng-show="question.allow_other" ng-class="{'other-input-selected': question.otherAnswers[0], 'select-checked': question.otherAnswer[$index], 'select-unchecked': ! question.otherAnswer[$index] }">
-                            <div class="other-checkbox"></div>
-                            <input class="select-content multi-select-other" type="text" ng-class="{'with-text': question.otherAnswer[$index]}" placeholder="Other Species" ng-model="question.otherAnswer[$index]" />
-                        </div>
-                    </li> -->
-
-                </ul>
-
-
-                <!-- tried putting this in loop but other field refused to accept input...only thought is that the length of the otherAnswers array had not been pre-defined...? -->
-                <div ng-show="question.allow_other" ng-class="{'other-input-selected': question.otherAnswers[0], 'select-checked': question.otherAnswers[0], 'select-unchecked': ! question.otherAnswers[0] }">
-                    <div class="other-checkbox"></div>
-                    <input class="select-content multi-select-other" type="text" ng-class="{'with-text': question.otherAnswers[0]}" placeholder="Other" ng-model="question.otherAnswers[0]" />
-                </div>
-                <div ng-show="question.allow_other && question.otherAnswers[0]" ng-class="{'other-input-selected': question.otherAnswers[1], 'select-checked': question.otherAnswers[1], 'select-unchecked': ! question.otherAnswers[1] }">
-                    <div class="other-checkbox"></div>
-                    <input class="select-content multi-select-other" type="text" ng-class="{'with-text': question.otherAnswers[1]}" placeholder="Other" ng-model="question.otherAnswers[1]" />
-                </div>
-                <div ng-show="question.allow_other && question.otherAnswers[1]" ng-class="{'other-input-selected': question.otherAnswers[2], 'select-checked': question.otherAnswers[2], 'select-unchecked': ! question.otherAnswers[2] }">
-                    <div class="other-checkbox"></div>
-                    <input class="select-content multi-select-other" type="text" ng-class="{'with-text': question.otherAnswers[2]}" placeholder="Other" ng-model="question.otherAnswers[2]" />
-                </div>
-                <div ng-show="question.allow_other && question.otherAnswers[2]" ng-class="{'other-input-selected': question.otherAnswers[3], 'select-checked': question.otherAnswers[3], 'select-unchecked': ! question.otherAnswers[3] }">
-                    <div class="other-checkbox"></div>
-                    <input class="select-content multi-select-other" type="text" ng-class="{'with-text': question.otherAnswers[3]}" placeholder="Other" ng-model="question.otherAnswers[3]" />
-                </div>
-                <div ng-show="question.allow_other && question.otherAnswers[3]" ng-class="{'other-input-selected': question.otherAnswers[4], 'select-checked': question.otherAnswers[4], 'select-unchecked': ! question.otherAnswers[4] }">
-                    <div class="other-checkbox"></div>
-                    <input class="select-content multi-select-other" type="text" ng-class="{'with-text': question.otherAnswers[4]}" placeholder="Other" ng-model="question.otherAnswers[4]" />
-                </div>
-
-            </div>
-
-            <!-- <div ng-show="question.allow_other && $parent.question.otherAnswers[$index-1]" ng-class="{'other-input-selected': otherAnswer, 'select-checked': otherAnswer, 'select-unchecked': ! otherAnswer }" ng-repeat="otherAnswer in question.otherAnswers">
-                <div class="other-checkbox"></div>
-                <input class="select-content multi-select-other" type="text" ng-class="{'with-text': otherAnswer}" placeholder="Other Species" ng-model="otherAnswer" />
-            </div> -->
-
-                
-            <!-- 
-            <div ng-show="question.allow_other && question.otherOption.checked" ng-class="{'other-input-selected': question.otherAnswer}">
-                <div ng-show="question.otherAnswer" class="other-checkbox"></div>
-                <input class="form-control multi-select-other" type="text" ng-class="{'with-text': question.otherAnswer}" placeholder="Enter Other Option Here" ng-model="question.otherAnswer" />
-            </div> -->
-
-        </div>
+        <div ng-include="viewPath + 'views/multiSelect.html'"></div>
     </div>
+
+    <!-- Map Questions -->
     <div ng-switch-when="map-multipoint">
         <div ng-include="viewPath + 'views/mapQuestion.html'"></div>
     </div>
@@ -348,6 +121,8 @@
     <div ng-switch-when="map-set-location">
         <div map-set-location question="question" style="margin-bottom: 10px;"></div>
     </div>
+
+    <!-- Grid Question -->
     <div ng-switch-when="grid">
         <div ng-include="viewPath + 'views/gridQuestion.html'"></div>
     </div>

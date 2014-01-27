@@ -158,6 +158,7 @@ QUESTION_TYPE_CHOICES = (
     ('map-multipoint', 'Map with Multiple Points'),
     ('map-multipolygon', 'Map with Multiple Polygons'),
     ('map-set-location', 'Map with Lat/Lon Location'),
+    ('buoy-weather', 'Weather by Buoy'),
     ('yes-no', 'Yes/No'),
     ('number-with-unit', 'Number with Unit'),
 )
