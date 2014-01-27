@@ -1,22 +1,22 @@
 angular.module('askApp')
     .controller('SurveyDetailCtrl', function($scope, $routeParams, $http, $location, $dialog, $interpolate, $timeout, survey, storage) {
-        // $('#wrap').css({ 'min-height': initialHeight -80});
-        // $('#wrap').css({ 'min-height': initialHeight -80});
-        // $(window).on('resize', function () {
-        //     $('#wrap').css({ 'min-height': $(window).height() -80});
-        // })
-        $scope.loading=true;
-        $scope.path = $location.path().slice(1,5);
-        if (app.user) {
-            $scope.user = app.user;
-        } else if (app.offline) {
-            if (!app) {
-                app = {};
-            }
-            app.next = $location.path();
-            $location.path('/');
-            return false;
+    // $('#wrap').css({ 'min-height': initialHeight -80});
+    // $('#wrap').css({ 'min-height': initialHeight -80});
+    // $(window).on('resize', function () {
+    //     $('#wrap').css({ 'min-height': $(window).height() -80});
+    // })
+    $scope.loading=true;
+    $scope.path = $location.path().slice(1,5);
+    if (app.user) {
+        $scope.user = app.user;
+    } else if (app.offline) {
+        if (!app) {
+            app = {};
         }
+        app.next = $location.path();
+        $location.path('/');
+        return false;
+    }
 
     $scope.survey = {
         state: 'loading'
@@ -62,7 +62,7 @@ angular.module('askApp')
             $scope.feedback = null;    
         })
         $scope.sendingFeedback = false;
-    }
+    };
 
     $scope.terminateIf = function(answer, condition) {
         var op = condition[0],
@@ -299,7 +299,7 @@ angular.module('askApp')
             });
         });
         return overallValidity;
-    }
+    };
     
     $scope.validateMultiSelect = function(question) {
         var hoistedAnswers,
@@ -474,8 +474,8 @@ angular.module('askApp')
 
 
 
-// gets called whenever new page is loaded...?
-$scope.loadSurvey = function(data) {
+    // gets called whenever new page is loaded...?
+    $scope.loadSurvey = function(data) {
         $scope.survey = data.survey;
         $scope.survey.status = data.status;
         if (! $routeParams.action === 'edit' && data.status === 'complete' || data.status === 'terminate') {
