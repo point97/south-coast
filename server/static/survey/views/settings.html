@@ -1,4 +1,7 @@
-<div id="wrap" class="menu-page">
+<!-- Sliding Left Nav for mobile -->
+<div mobile-left-nav></div>
+
+<div id="wrap" class="menu-page sp-page">
     <!-- Fixed navbar -->
     <div mobilemenu></div>
     <!-- Begin page content -->
@@ -31,11 +34,11 @@
 			<p class="error" ng-show="showError">{{ showError }}</p>
 		</div>
 		<div ng-show="confirmClear">
-		 	<div class="alert alert-info">This will remove all data including surveys</div>
+		 	<div class="alert alert-info">This will remove all unsaved data from your app, including unsubmitted trips</div>
 		    <a class="btn btn-main btn-default btn-lg btn-block btn-danger" ng-tap="clearCache()">ok</a>
 		    <a class="btn btn-main btn-default btn-lg btn-block" ng-tap="confirmClear = false">cancel</a>
 		</div>
-        <p>{{ server }}</p>
+        <!-- <p>{{ server }}</p> -->
 	</div>
     
 </div>
