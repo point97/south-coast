@@ -1,10 +1,14 @@
-<div id="wrap" class="menu-page">
+<!-- Sliding Left Nav for mobile -->
+<div mobile-left-nav></div>
+
+<div id="wrap" class="menu-page sp-page">
     <!-- Fixed navbar -->
     <div mobilemenu></div>
+
 	<div class="container">
 	    
         <div class="info respondant" ng-hide="working || user.offline" style="padding-top: 0px">
-	        <h4>You have completed the catch report.</h4>
+	        <h4>You have completed the trip report.</h4>
 
             <div class="panel-body">
                 <div ng-include="'views/surveyAnswers.html'"></div>
@@ -35,6 +39,6 @@
 	</div>
 </div>
 
-<div id="footer" ng-hide="sendingFeedback">
+<!-- <div id="footer" ng-hide="sendingFeedback">
     <a class="btn pull-left" ng-click="skipBack()"><span class="glyphicon glyphicon-arrow-left"></span></a>
-</div>
+</div> -->

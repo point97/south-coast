@@ -22,12 +22,13 @@ angular.module('askApp')
     }
 
     var getTitle = function(respondent) {
-        try {
-            var island = _.findWhere(respondent.responses, {question: 'island'}).answer.text,
-                title = 'USVI Commercial Catch Report Form - ' + island;  
-        } catch(e) {
-            var title = 'USVI Commercial Catch Report Form';
-        }
+        // try {
+        //     var island = _.findWhere(respondent.responses, {question: 'island'}).answer.text,
+        //         title = 'USVI Commercial Catch Report Form - ' + island;  
+        // } catch(e) {
+        //     var title = 'USVI Commercial Catch Report Form';
+        // }
+        var title = 'California Commercial Trip Report Form';
         return title;
     };
 
