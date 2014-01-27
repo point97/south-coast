@@ -22,7 +22,7 @@ angular.module('askApp')
         state: 'loading'
     };
 
-    console.log('loading');
+    //console.log('loading');
 
     $scope.answers = {};
 

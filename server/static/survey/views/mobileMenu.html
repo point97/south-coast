@@ -8,7 +8,7 @@
         <span class="icon-reorder" style="color: #ddd; cursor: pointer;"></span>
     </a>
 
-    <div>
+    <div ng-show="answers">
         <a class="pull-right survey-arrow" ng-class="{ 'valid': pageIsValid }" ng-click="submitPage(page)"><span class="glyphicon glyphicon-arrow-right"></span></a>
         <a class="pull-right survey-arrow" ng-click="skipBack()"><span class="glyphicon glyphicon-arrow-left"></span></a>
     </div>
