@@ -23,7 +23,7 @@ angular.module('askApp')
                 _.extend($scope.survey, data);
                 if ($scope.survey.questions.length === 0) {
                     $scope.survey.questions = [];
-                    $scope.newQuestion();
+                    //$scope.newQuestion();
                 }
                 if ($location.search().question && $location.search().question !== 'null') {
                     $scope.startEditingQuestion(_.findWhere($scope.survey.questions, {slug: $location.search().question}))

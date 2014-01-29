@@ -3,7 +3,7 @@
 var app = {};
 
 app.server = window.location.protocol + '//' + window.location.host;
-angular.module('askApp', ['ui', 'ui.bootstrap', 'ngGrid'])
+angular.module('askApp', ['ngRoute', 'ui', 'ui.bootstrap', 'ngGrid'])
     .config(function($routeProvider, $httpProvider) {
 
     $httpProvider.defaults.headers.post['Content-Type'] = 'application/json';
