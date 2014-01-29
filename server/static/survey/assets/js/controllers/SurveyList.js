@@ -6,7 +6,7 @@ angular.module('askApp')
     $scope.path = $location.path().slice(1,5);
     $scope.loaded=false;
     $scope.width = 0;
-    $scope.title = "Trips";
+    $scope.title = "Trip Event";
 
     $scope.useSurveys = function (surveys) {
         $scope.surveys = surveys;

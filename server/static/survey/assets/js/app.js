@@ -128,6 +128,14 @@ angular.module('askApp', ['ui', 'ui.bootstrap', 'ngGrid', 'shoppinpal.mobile-men
         templateUrl: app.viewPath + 'views/profile.html',
         controller: 'ProfileCtrl'
     })
+        .when('/profile/logbook', {
+        templateUrl: app.viewPath + 'views/logbook.html',
+        controller: 'LogbookCtrl'
+    })
+    //     .when('/profile/logbooks/dive', {
+    //     templateUrl: app.viewPath + 'views/dive.html',
+    //     controller: 'DiveCtrl'
+    // })
         .when('/settings', {
         templateUrl: app.viewPath + 'views/settings.html',
         controller: 'SettingsCtrl'

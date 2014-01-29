@@ -1,0 +1,52 @@
+<!-- Sliding Left Nav for mobile -->
+<!-- <div mobile-left-nav></div> -->
+
+<div id="wrap" class="menu-page sp-page">
+    <div profilemenu></div>
+    
+    <!-- Begin page content -->
+    <div class="container">
+        <div ng-show="user" ng-hide="loading">
+
+            <div class="forms">
+                <div class="new-user-form">
+                    <form ng-submit="">
+                        
+                        <div class="well" style="padding: 5px">                       
+                            <div class="question profile-question">
+                                <h4 class="question-title" style="color: #555; margin-top: 5px">Select a Logbook</h4>
+                                <select style="font-size: 18px; border-color:#999;">
+                                    <option ng-repeat="logbook in remainingLogbooks" value={{logbook.slugname}}>{{logbook.slugname | uppercase}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="well" style="padding: 5px">            
+                            <div class="question profile-question">
+                                <h4 class="question-title" style="color: #555; margin-top: 5px">CPFG Permit #</h4> 
+                                <input class="form-control" type="text" placeholder="CPFG Permit #" ng-model="cpfgPermit" />
+                            </div>
+                        </div>
+                        <div class="well" style="padding: 5px">
+                            <span>Vessel</span>
+                            <a href="#vessel">
+                                <span class="pull-right icon-plus" style="margin-top: 3px; text-decoration: none; color: #555; cursor: pointer;"></span>
+                            </a>
+                        </div>
+
+                        <a type="button" class="btn btn-main btn-default btn-lg btn-block" href="#/profile">cancel</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="loading-indicator" ng-show="loading">
+            <h3>Loading...</h3>
+            <div class="bar">
+                <i class="sphere"></i>
+            </div>
+        </div>
+
+    </div>
+
+
+</div>

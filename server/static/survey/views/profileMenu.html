@@ -1,17 +1,22 @@
 <div class="navbar navbar-default navbar-fixed-top" style="height: 60px;">
     <div class="status-bar"></div>
+
+    <button class="btn pull-right" style="margin-top: 12px; margin-right: 10px;" ng-click="closeView(page)">
+        <span ng-hide="savePage">Done</span><span ng-show="savePage">Save</span>
+    </button>
+
     <!-- <a type="button" class="navbar-toggle" href="#/main">
         <i class="icon-align-justify"></i>
     </a> -->
-    <a id="topnav-menu-button" type="button" class="navbar-toggle" ng-click="$spMenu.toggle()">
+    <!-- <a id="topnav-menu-button" type="button" class="navbar-toggle" ng-click="$spMenu.toggle()">
         <span class="sr-only">Toggle navigation</span>
         <span class="icon-reorder" style="color: #ddd; cursor: pointer;"></span>
-    </a>
+    </a> -->
 
-    <div ng-show="answers">
+    <!-- <div ng-show="answers">
         <a class="pull-right survey-arrow" ng-class="{ 'valid': pageIsValid }" ng-click="submitPage(page)"><span class="glyphicon glyphicon-arrow-right"></span></a>
         <a class="pull-right survey-arrow" ng-click="skipBack()"><span class="glyphicon glyphicon-arrow-left"></span></a>
-    </div>
+    </div> -->
 
     <!-- <a type="button" class="navbar-comment" ng-show="showFeedback" ng-click="sendingFeedback = ! sendingFeedback">
         <i class="icon-comment"></i>
@@ -20,13 +25,10 @@
         <i class="icon-refresh"></i>
     </a> -->
     <div class="container" style="background-color: rgb(51,51,51);">
-        <div class="navbar-header" style="display: block;">
+        <div class="navbar-header">
             <div ng-show="title" class="navbar-brand" style="text-align: center; font-size: 28px; color: #ddd;">
                 {{title}}
                 <!-- <img src="assets/img/deck-logo.svg" class="center logo" /> -->
-            </div>
-            <div ng-show="survey.name" class="navbar-brand" style="text-align: center; font-size: 28px; color: #ddd; margin-left: 40px;">
-                {{survey.name}} Event
             </div>
         </div>
         <div class="collapse navbar-collapse">
@@ -37,16 +39,8 @@
         <!--/.nav-collapse -->
 
     </div>
-    <div class="progress" style="margin-bottom: 0; border-radius: 0; background-color: rgb(50, 50, 50); height: 10px;">
+    <!-- <div class="progress" style="margin-bottom: 0; border-radius: 0; background-color: rgb(50, 50, 50); height: 10px;">
         <div class=" progress-bar" style="width: {{ surveyProgress }}%;"></div>
-    </div>
-    <style media="screen" type="text/css">
-         .survey-arrow {
-            font-size: 40px; 
-            padding: 0px 20px 0px 0px;
-            margin-top: 1px; 
-            top: 5px; 
-            position: relative;
-        }
-    </style>
+    </div> -->
+    
 </div>

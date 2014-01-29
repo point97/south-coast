@@ -6,30 +6,17 @@ angular.module('askApp')
     $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
 
     $scope.title = "Profile";
-    $scope.loading=true;
+    $scope.loading = false;
     $scope.width = 0;
-    // QUESTION - something causes this to be called for SurveyList, but I'm not sure what that something is...
-    // ...manually calling updateSurveys here (see if app.surveys below)
-    var updateSurveys = function () {
-        $scope.hideSurveys = true;
-        $scope.width = 0;
-        $scope.timer = setInterval(function () {
-            $scope.width = $scope.width + 10;
-        }, 500);
+    $scope.savePage = true;
+    
+    $scope.closeView = function() {
+        $location.path('/main'); 
+    };    
 
-        $http.get(app.server + '/api/v1/survey/?format=json').success(function(data) {
-            $scope.surveys = data.objects;
-            _.each($scope.surveys, function (survey) {
-                survey.updated_at = new Date();
-            });
-            app.surveys = $scope.surveys;
-            storage.saveState(app);
-            $scope.hideSurveys = false;
-            clearInterval($scope.timer);
-            $scope.profileQuestions = getProfileQuestions();
-        });
-
-    };
+    /*** BETA -- will need to fetch from server ***/
+    $scope.logbooks = [ { slugname: 'dive' } ];
+    /*** end BETA ***/
 
     var getProfileQuestions = function () {
         var profileQuestions = [];
@@ -66,7 +53,7 @@ angular.module('askApp')
         $scope.surveys = app.surveys;
         $scope.profileQuestions = getProfileQuestions();
     } else {
-        updateSurveys();
+        //updateSurveys();
     }
     $scope.userEmail = $scope.user.email;
     
@@ -77,7 +64,7 @@ angular.module('askApp')
         _.each(profileQuestions, function(item, i) {
             registration[item.slug] = item.answer;
         });
-        $http.post(url, {username: app.user.username, registration: registration, email: $scope.userEmail})
+        $http.post(url, {username: app.user.username, registration: registration, fullName: $scope.fullName, email: $scope.userEmail, cfl: $scope.cflNumber})
             .success(function (data) {
                 app.user.registration = registration;
                 storage.saveState(app);

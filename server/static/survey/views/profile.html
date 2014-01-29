@@ -2,7 +2,7 @@
 <div mobile-left-nav></div>
 
 <div id="wrap" class="menu-page profile sp-page">
-    <div mobilemenu></div>
+    <div profilemenu></div>
     
     <!-- Begin page content -->
     <div class="container">
@@ -12,11 +12,33 @@
                 <div class="new-user-form">
                     <form ng-submit="updateProfile(profileQuestions)">
                         
-                        <div class="question">
-                            <h4 class="question-title">Email Address</h4>
-                            <input class="form-control" type="email" placeholder="Email Address" ng-model="userEmail" />
+                        <div class="well" style="padding: 5px">                       
+                            <div class="question profile-question">
+                                <input class="form-control" type="text" placeholder="Your Name" ng-model="fullName" />
+                            </div>
+                            <div class="question profile-question">
+                                <!-- <h4 class="question-title">Email Address</h4> -->
+                                <input class="form-control" type="email" placeholder="Email Address" ng-model="userEmail" />
+                            </div>
+                            <div class="question profile-question">
+                                <input class="form-control" type="text" placeholder="CFL Number" ng-model="cflNumber" />
+                            </div>
                         </div>
-                        <div class="question-wrapper" ng-repeat="question in profileQuestions">
+
+                        <div class="well" style="padding: 5px">
+                            <span>My Logbooks</span>
+                            <a href="#/profile/logbook">
+                                <span class="pull-right icon-plus" style="margin-top: 3px; text-decoration: none; color: #555; cursor: pointer;"></span>
+                            </a>
+                            <div class="form-control ng-pristine" style="padding-top: 10px;" ng-repeat="logbook in logbooks">
+                                <a href="#/profile/logbook/{{logbook.slugname}}" style="width: 100%; text-decoration: none; cursor: pointer; color: #555;">
+                                    <span class="pull-left" style="font-weight: bold; text-transform: capitalize;">{{logbook.slugname}}</span>
+                                    <span class="pull-right icon-angle-right" style="margin-top: 3px;"></span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- <div class="question-wrapper" ng-repeat="question in profileQuestions">
                             <h4 class="question-title">{{ question.title }}</h4>
                             <div ng-switch on="question.type">
                                 <div ng-switch-when="grid">
@@ -28,14 +50,14 @@
                                     <div multiquestion question="question" answers="answers" validity="validity"></div>
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
 
 <!-- 
                         <input class="form-control" type="text" placeholder="enter your username..." data-ng-model="profileQuestions.username" autocapitalize="off" required>
 
                         <input class="form-control" type="email" placeholder="enter your email address..." data-ng-model="profileQuestions.emailaddress" required>
  -->
-                        <button class="btn btn-main btn-default btn-block" ng-click="updateProfile(profileQuestions)">submit</button>
+                        <!-- <button class="btn btn-main btn-default btn-block" ng-click="updateProfile(profileQuestions)">submit</button> -->
                         <a type="button" class="btn btn-main btn-default btn-lg btn-block" href="#/main">cancel</a>
                                                 
                     </form>
