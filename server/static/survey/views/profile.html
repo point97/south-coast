@@ -14,51 +14,39 @@
                         
                         <div class="well" style="padding: 5px">                       
                             <div class="question profile-question">
-                                <input class="form-control" type="text" placeholder="Your Name" ng-model="fullName" />
+                                <input class="form-control" type="text" placeholder="Your Name" ng-model="profile.fullName" />
                             </div>
                             <div class="question profile-question">
                                 <!-- <h4 class="question-title">Email Address</h4> -->
-                                <input class="form-control" type="email" placeholder="Email Address" ng-model="userEmail" />
+                                <input class="form-control" type="email" placeholder="Email Address" ng-model="profile.user.email" />
                             </div>
                             <div class="question profile-question">
-                                <input class="form-control" type="text" placeholder="CFL Number" ng-model="cflNumber" />
+                                <input class="form-control" type="text" placeholder="CFL Number" ng-model="profile.cfl" />
                             </div>
                         </div>
 
                         <div class="well" style="padding: 5px">
+                            <span style="font-size: 18px; font-weight: bold; text-transform: uppercase; color: #555;">My Logbooks</span>
+                            <span class="pull-right icon-plus" ng-click="addLogbook()" style="font-size: 18px; margin-top: 3px; text-decoration: none; color: #555; cursor: pointer;"></span>
+                            <!-- <span class="pull-right icon-pencil" ng-click="editLogbooks()" style="font-size: 18px; margin-top: 3px; margin-right: 10px;  ext-decoration: none; color: #555; cursor: pointer;"></span>
+                            
                             <span>My Logbooks</span>
                             <a href="#/profile/logbook">
                                 <span class="pull-right icon-plus" style="margin-top: 3px; text-decoration: none; color: #555; cursor: pointer;"></span>
-                            </a>
-                            <div class="form-control ng-pristine" style="padding-top: 10px;" ng-repeat="logbook in logbooks">
-                                <a href="#/profile/logbook/{{logbook.slugname}}" style="width: 100%; text-decoration: none; cursor: pointer; color: #555;">
-                                    <span class="pull-left" style="font-weight: bold; text-transform: capitalize;">{{logbook.slugname}}</span>
-                                    <span class="pull-right icon-angle-right" style="margin-top: 3px;"></span>
-                                </a>
+                            </a> 
+                            <span class="pull-right icon-plus" ng-click="addLogbook()" style="margin-top: 3px; text-decoration: none; color: #555; cursor: pointer;"></span>-->
+                            <div ng-style="{ 'margin-top: 10px': !logbookToEdit }">
+                                <div class="form-control ng-pristine" style="padding-top: 10px; margin-bottom: 5px;" ng-repeat="logbook in profile.logbooks">
+                                    <!-- <a href="#/profile/logbook/{{logbook.slugname}}" style="width: 100%; text-decoration: none; cursor: pointer; color: #555;"> -->
+                                    <span ng-click="editLogbook(logbook.type)" style="width: 100%; cursor: pointer; color: #555;">
+                                        <span class="pull-left" style="font-weight: bold; text-transform: capitalize;">{{logbook.type}}</span>
+                                        <span class="pull-right icon-angle-right" style="margin-top: 3px;"></span>
+                                    </span>
+                                </div>
                             </div>
                         </div>
 
-                        <!-- <div class="question-wrapper" ng-repeat="question in profileQuestions">
-                            <h4 class="question-title">{{ question.title }}</h4>
-                            <div ng-switch on="question.type">
-                                <div ng-switch-when="grid">
-                                    <form ng-submit="$parent.submitPage(page)">
-                                        <div gridquestion question="question" answers="answers" validity="validity" pageorder="$index"  viewpath="viewPath"></div>
-                                    </form>
-                                </div>
-                                <div ng-switch-default>
-                                    <div multiquestion question="question" answers="answers" validity="validity"></div>
-                                </div>
-                            </div>
-                        </div> -->
-
-<!-- 
-                        <input class="form-control" type="text" placeholder="enter your username..." data-ng-model="profileQuestions.username" autocapitalize="off" required>
-
-                        <input class="form-control" type="email" placeholder="enter your email address..." data-ng-model="profileQuestions.emailaddress" required>
- -->
-                        <!-- <button class="btn btn-main btn-default btn-block" ng-click="updateProfile(profileQuestions)">submit</button> -->
-                        <a type="button" class="btn btn-main btn-default btn-lg btn-block" href="#/main">cancel</a>
+                        <button class="btn btn-main btn-default btn-block" ng-click="cancel()">cancel</button>
                                                 
                     </form>
                 </div>
@@ -81,9 +69,4 @@
     </div> -->
 
 </div>
-<!-- <div id="footer">
-    <div class="container">
-        <p class="text-muted credit">Example courtesy <a href="http://martinbean.co.uk">Martin Bean</a> and <a href="http://ryanfait.com/sticky-footer/">Ryan Fait</a>.</p>
-    </div>
-</div>
- -->
+

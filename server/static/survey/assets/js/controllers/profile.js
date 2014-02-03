@@ -1,7 +1,7 @@
 //'use strict';
 
 angular.module('askApp')
-.controller('ProfileCtrl', function ($scope, $routeParams, $http, $location, storage) {
+.controller('ProfileCtrl', function ($scope, $routeParams, $http, $location, storage, profileService) {
     //$http.defaults.headers.post['Content-Type'] = 'application/json';
     $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
 
@@ -10,78 +10,59 @@ angular.module('askApp')
     $scope.width = 0;
     $scope.savePage = true;
     
+    profileService.purgeLogbookToEdit();
+    
     $scope.closeView = function() {
         $location.path('/main'); 
     };    
 
-    /*** BETA -- will need to fetch from server ***/
-    $scope.logbooks = [ { slugname: 'dive' } ];
-    /*** end BETA ***/
+    $scope.profile = profileService.getProfile();
 
-    var getProfileQuestions = function () {
-        var profileQuestions = [];
+    $scope.addLogbook = function() {
+        profileService.saveState($scope.profile.fullName, $scope.profile.user.email, $scope.profile.cflNumber);
+        $location.path('/profile/logbook')    
+    };
 
-        _.each($scope.surveys, function(survey, i) {
-            // QUESTION - why doesn't survey.questions include the profile questions?
-            // survey.questions is no longer relevant
-            _.each(survey.pages, function(page, j) {
-                _.each(page.questions, function(question, k) {
-                    if (question.attach_to_profile) {
-                        profileQuestions.push(question);
-                    } 
-                })
-            });
-        });
-
-        $scope.loading = false;
-        return _.uniq(profileQuestions, false, function(question) {
-            return question.slug;
-        });
+    $scope.editLogbook = function(logbookType) {
+        profileService.prepLogbookToEdit(logbookType)
+        $location.path('/profile/logbook');
     };
 
     $scope.validity = {};
-
-    if (app.user) {
-        $scope.user = app.user;
-        $scope.answers = app.user.registration;
-    } else {
-        $scope.user = false;
-    }
-    $scope.path = false;
-
-    if (app.surveys) {
-        $scope.surveys = app.surveys;
-        $scope.profileQuestions = getProfileQuestions();
-    } else {
-        //updateSurveys();
-    }
-    $scope.userEmail = $scope.user.email;
     
-    $scope.updateProfile = function (profileQuestions) {
-        var url = app.server + '/account/updateUser/',
-            registration = {};
+    $scope.cancel = function() {
+        profileService.cancelState();
+        $location.path('/main');
+    };
 
-        _.each(profileQuestions, function(item, i) {
-            registration[item.slug] = item.answer;
-        });
-        $http.post(url, {username: app.user.username, registration: registration, fullName: $scope.fullName, email: $scope.userEmail, cfl: $scope.cflNumber})
-            .success(function (data) {
-                app.user.registration = registration;
-                storage.saveState(app);
-                $location.path('/main');
-            })
-            .error(function (data, status) {
-                if (status === 0) {
-                    app.user.registration = registration;
-                    storage.saveState(app);
-                    $location.path('/main');      
-                }
-                else if (data) {
-                    $scope.showError = data;    
-                } else {
-                    $scope.showError = "There was a problem creating an account.  Please try again later."
-                }            
-            });
+    /*** should we migrate this functionality to profileService...? ***/
+    $scope.updateProfile = function (profileQuestions) {
+        profileService.saveState($scope.profile.fullName, $scope.profile.user.email, $scope.profile.cflNumber);
+        $location.path('/main');
+        // var url = app.server + '/account/updateUser/',
+        //     registration = {};
+
+        // _.each(profileQuestions, function(item, i) {
+        //     registration[item.slug] = item.answer;
+        // });
+        // $http.post(url, {username: app.user.username, registration: registration, fullName: $scope.fullName, email: $scope.userEmail, cfl: $scope.cflNumber})
+        //     .success(function (data) {
+        //         app.user.registration = registration;
+        //         storage.saveState(app);
+        //         $location.path('/main');
+        //     })
+        //     .error(function (data, status) {
+        //         if (status === 0) {
+        //             app.user.registration = registration;
+        //             storage.saveState(app);
+        //             $location.path('/main');      
+        //         }
+        //         else if (data) {
+        //             $scope.showError = data;    
+        //         } else {
+        //             $scope.showError = "There was a problem creating an account.  Please try again later."
+        //         }            
+        //     });
     };
 
     

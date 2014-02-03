@@ -605,6 +605,11 @@ img.center {
 .profile-question input.form-control:focus {
     margin-bottom: 5px;
 }
+.logbook-dropdown {
+    font-size: 18px; 
+    border-color:#999; 
+    min-width: 180px;
+}
 .question .panel-group {
     margin-top: 10px;
 }

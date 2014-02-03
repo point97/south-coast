@@ -12,28 +12,96 @@
                 <div class="new-user-form">
                     <form ng-submit="">
                         
+                        <!-- LOGBOOK TYPE -->
                         <div class="well" style="padding: 5px">                       
                             <div class="question profile-question">
-                                <h4 class="question-title" style="color: #555; margin-top: 5px">Select a Logbook</h4>
-                                <select style="font-size: 18px; border-color:#999;">
-                                    <option ng-repeat="logbook in remainingLogbooks" value={{logbook.slugname}}>{{logbook.slugname | uppercase}}</option>
-                                </select>
+                                <div ng-hide="logbookToEdit">
+                                    <h4 class="question-title" style="color: #555; margin-top: 5px">Select a Logbook</h4>
+                                    <!-- <select style="font-size: 18px; border-color:#999;">
+                                        <option ng-repeat="logbook in remainingLogbooks" value={{logbook.slugname}}>{{logbook.slugname | uppercase}}</option>
+                                    </select> -->
+                                    <select class="logbook-dropdown" ng-model="logbook.type">
+                                        <option value={{type}} ng-repeat="type in remainingLogbookTypes">{{type}}</option>
+                                    </select>
+                                </div>
+                                <div ng-show="logbookToEdit">
+                                    <h4 class="question-title" style="color: #555; margin-top: 5px">{{logbookToEdit.type}} Logbook</h4>                                    
+                                </div>
                             </div>
-                        </div>
-                        <div class="well" style="padding: 5px">            
-                            <div class="question profile-question">
-                                <h4 class="question-title" style="color: #555; margin-top: 5px">CPFG Permit #</h4> 
-                                <input class="form-control" type="text" placeholder="CPFG Permit #" ng-model="cpfgPermit" />
-                            </div>
-                        </div>
-                        <div class="well" style="padding: 5px">
-                            <span>Vessel</span>
-                            <a href="#vessel">
-                                <span class="pull-right icon-plus" style="margin-top: 3px; text-decoration: none; color: #555; cursor: pointer;"></span>
-                            </a>
                         </div>
 
+                        <!-- PERMIT NUMBER -->
+                        <div class="well" style="padding: 5px">    
+                            <div class="alert alert-danger" style="margin-bottom: 5px; padding: 5px; font-size: 16px;" ng-show="missingPermit">
+                                <span>Enter CPFG Permit #</span>
+                            </div>        
+                            <div class="question profile-question">
+                                <div ng-hide="logbookToEdit">
+                                    <input class="form-control" style="margin-bottom: 0px;" type="text" placeholder="CPFG Permit #" ng-model="logbook.permit">
+                                </div>
+                                <div ng-show="logbookToEdit">
+                                    <input class="form-control" style="margin-bottom: 0px;" type="text" ng-bind="logbookToEdit.cpfv" ng-model="logbookToEdit.permit">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- VESSELS -->
+                        <div class="well" style="padding: 5px">
+                            <span style="font-size: 18px; font-weight: bold; text-transform: uppercase; color: #555;">Vessel</span>
+                            <span class="pull-right icon-plus" ng-click="addVessel()" style="font-size: 18px; margin-top: 3px; text-decoration: none; color: #555; cursor: pointer;"></span>
+                            <span class="pull-right icon-pencil" ng-click="editVessels()" style="font-size: 18px; margin-top: 3px; margin-right: 10px;  ext-decoration: none; color: #555; cursor: pointer;"></span>
+                            
+                            <div class="question profile-question" ng-show="profile.vessels.length && !logbookToEdit">
+                                <select class="logbook-dropdown" ng-model="logbook.vessel" ng-options="vessel.name for vessel in profile.vessels"></select>
+                            </div>
+                            <div class="question profile-question" ng-show="profile.vessels.length && logbookToEdit">
+                                <select class="logbook-dropdown" ng-model="logbookToEdit.vessel" ng-options="vessel.name for vessel in profile.vessels"></select>
+                            </div>
+
+                            <script id="addVessel" type="text/ng-template">                                
+                                <div class="modal-body">
+                                    <div class="well" style="padding: 5px; margin-bottom: 0px;">            
+                                        <div class="question profile-question">
+                                            <h4 class="question-title" style="color: #555; margin-top: 5px">Add New Vessel</h4> 
+                                            <input class="form-control" type="text" placeholder="Vessel Name" ng-model="vessel.name" />
+                                            <input class="form-control" type="text" placeholder="Vessel Number" ng-model="vessel.number" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer" style="margin-top: 0px">
+                                    <button class="btn btn-primary" ng-click="ok()">OK</button>
+                                    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+                                </div>
+                            </script>
+
+                            <script id="editVessels" type="text/ng-template">                                
+                                <div class="modal-body">
+                                    <div class="well" style="padding: 5px; margin-bottom: 0px;">            
+                                        <div class="question profile-question">
+                                            <h4 class="question-title" style="color: #555; margin-top: 5px">Edit Vessels</h4> 
+                                            <div style="margin-top: 20px;" ng-repeat="vessel in editVessels">
+                                                <span>Vessel #{{$index+1}}</span>
+                                                <button class="btn btn-danger pull-right" ng-click="removeVessel($index)" style="margin-top: -10px; margin-bottom: 5px;">
+                                                    Remove
+                                                </button>
+                                                
+                                                <input class="form-control" type="text" placeholder="Vessel Name" ng-model="vessel.name" />
+                                                <input class="form-control" type="text" placeholder="Vessel Number" ng-model="vessel.number" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer" style="margin-top: 0px">
+                                    <button class="btn btn-primary" ng-click="ok()">OK</button>
+                                    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+                                </div>
+                            </script>
+                            
+                        </div>
+
+                        <!-- CANCEL BUTTON -->
                         <a type="button" class="btn btn-main btn-default btn-lg btn-block" href="#/profile">cancel</a>
+
                     </form>
                 </div>
             </div>
