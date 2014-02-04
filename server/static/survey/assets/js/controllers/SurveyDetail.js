@@ -1,5 +1,5 @@
 angular.module('askApp')
-    .controller('SurveyDetailCtrl', function($scope, $routeParams, $http, $location, $dialog, $interpolate, $timeout, survey, storage) {
+    .controller('SurveyDetailCtrl', function($scope, $routeParams, $http, $location, $interpolate, $timeout, survey, storage) {
     // $('#wrap').css({ 'min-height': initialHeight -80});
     // $('#wrap').css({ 'min-height': initialHeight -80});
     // $(window).on('resize', function () {
