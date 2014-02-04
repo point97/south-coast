@@ -1,7 +1,7 @@
 //'use strict';
 
 angular.module('askApp')
-  .controller('CompleteCtrl', function ($scope, $routeParams, $http, $location, survey, history, storage) {
+  .controller('CompleteCtrl', function ($scope, $routeParams, $http, $location, survey, history, storage, profileService) {
     var url = '/respond/complete/' + [$routeParams.surveySlug, $routeParams.uuidSlug].join('/');
     $http.defaults.headers.post['Content-Type'] = 'application/json';
 
@@ -12,6 +12,9 @@ angular.module('askApp')
         $scope.user = false;
     }
     $scope.path = false;
+
+    $scope.profile = profileService.getProfile();
+    $scope.otherLogbooksExist = $scope.profile.logbooks.length > 1;
 
     
     if ($routeParams.action === 'terminate' && $routeParams.questionSlug) {
