@@ -7,6 +7,9 @@ angular.module('askApp')
         var profile = {};
         profile.logbooks = [];
         profile.vessels = [];
+        profile.ports = [];
+        profile.buoys = [];
+        profile.crew = [];
         if (app.user) {
             profile.user = app.user;
             //$scope.answers = app.user.registration;
@@ -82,33 +85,59 @@ angular.module('askApp')
         profile = null;
     };
 
-    var saveState = function(name, email, cfl) {
+    var saveState = function(name, email, license, logbooks, buoys, crew) {
         if (name) {
             profile.fullName = name;
         } 
         if (email) {
             profile.user.email = email;
         }
-        if (cfl) {
-            profile.cfl = cfl;
+        if (license) {
+            profile.license = license;
         }
+        profile.logbooks = logbooks;
+        profile.buoys = buoys;
+        profile.crew = crew;
     };
 
     /*** this is what the profile JSON looks like
     profileJSON = {
         user: {
-            email: ""
-        },
-        fullName: "", // NOTE:  might need to split this into 2 fields for First and Last names...
-        cfl: "", 
+            email: "",
+            fullName: "", // NOTE:  might need to split this into 2 fields for First and Last names...
+            license: "", // CFL
+        },            
         logbooks: [
-            {},
+            { type: ""
+              permit: "",
+              vessel: "",
+              // Gear Types
+              trapSets: "", // for Trap logbook
+              fishingMethod: "", // drop-down (pre-defined) for CPFV
+            },
             ...
         ],
         vessels = [ 
             { name: "", number: "" },
             ...    
         ],
+        ports = [
+            { name: "", number: "" },
+            ...
+        ],
+        buoys = [
+            "", 
+            ...
+            OR 
+            { name: "", number: "" },
+            ...
+        ],
+        crew = [
+            //only for CPFV and Traps (not for Dive)
+            { name: "", number: "" },
+            ...
+        ]
+
         ...
     }
     ***/

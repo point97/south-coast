@@ -12,6 +12,7 @@
                 <div class="new-user-form">
                     <form ng-submit="updateProfile(profileQuestions)">
                         
+                        <!-- USER DATA -->
                         <div class="well" style="padding: 5px">                       
                             <div class="question profile-question">
                                 <input class="form-control" type="text" placeholder="Your Name" ng-model="profile.fullName" />
@@ -21,30 +22,188 @@
                                 <input class="form-control" type="email" placeholder="Email Address" ng-model="profile.user.email" />
                             </div>
                             <div class="question profile-question">
-                                <input class="form-control" type="text" placeholder="CFL Number" ng-model="profile.cfl" />
+                                <input class="form-control" type="text" placeholder="CFL Number" ng-model="profile.license" />
                             </div>
                         </div>
 
+                        <!-- LOGBOOKS -->
                         <div class="well" style="padding: 5px">
-                            <span style="font-size: 18px; font-weight: bold; text-transform: uppercase; color: #555;">My Logbooks</span>
+                            <span class="profile-question-header">My Logbooks</span>
                             <span class="pull-right icon-plus" ng-click="addLogbook()" style="font-size: 18px; margin-top: 3px; text-decoration: none; color: #555; cursor: pointer;"></span>
-                            <!-- <span class="pull-right icon-pencil" ng-click="editLogbooks()" style="font-size: 18px; margin-top: 3px; margin-right: 10px;  ext-decoration: none; color: #555; cursor: pointer;"></span>
+                            <!-- <span class="pull-right icon-pencil" ng-click="editLogbooks()" style="font-size: 18px; margin-top: 3px; margin-right: 10px;  ext-decoration: none; color: #555; cursor: pointer;"></span> -->
                             
-                            <span>My Logbooks</span>
-                            <a href="#/profile/logbook">
-                                <span class="pull-right icon-plus" style="margin-top: 3px; text-decoration: none; color: #555; cursor: pointer;"></span>
-                            </a> 
-                            <span class="pull-right icon-plus" ng-click="addLogbook()" style="margin-top: 3px; text-decoration: none; color: #555; cursor: pointer;"></span>-->
                             <div ng-style="{ 'margin-top: 10px': !logbookToEdit }">
                                 <div class="form-control ng-pristine" style="padding-top: 10px; margin-bottom: 5px;" ng-repeat="logbook in profile.logbooks">
-                                    <!-- <a href="#/profile/logbook/{{logbook.slugname}}" style="width: 100%; text-decoration: none; cursor: pointer; color: #555;"> -->
                                     <span ng-click="editLogbook(logbook.type)" style="width: 100%; cursor: pointer; color: #555;">
                                         <span class="pull-left" style="font-weight: bold; text-transform: capitalize;">{{logbook.type}}</span>
-                                        <span class="pull-right icon-angle-right" style="margin-top: 3px;"></span>
+                                        <span class="pull-right icon-pencil" style="margin-top: 3px;"></span>
                                     </span>
                                 </div>
                             </div>
                         </div>
+
+                        <!-- PORTS -->
+                        <!-- <div class="well" style="padding: 5px">
+                            <span class="profile-question-header">My Ports</span>
+                            <span class="pull-right icon-plus" ng-click="addPort()" style="font-size: 18px; margin-top: 3px; text-decoration: none; color: #555; cursor: pointer;"></span>
+                            
+                            <div class="form-control ng-pristine" style="padding-top: 10px; margin-bottom: 5px;" ng-repeat="port in profile.ports">
+                                <span style="width: 100%; cursor: pointer; color: #555;">
+                                    <span class="pull-left" style="font-weight: bold; text-transform: capitalize;">{{port.number}}</span>
+                                </span>
+                            </div>
+
+                            <script id="addPort" type="text/ng-template">                                
+                                <div class="modal-body">
+                                    <div class="well" style="padding: 5px; margin-bottom: 0px;">            
+                                        <div class="question profile-question">
+                                            <h4 class="question-title" style="color: #555; margin-top: 5px">Add New Port</h4> 
+                                            <input class="form-control" type="text" placeholder="Port Number" ng-model="port.number" />
+
+
+                                            <div class="question">
+                                                <select ui-select2 ng-model="answer" class="form-control" placeholder="{{ question.label }}" required>
+                                                    <option value="">{{ question.label }}</option>
+                                                    <option ng-repeat="option in question.options" value="{{ $index }}">
+                                                        {{ option.text || option.name }}
+                                                    </option>
+                                                    <option selected value="other">Other</option>
+                                                </select>
+                                                <input class="form-control" type="text" placeholder="{{ question.label }}" ng-show="answer == 'other'" ng-model="otherAnswer" />
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer" style="margin-top: 0px">
+                                    <button class="btn btn-primary" ng-click="ok()">OK</button>
+                                    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+                                </div>
+                            </script>
+
+                            <script id="editPorts" type="text/ng-template">                                
+                                <div class="modal-body">
+                                    <div class="well" style="padding: 5px; margin-bottom: 0px;">            
+                                        <div class="question profile-question">
+                                            <h4 class="question-title" style="color: #555; margin-top: 5px">Edit Ports</h4> 
+                                            <div style="margin-top: 20px;" ng-repeat="port in editPorts">
+                                                <span>Vessel #{{$index+1}}</span>
+                                                <button class="btn btn-danger pull-right" ng-click="removePort($index)" style="margin-top: -10px; margin-bottom: 5px;">Remove</button>
+                                                <input class="form-control" type="text" placeholder="Port Name" ng-model="port.name" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer" style="margin-top: 0px">
+                                    <button class="btn btn-primary" ng-click="ok()">OK</button>
+                                    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+                                </div>
+                            </script>
+                            
+                        </div> -->
+
+
+                        <!-- BUOYS -->
+                        <div class="well" style="padding: 5px">
+                            <span class="profile-question-header">My Buoys</span>
+                            <span class="pull-right icon-plus" ng-click="addBuoy()" style="font-size: 18px; margin-top: 3px; text-decoration: none; color: #555; cursor: pointer;"></span>
+                            <span class="pull-right icon-pencil" ng-show="profile.buoys.length" ng-click="editBuoys()" style="font-size: 18px; margin-top: 3px; margin-right: 10px;  ext-decoration: none; color: #555; cursor: pointer;"></span>
+                            
+                            <div class="form-control ng-pristine" style="padding-top: 10px; margin-bottom: 5px;" ng-repeat="buoy in profile.buoys">
+                                <span style="width: 100%; cursor: pointer; color: #555;">
+                                    <span class="pull-left" style="font-weight: bold; text-transform: capitalize;">{{buoy.number}}</span>
+                                </span>
+                            </div>
+
+                            <script id="addBuoy" type="text/ng-template">                                
+                                <div class="modal-body">
+                                    <div class="well" style="padding: 5px; margin-bottom: 0px;">            
+                                        <div class="question profile-question">
+                                            <h4 class="question-title" style="color: #555; margin-top: 5px">Add New Buoy</h4> 
+                                            <input class="form-control" type="text" placeholder="Buoy Number" ng-model="buoy.number" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer" style="margin-top: 0px">
+                                    <button class="btn btn-primary" ng-click="ok()">OK</button>
+                                    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+                                </div>
+                            </script>
+
+                            <script id="editBuoys" type="text/ng-template">                                
+                                <div class="modal-body">
+                                    <div class="well" style="padding: 5px; margin-bottom: 0px;">            
+                                        <div class="question profile-question">
+                                            <h4 class="question-title" style="color: #555; margin-top: 5px">Edit Buoys</h4> 
+                                            <div style="margin-top: 20px;" ng-repeat="buoy in editBuoys">
+                                                <span>Buoy #{{$index+1}}</span>
+                                                <button class="btn btn-danger pull-right" ng-click="removeBuoy($index)" style="margin-top: -10px; margin-bottom: 5px;">Remove</button>
+                                                <input class="form-control" type="text" placeholder="Buoy Number" ng-model="buoy.number" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer" style="margin-top: 0px">
+                                    <button class="btn btn-primary" ng-click="ok()">OK</button>
+                                    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+                                </div>
+                            </script>
+                            
+                        </div>
+
+
+                        <!-- Crew -->
+                        <div class="well" style="padding: 5px">
+                            <span class="profile-question-header">My Crew</span>
+                            <span class="pull-right icon-plus" ng-click="addCrewMember()" style="font-size: 18px; margin-top: 3px; text-decoration: none; color: #555; cursor: pointer;"></span>
+                            <span class="pull-right icon-pencil" ng-show="profile.crew.length" ng-click="editCrew()" style="font-size: 18px; margin-top: 3px; margin-right: 10px;  ext-decoration: none; color: #555; cursor: pointer;"></span>
+                            
+                            <div class="form-control ng-pristine" style="padding-top: 10px; margin-bottom: 5px;" ng-repeat="crewMember in profile.crew">
+                                <span style="width: 100%; cursor: pointer; color: #555;">
+                                    <span class="pull-left" style="font-weight: bold; text-transform: capitalize;">{{crewMember.name}}</span>
+                                </span>
+                            </div>
+
+                            <script id="addCrewMember" type="text/ng-template">                                
+                                <div class="modal-body">
+                                    <div class="well" style="padding: 5px; margin-bottom: 0px;">            
+                                        <div class="question profile-question">
+                                            <h4 class="question-title" style="color: #555; margin-top: 5px">Add New Crew Member</h4> 
+                                            <input class="form-control" type="text" placeholder="Name" ng-model="crewMember.name" />
+                                            <input class="form-control" type="text" placeholder="License #" ng-model="crewMember.license" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer" style="margin-top: 0px">
+                                    <button class="btn btn-primary" ng-click="ok()">OK</button>
+                                    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+                                </div>
+                            </script>
+
+                            <script id="editCrew" type="text/ng-template">                                
+                                <div class="modal-body">
+                                    <div class="well" style="padding: 5px; margin-bottom: 0px;">            
+                                        <div class="question profile-question">
+                                            <h4 class="question-title" style="color: #555; margin-top: 5px">Edit Crew</h4> 
+                                            <div style="margin-top: 20px;" ng-repeat="crewMember in editCrew">
+                                                <span>Crew #{{$index+1}}</span>
+                                                <button class="btn btn-danger pull-right" ng-click="removeCrewMember($index)" style="margin-top: -10px; margin-bottom: 5px;">Remove</button>
+                                                <input class="form-control" type="text" placeholder="Name" ng-model="crewMember.name" />
+                                                <input class="form-control" type="text" placeholder="License #" ng-model="crewMember.license" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer" style="margin-top: 0px">
+                                    <button class="btn btn-primary" ng-click="ok()">OK</button>
+                                    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+                                </div>
+                            </script>
+                            
+                        </div>
+
+
 
                         <button class="btn btn-main btn-default btn-block" ng-click="cancel()">cancel</button>
                                                 

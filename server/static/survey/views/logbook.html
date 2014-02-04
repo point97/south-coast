@@ -49,7 +49,7 @@
                         <div class="well" style="padding: 5px">
                             <span style="font-size: 18px; font-weight: bold; text-transform: uppercase; color: #555;">Vessel</span>
                             <span class="pull-right icon-plus" ng-click="addVessel()" style="font-size: 18px; margin-top: 3px; text-decoration: none; color: #555; cursor: pointer;"></span>
-                            <span class="pull-right icon-pencil" ng-click="editVessels()" style="font-size: 18px; margin-top: 3px; margin-right: 10px;  ext-decoration: none; color: #555; cursor: pointer;"></span>
+                            <span class="pull-right icon-pencil" ng-show="profile.vessels.length" ng-click="editVessels()" style="font-size: 18px; margin-top: 3px; margin-right: 10px; text-decoration: none; color: #555; cursor: pointer;"></span>
                             
                             <div class="question profile-question" ng-show="profile.vessels.length && !logbookToEdit">
                                 <select class="logbook-dropdown" ng-model="logbook.vessel" ng-options="vessel.name for vessel in profile.vessels"></select>
