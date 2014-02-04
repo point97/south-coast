@@ -102,6 +102,21 @@ angular.module('askApp')
 
         modalInstance.result.then(function (vessels) {
             $scope.profile.vessels = vessels;
+            if ($scope.logbookToEdit && !_.findWhere(vessels, {number: $scope.logbookToEdit.vessel.number})) {
+                if (vessels.length) {
+                    $scope.logbookToEdit.vessel = vessels[0];    
+                } else {
+                    $scope.logbookToEdit.vessel = {};
+                }           
+            } else if (!$scope.logbookToEdit) {
+                if ($scope.logbook.vessel && !_.findWhere(vessels, {number: $scope.logbook.vessel.number})) {
+                    if (vessels.length) {
+                        $scope.logbook.vessel = vessels[0];    
+                    } else {
+                        $scope.logbook.vessel = {};
+                    }
+                }
+            }
         });
     };
     
