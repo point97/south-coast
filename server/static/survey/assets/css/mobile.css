@@ -590,7 +590,9 @@ img.center {
         margin-top: 10px;
     }
 
-
+#set-location-question input.form-control:focus {
+    margin-bottom: 0px;
+}
 .form-control, .question .form-control:focus, .unit-select {
     background-color: rgb(246, 235, 194);
     font-size: 18px;
