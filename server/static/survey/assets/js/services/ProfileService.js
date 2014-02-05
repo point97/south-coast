@@ -3,36 +3,28 @@
 angular.module('askApp')
   .factory('profileService', function ($http, $location) {
 
-    var getProfileFromServer = function() {
+    var getEmptyProfile = function() {
         var profile = {};
+        if (app.user) {
+            profile.email = app.user.email;
+        }
         profile.logbooks = [];
         profile.vessels = [];
         profile.ports = [];
         profile.buoys = [];
-        profile.crew = [];
-        if (app.user) {
-            profile.user = app.user;
-            //$scope.answers = app.user.registration;
-        } else {
-            profile.user = {};
-        }
+        profile.crew = [];        
         return profile;
     };
-    var profile = getProfileFromServer();
+    var profile = getEmptyProfile();
     var logbookToEdit = undefined;
-   
-    if (app.user) {
-        profile.user = app.user;
-        //$scope.answers = app.user.registration;
-    } 
     
     var getProfile = function() {
-        if (profile) {
-            return angular.copy(profile);    
+        if (app.user && app.user.registration) {
+            profile = app.user.registration; 
         } else {
-            profile = getProfileFromServer();
-            return angular.copy(profile);
+            profile = getEmptyProfile();
         }
+        return angular.copy(profile);
         
     };
 
@@ -90,7 +82,7 @@ angular.module('askApp')
             profile.fullName = name;
         } 
         if (email) {
-            profile.user.email = email;
+            profile.email = email;
         }
         if (license) {
             profile.license = license;
@@ -100,10 +92,34 @@ angular.module('askApp')
         profile.crew = crew;
     };
 
+    var saveToServer = function() {
+        var url = app.server + '/account/updateUser/';
+        
+        $http.post(url, {username: app.user.username, registration: profile, email: profile.email})
+            .success(function (data) {
+                app.user.registration = profile;
+                storage.saveState(app);
+                $location.path('/main');
+            })
+            .error(function (data, status) {
+                if (status === 0) {
+                    app.user.registration = profile;
+                    storage.saveState(app);
+                    $location.path('/main');      
+                }
+                else if (data) {
+                    $scope.showError = data;    
+                } else {
+                    $scope.showError = "There was a problem saving your information.  Please try again later."
+                }            
+            });
+    };
+
     // Public API here
     return {
       'getProfile': getProfile,
       'saveState': saveState,
+      'saveToServer': saveToServer,
       'cancelState': cancelState,
       'addLogbook': addLogbook,
       'updateLogbook': updateLogbook,

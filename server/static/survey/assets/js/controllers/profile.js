@@ -19,12 +19,12 @@ angular.module('askApp')
     $scope.profile = profileService.getProfile();
 
     $scope.addLogbook = function() {
-        profileService.saveState($scope.profile.fullName, $scope.profile.user.email, $scope.profile.license, $scope.profile.logbooks, $scope.profile.buoys, $scope.profile.crew);
+        profileService.saveState($scope.profile.fullName, $scope.profile.email, $scope.profile.license, $scope.profile.logbooks, $scope.profile.buoys, $scope.profile.crew);
         $location.path('/profile/logbook')    
     };
 
     $scope.editLogbook = function(logbookType) {
-        profileService.saveState($scope.profile.fullName, $scope.profile.user.email, $scope.profile.license, $scope.profile.logbooks, $scope.profile.buoys, $scope.profile.crew);
+        profileService.saveState($scope.profile.fullName, $scope.profile.email, $scope.profile.license, $scope.profile.logbooks, $scope.profile.buoys, $scope.profile.crew);
         profileService.prepLogbookToEdit(logbookType)
         $location.path('/profile/logbook');
     };
@@ -38,7 +38,8 @@ angular.module('askApp')
 
     /*** should we migrate this functionality to profileService...? ***/
     $scope.updateProfile = function (profileQuestions) {
-        profileService.saveState($scope.profile.fullName, $scope.profile.user.email, $scope.profile.license, $scope.profile.logbooks, $scope.profile.buoys, $scope.profile.crew);
+        profileService.saveState($scope.profile.fullName, $scope.profile.email, $scope.profile.license, $scope.profile.logbooks, $scope.profile.buoys, $scope.profile.crew);
+        profileService.saveToServer();
         $location.path('/main');
         // var url = app.server + '/account/updateUser/',
         //     registration = {};
