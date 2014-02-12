@@ -42,14 +42,44 @@ angular.module('askApp')
 
     $scope.respondent = app.respondents[$routeParams.uuidSlug];
     
-    
-    if (app.data) {
-        $scope.responses =app.data.responses;    
-        app.data.responses = [];
-    }
     $scope.completeView = '/static/survey/survey-pages/' + $routeParams.surveySlug + '/complete.html';
 
     $scope.surveyProgress = 100;
+
+    $scope.updateCurrentTripLogbook = function() {
+        // add logbook answers to currentTrip
+        _.each($scope.respondent.responses, function(response) {
+            // if (response.answer.question.logbook) {
+            var questionSlug = response.question,
+                question = survey.getQuestionFromSlug(questionSlug),
+                answer = response.answer,
+                surveySlug = $scope.survey.slug;
+            if (question.logbook) {
+                survey.addLogbookAnswerToCurrentTrip(surveySlug, questionSlug, answer); 
+            }
+        });
+
+    };
+
+    $scope.addRespondentToCurrentTrip = function() {
+        // survey.ensureCurrentTripExists();
+        // $scope.currentTrip = app.currentTrip;
+
+        if (!$scope.currentTrip.events[$routeParams.surveySlug].respondents) {
+            $scope.currentTrip.events[$routeParams.surveySlug].respondents = [];
+        }
+
+        $scope.currentTrip.events[$routeParams.surveySlug].respondents.push(app.respondents[$routeParams.uuidSlug]);
+        
+    };
+
+    // if (!app.currentTrip) {  
+        survey.ensureCurrentTripExists();
+        $scope.updateCurrentTripLogbook();      
+    // }  
+    $scope.currentTrip = app.currentTrip;   
+    $scope.addRespondentToCurrentTrip();
+    
 
     $scope.skipBack = function () {
         $location.path($scope.respondent.resumePath.replace('#', ''));
@@ -70,7 +100,32 @@ angular.module('askApp')
     $scope.trapTypeIncludes = function(type) {
         return history.trapTypeIncludes(type, $scope.respondent);
     };
+    
+    $scope.addCurrentTripToUnSubmittedTrips = function() {
+        if ( ! app.unSubmittedTrips ) { // should be created prior to here...
+            app.unSubmittedTrips = {};
+        }
+        app.unSubmittedTrips[$scope.currentTrip.uuid] = angular.copy($scope.currentTrip);
+        storage.saveState(app);
 
+        delete app.respondents[$routeParams.uuidSlug];
+    };
+
+    $scope.startNewEvent = function() {            
+        $location.path('/survey/' + 'dive' + '/1/offline');
+    }
+
+    $scope.newEvent = function() {        
+        //$scope.addRespondentToCurrentTrip();
+        $scope.addCurrentTripToUnSubmittedTrips();
+        $scope.startNewEvent();
+    };
+
+    $scope.reviewTripReport = function() {
+        //$scope.addRespondentToCurrentTrip();
+        $scope.addCurrentTripToUnSubmittedTrips();
+        $location.path('/tripSummary');
+    };
 
     $scope.submitReport = function () {
         $scope.working = true;
@@ -78,13 +133,13 @@ angular.module('askApp')
         
         delete app.user.resumePath;
         survey.submitSurvey(newRespondent, $scope.survey).success(function () {
-            delete app.respondents[$routeParams.uuidSlug]
-            app.message = "You catch report was submitted successfully."
+            delete app.respondents[$routeParams.uuidSlug];
+            app.message = "You catch report was submitted successfully.";
             storage.saveState(app);
             $location.path('/main');
             $scope.working = true;
         }).error(function () {
-            app.message = "You catch report was saved and can be submitted later."
+            app.message = "You catch report was saved and can be submitted later.";
             storage.saveState(app);
             $location.path('/main');
         });
@@ -92,7 +147,7 @@ angular.module('askApp')
     };
 
     $scope.continueOffline = function () {
-        app.message = "You catch report was saved and can be submitted later."
+        app.message = "You trip log was saved and can be submitted later.";
         delete app.user.resumePath;
         storage.saveState(app);
         $location.path('/main');

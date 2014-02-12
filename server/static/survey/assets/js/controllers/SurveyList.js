@@ -19,6 +19,12 @@ angular.module('askApp')
         $scope.loaded = true;
         clearInterval($scope.timer);
     }
+
+    $scope.startSurvey = function(surveySlug) {
+        
+        $location.path('/survey/' + surveySlug + '/1/offline');
+    };
+
     $scope.showUpdateSurveys = true;
     $scope.updateSurveys = function () {
         $scope.hideSurveys = true;

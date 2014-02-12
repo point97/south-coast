@@ -604,6 +604,8 @@ img.center {
 .sp-page .container {
     background-color: rgb(77, 136, 153);
 }
+
+/*** SOUTH COAST SPECIFIC ***/
 .profile-question input.form-control {
     margin-bottom: 5px;
 }
@@ -621,6 +623,23 @@ img.center {
     border-color:#999; 
     min-width: 180px;
 }
+.fullscreen-modal .modal-header {
+    background-color: #333;
+    padding: 5px;
+    border-bottom: 0px;
+}
+.fullscreen-modal .modal-dialog {
+    /*height: 100%;*/
+    padding: 0px;
+}
+.fullscreen-modal .modal-content {
+    height: 100%;
+    border-radius: 0px;
+    background-color: rgb(77, 136, 153);
+}
+
+/*** END SOUTH COAST SPECIFIC ***/
+
 .question .panel-group {
     margin-top: 10px;
 }

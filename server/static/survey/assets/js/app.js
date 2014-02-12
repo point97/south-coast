@@ -100,6 +100,14 @@ angular.module('askApp', ['ngRoute', 'ui', 'ui.bootstrap', 'ngGrid', 'shoppinpal
         templateUrl: app.viewPath + 'views/fisher-summary.html',
         controller: 'SummaryCtrl'
     })
+        .when('/tripSummary', {
+        templateUrl: app.viewPath + 'views/tripSummary.html',
+        controller: 'tripSummaryCtrl'
+    })
+        .when('/tripSummary/speciesSummary/:speciesName', {
+        templateUrl: app.viewPath + 'views/speciesSummary.html',
+        controller: 'speciesSummaryCtrl'
+    })
         .when('/unSubmittedSurveyList', {
         templateUrl: app.viewPath + 'views/unSubmittedSurveyList.html',
         controller: 'unSubmittedSurveyListCtrl'

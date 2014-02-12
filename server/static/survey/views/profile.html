@@ -33,9 +33,9 @@
                             <!-- <span class="pull-right icon-pencil" ng-click="editLogbooks()" style="font-size: 18px; margin-top: 3px; margin-right: 10px;  ext-decoration: none; color: #555; cursor: pointer;"></span> -->
                             
                             <div ng-style="{ 'margin-top: 10px': !logbookToEdit }">
-                                <div class="form-control ng-pristine" style="padding-top: 10px; margin-bottom: 5px;" ng-repeat="logbook in profile.logbooks">
-                                    <span ng-click="editLogbook(logbook.type)" style="width: 100%; cursor: pointer; color: #555;">
-                                        <span class="pull-left" style="font-weight: bold; text-transform: capitalize;">{{logbook.type}}</span>
+                                <div class="form-control ng-pristine" style="padding-top: 10px; margin-bottom: 5px;" ng-repeat="(type, logbook) in profile.logbooks">
+                                    <span ng-click="editLogbook(type)" style="width: 100%; cursor: pointer; color: #555;">
+                                        <span class="pull-left" style="font-weight: bold; text-transform: capitalize;">{{type}}</span>
                                         <span class="pull-right icon-pencil" style="margin-top: 3px;"></span>
                                     </span>
                                 </div>

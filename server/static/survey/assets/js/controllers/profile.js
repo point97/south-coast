@@ -36,35 +36,10 @@ angular.module('askApp')
         $location.path('/main');
     };
 
-    /*** should we migrate this functionality to profileService...? ***/
     $scope.updateProfile = function (profileQuestions) {
         profileService.saveState($scope.profile.fullName, $scope.profile.email, $scope.profile.license, $scope.profile.logbooks, $scope.profile.buoys, $scope.profile.crew);
         profileService.saveToServer();
         $location.path('/main');
-        // var url = app.server + '/account/updateUser/',
-        //     registration = {};
-
-        // _.each(profileQuestions, function(item, i) {
-        //     registration[item.slug] = item.answer;
-        // });
-        // $http.post(url, {username: app.user.username, registration: registration, fullName: $scope.fullName, email: $scope.userEmail, cfl: $scope.cflNumber})
-        //     .success(function (data) {
-        //         app.user.registration = registration;
-        //         storage.saveState(app);
-        //         $location.path('/main');
-        //     })
-        //     .error(function (data, status) {
-        //         if (status === 0) {
-        //             app.user.registration = registration;
-        //             storage.saveState(app);
-        //             $location.path('/main');      
-        //         }
-        //         else if (data) {
-        //             $scope.showError = data;    
-        //         } else {
-        //             $scope.showError = "There was a problem creating an account.  Please try again later."
-        //         }            
-        //     });
     };
 
     /*** Modals ***/
@@ -77,6 +52,9 @@ angular.module('askApp')
         });
 
         modalInstance.result.then(function (buoy) {
+            if (!$scope.profile.buoys) {
+                $scope.profile.buoys = [];
+            }
             $scope.profile.buoys.push(buoy);
         });
     };
@@ -106,6 +84,9 @@ angular.module('askApp')
         });
 
         modalInstance.result.then(function (crewMember) {
+            if (!$scope.profile.crew) {
+                $scope.profile.crew = [];
+            }
             $scope.profile.crew.push(crewMember);
         });
     };
@@ -135,6 +116,9 @@ angular.module('askApp')
         });
 
         modalInstance.result.then(function (port) {
+            if (!$scope.profile.ports) {
+                $scope.profile.ports = [];
+            }
             $scope.profile.ports.push(buoy);
         });
     };

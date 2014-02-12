@@ -1,16 +1,212 @@
 [
 {
-    "pk": 111, 
-    "model": "survey.page", 
+    "pk": "offline_1391544584054", 
+    "model": "survey.respondant", 
     "fields": {
-        "survey": 5, 
-        "blocks": [], 
-        "question": null, 
-        "order": 1, 
-        "questions": [
-            157, 
-            158, 
-            159
+        "status": "complete", 
+        "complete": true, 
+        "ts": "2014-02-04T12:09:44.054", 
+        "state": null, 
+        "locations": 0, 
+        "county": null, 
+        "last_question": null, 
+        "survey": 3, 
+        "user": 1, 
+        "ordering_date": null, 
+        "email": null, 
+        "responses": [
+            17, 
+            16, 
+            15, 
+            14, 
+            13, 
+            12, 
+            11, 
+            10, 
+            9, 
+            8
+        ]
+    }
+},
+{
+    "pk": "offline_1392155312386", 
+    "model": "survey.respondant", 
+    "fields": {
+        "status": "complete", 
+        "complete": true, 
+        "ts": "2014-02-11T13:48:32.386", 
+        "state": null, 
+        "locations": 0, 
+        "county": null, 
+        "last_question": null, 
+        "survey": 3, 
+        "user": 1, 
+        "ordering_date": null, 
+        "email": null, 
+        "responses": [
+            36, 
+            35, 
+            34, 
+            33, 
+            32, 
+            31, 
+            30, 
+            29, 
+            28, 
+            27, 
+            26, 
+            25, 
+            24, 
+            23, 
+            22, 
+            21, 
+            20, 
+            19, 
+            18
+        ]
+    }
+},
+{
+    "pk": "offline_1392157488491", 
+    "model": "survey.respondant", 
+    "fields": {
+        "status": "complete", 
+        "complete": true, 
+        "ts": "2014-02-11T14:24:48.491", 
+        "state": null, 
+        "locations": 0, 
+        "county": null, 
+        "last_question": null, 
+        "survey": 3, 
+        "user": 1, 
+        "ordering_date": null, 
+        "email": null, 
+        "responses": [
+            42, 
+            41, 
+            40, 
+            39, 
+            38, 
+            37, 
+            35, 
+            34, 
+            30, 
+            29, 
+            28, 
+            27, 
+            22, 
+            21, 
+            20, 
+            19, 
+            18
+        ]
+    }
+},
+{
+    "pk": "offline_1392162201170", 
+    "model": "survey.respondant", 
+    "fields": {
+        "status": "complete", 
+        "complete": true, 
+        "ts": "2014-02-11T15:43:21.170", 
+        "state": null, 
+        "locations": 0, 
+        "county": null, 
+        "last_question": null, 
+        "survey": 3, 
+        "user": 1, 
+        "ordering_date": null, 
+        "email": null, 
+        "responses": [
+            48, 
+            47, 
+            46, 
+            45, 
+            44, 
+            43, 
+            35, 
+            34, 
+            30, 
+            29, 
+            28, 
+            27, 
+            22, 
+            21, 
+            20, 
+            19, 
+            18
+        ]
+    }
+},
+{
+    "pk": "offline_1392163292163", 
+    "model": "survey.respondant", 
+    "fields": {
+        "status": "complete", 
+        "complete": true, 
+        "ts": "2014-02-11T16:01:32.163", 
+        "state": null, 
+        "locations": 0, 
+        "county": null, 
+        "last_question": null, 
+        "survey": 3, 
+        "user": 1, 
+        "ordering_date": null, 
+        "email": null, 
+        "responses": [
+            54, 
+            53, 
+            52, 
+            51, 
+            50, 
+            49, 
+            35, 
+            34, 
+            30, 
+            29, 
+            28, 
+            27, 
+            22, 
+            21, 
+            20, 
+            19, 
+            18
+        ]
+    }
+},
+{
+    "pk": "offline_1392163864169", 
+    "model": "survey.respondant", 
+    "fields": {
+        "status": "complete", 
+        "complete": true, 
+        "ts": "2014-02-11T16:11:04.169", 
+        "state": null, 
+        "locations": 0, 
+        "county": null, 
+        "last_question": null, 
+        "survey": 3, 
+        "user": 1, 
+        "ordering_date": null, 
+        "email": null, 
+        "responses": [
+            59, 
+            58, 
+            57, 
+            56, 
+            55, 
+            50, 
+            35, 
+            34, 
+            30, 
+            29, 
+            28, 
+            27, 
+            22, 
+            21, 
+            20, 
+            19, 
+            18
         ]
     }
 },
@@ -21,7 +217,7 @@
         "survey": 3, 
         "blocks": [], 
         "question": null, 
-        "order": 4, 
+        "order": 5, 
         "questions": [
             162
         ]
@@ -34,65 +230,9 @@
         "survey": 3, 
         "blocks": [], 
         "question": null, 
-        "order": 8, 
+        "order": 10, 
         "questions": [
             177
-        ]
-    }
-},
-{
-    "pk": 118, 
-    "model": "survey.page", 
-    "fields": {
-        "survey": 7, 
-        "blocks": [], 
-        "question": null, 
-        "order": 1, 
-        "questions": [
-            165
-        ]
-    }
-},
-{
-    "pk": 119, 
-    "model": "survey.page", 
-    "fields": {
-        "survey": 3, 
-        "blocks": [], 
-        "question": null, 
-        "order": 1, 
-        "questions": [
-            166, 
-            167, 
-            168, 
-            169
-        ]
-    }
-},
-{
-    "pk": 120, 
-    "model": "survey.page", 
-    "fields": {
-        "survey": 3, 
-        "blocks": [], 
-        "question": null, 
-        "order": 2, 
-        "questions": [
-            170, 
-            171
-        ]
-    }
-},
-{
-    "pk": 121, 
-    "model": "survey.page", 
-    "fields": {
-        "survey": 3, 
-        "blocks": [], 
-        "question": null, 
-        "order": 3, 
-        "questions": [
-            172
         ]
     }
 },
@@ -103,7 +243,7 @@
         "survey": 3, 
         "blocks": [], 
         "question": null, 
-        "order": 5, 
+        "order": 7, 
         "questions": [
             173
         ]
@@ -116,7 +256,7 @@
         "survey": 3, 
         "blocks": [], 
         "question": null, 
-        "order": 6, 
+        "order": 8, 
         "questions": [
             174, 
             176
@@ -130,7 +270,7 @@
         "survey": 3, 
         "blocks": [], 
         "question": null, 
-        "order": 7, 
+        "order": 9, 
         "questions": [
             164
         ]
@@ -143,7 +283,7 @@
         "survey": 3, 
         "blocks": [], 
         "question": null, 
-        "order": 9, 
+        "order": 11, 
         "questions": [
             178
         ]
@@ -156,7 +296,7 @@
         "survey": 3, 
         "blocks": [], 
         "question": null, 
-        "order": 10, 
+        "order": 12, 
         "questions": [
             179
         ]
@@ -169,7 +309,7 @@
         "survey": 3, 
         "blocks": [], 
         "question": null, 
-        "order": 11, 
+        "order": 13, 
         "questions": [
             180
         ]
@@ -182,9 +322,78 @@
         "survey": 3, 
         "blocks": [], 
         "question": null, 
-        "order": 12, 
+        "order": 14, 
         "questions": [
             181
+        ]
+    }
+},
+{
+    "pk": 130, 
+    "model": "survey.page", 
+    "fields": {
+        "survey": 3, 
+        "blocks": [], 
+        "question": null, 
+        "order": 1, 
+        "questions": [
+            183, 
+            184, 
+            188, 
+            185
+        ]
+    }
+},
+{
+    "pk": 131, 
+    "model": "survey.page", 
+    "fields": {
+        "survey": 3, 
+        "blocks": [], 
+        "question": null, 
+        "order": 2, 
+        "questions": [
+            186
+        ]
+    }
+},
+{
+    "pk": 132, 
+    "model": "survey.page", 
+    "fields": {
+        "survey": 3, 
+        "blocks": [], 
+        "question": null, 
+        "order": 3, 
+        "questions": [
+            189
+        ]
+    }
+},
+{
+    "pk": 133, 
+    "model": "survey.page", 
+    "fields": {
+        "survey": 3, 
+        "blocks": [], 
+        "question": null, 
+        "order": 4, 
+        "questions": [
+            190
+        ]
+    }
+},
+{
+    "pk": 134, 
+    "model": "survey.page", 
+    "fields": {
+        "survey": 3, 
+        "blocks": [], 
+        "question": null, 
+        "order": 6, 
+        "questions": [
+            191, 
+            192
         ]
     }
 },
@@ -200,159 +409,17 @@
     }
 },
 {
-    "pk": 5, 
-    "model": "survey.survey", 
-    "fields": {
-        "states": null, 
-        "offline": false, 
-        "anon": true, 
-        "name": "CPFV", 
-        "slug": "cpfv"
-    }
-},
-{
-    "pk": 7, 
-    "model": "survey.survey", 
-    "fields": {
-        "states": null, 
-        "offline": false, 
-        "anon": true, 
-        "name": "Trap", 
-        "slug": "trap"
-    }
-},
-{
-    "pk": 1, 
-    "model": "survey.option", 
-    "fields": {
-        "rows": "", 
-        "min": null, 
-        "text": "Whole Pounds", 
-        "required": true, 
-        "either_or": "guttedpounds", 
-        "label": "wholepounds", 
-        "max": null, 
-        "type": "number", 
-        "order": 0
-    }
-},
-{
-    "pk": 17, 
-    "model": "survey.option", 
-    "fields": {
-        "rows": null, 
-        "min": null, 
-        "text": "", 
-        "required": true, 
-        "either_or": null, 
-        "label": "", 
-        "max": null, 
-        "type": "integer", 
-        "order": null
-    }
-},
-{
-    "pk": 18, 
-    "model": "survey.option", 
-    "fields": {
-        "rows": null, 
-        "min": null, 
-        "text": "", 
-        "required": true, 
-        "either_or": null, 
-        "label": "", 
-        "max": null, 
-        "type": "integer", 
-        "order": null
-    }
-},
-{
-    "pk": 19, 
-    "model": "survey.option", 
-    "fields": {
-        "rows": null, 
-        "min": null, 
-        "text": "Whole Pounds", 
-        "required": true, 
-        "either_or": null, 
-        "label": "wholepounds", 
-        "max": null, 
-        "type": "integer", 
-        "order": null
-    }
-},
-{
-    "pk": 20, 
-    "model": "survey.option", 
-    "fields": {
-        "rows": null, 
-        "min": null, 
-        "text": "Whole Pounds", 
-        "required": true, 
-        "either_or": null, 
-        "label": "wholepounds", 
-        "max": null, 
-        "type": "integer", 
-        "order": null
-    }
-},
-{
-    "pk": 21, 
-    "model": "survey.option", 
-    "fields": {
-        "rows": null, 
-        "min": null, 
-        "text": "Whole Pounds", 
-        "required": true, 
-        "either_or": null, 
-        "label": "wholepounds", 
-        "max": null, 
-        "type": "integer", 
-        "order": null
-    }
-},
-{
-    "pk": 22, 
-    "model": "survey.option", 
-    "fields": {
-        "rows": null, 
-        "min": null, 
-        "text": "Whole Pounds", 
-        "required": true, 
-        "either_or": null, 
-        "label": "wholepounds", 
-        "max": null, 
-        "type": "integer", 
-        "order": null
-    }
-},
-{
-    "pk": 23, 
-    "model": "survey.option", 
-    "fields": {
-        "rows": null, 
-        "min": null, 
-        "text": "", 
-        "required": true, 
-        "either_or": null, 
-        "label": "", 
-        "max": null, 
-        "type": "integer", 
-        "order": null
-    }
-},
-{
     "pk": 24, 
     "model": "survey.option", 
     "fields": {
-        "rows": null, 
+        "rows": "A\r\nB\r\nC\r\nD", 
         "min": null, 
         "text": "Grade", 
         "required": true, 
-        "either_or": null, 
+        "either_or": "", 
         "label": "grade", 
         "max": null, 
-        "type": "integer", 
+        "type": "single-select", 
         "order": null
     }
 },
@@ -396,132 +463,6 @@
     }
 },
 {
-    "pk": 157, 
-    "model": "survey.question", 
-    "fields": {
-        "cols": "", 
-        "term_condition": null, 
-        "zoom": null, 
-        "filterBy": false, 
-        "min_zoom": 10, 
-        "report_type": null, 
-        "lng": null, 
-        "skip_question": null, 
-        "rows": "", 
-        "options_from_previous_answer": null, 
-        "title": "Port", 
-        "allow_other": false, 
-        "geojson": "", 
-        "label": "Port", 
-        "grid_cols": [], 
-        "type": "text", 
-        "randomize_groups": false, 
-        "blocks": [], 
-        "modalQuestion": null, 
-        "integer_min": null, 
-        "pre_calculated": "", 
-        "visualize": false, 
-        "foreach_question": null, 
-        "options_json": "", 
-        "lat": null, 
-        "slug": "port", 
-        "info": null, 
-        "integer_max": null, 
-        "attach_to_profile": false, 
-        "required": true, 
-        "persistent": false, 
-        "options": [], 
-        "filter_questions": [], 
-        "skip_condition": null, 
-        "hoist_answers": null, 
-        "order": 1
-    }
-},
-{
-    "pk": 158, 
-    "model": "survey.question", 
-    "fields": {
-        "cols": "", 
-        "term_condition": null, 
-        "zoom": null, 
-        "filterBy": false, 
-        "min_zoom": 10, 
-        "report_type": null, 
-        "lng": null, 
-        "skip_question": null, 
-        "rows": "", 
-        "options_from_previous_answer": null, 
-        "title": "Date", 
-        "allow_other": false, 
-        "geojson": "", 
-        "label": "Date", 
-        "grid_cols": [], 
-        "type": "datepicker", 
-        "randomize_groups": false, 
-        "blocks": [], 
-        "modalQuestion": null, 
-        "integer_min": null, 
-        "pre_calculated": "", 
-        "visualize": false, 
-        "foreach_question": null, 
-        "options_json": "", 
-        "lat": null, 
-        "slug": "date", 
-        "info": null, 
-        "integer_max": null, 
-        "attach_to_profile": false, 
-        "required": true, 
-        "persistent": false, 
-        "options": [], 
-        "filter_questions": [], 
-        "skip_condition": null, 
-        "hoist_answers": null, 
-        "order": 2
-    }
-},
-{
-    "pk": 159, 
-    "model": "survey.question", 
-    "fields": {
-        "cols": "", 
-        "term_condition": null, 
-        "zoom": null, 
-        "filterBy": false, 
-        "min_zoom": 10, 
-        "report_type": null, 
-        "lng": null, 
-        "skip_question": null, 
-        "rows": "", 
-        "options_from_previous_answer": null, 
-        "title": "Crew Members", 
-        "allow_other": false, 
-        "geojson": "", 
-        "label": "Crew Members", 
-        "grid_cols": [], 
-        "type": "integer", 
-        "randomize_groups": false, 
-        "blocks": [], 
-        "modalQuestion": null, 
-        "integer_min": 0, 
-        "pre_calculated": "", 
-        "visualize": false, 
-        "foreach_question": null, 
-        "options_json": "", 
-        "lat": null, 
-        "slug": "crew-members", 
-        "info": null, 
-        "integer_max": 99, 
-        "attach_to_profile": false, 
-        "required": true, 
-        "persistent": false, 
-        "options": [], 
-        "filter_questions": [], 
-        "skip_condition": null, 
-        "hoist_answers": null, 
-        "order": 3
-    }
-},
-{
     "pk": 162, 
     "model": "survey.question", 
     "fields": {
@@ -560,6 +501,7 @@
         "filter_questions": [], 
         "skip_condition": null, 
         "hoist_answers": null, 
+        "logbook": false, 
         "order": 1
     }
 },
@@ -602,342 +544,7 @@
         "filter_questions": [], 
         "skip_condition": null, 
         "hoist_answers": null, 
-        "order": 1
-    }
-},
-{
-    "pk": 165, 
-    "model": "survey.question", 
-    "fields": {
-        "cols": "", 
-        "term_condition": null, 
-        "zoom": null, 
-        "filterBy": false, 
-        "min_zoom": 10, 
-        "report_type": null, 
-        "lng": null, 
-        "skip_question": null, 
-        "rows": "", 
-        "options_from_previous_answer": null, 
-        "title": "Trap / Gear Sets", 
-        "allow_other": false, 
-        "geojson": "", 
-        "label": "Trap / Gear Sets", 
-        "grid_cols": [], 
-        "type": "text", 
-        "randomize_groups": false, 
-        "blocks": [], 
-        "modalQuestion": null, 
-        "integer_min": null, 
-        "pre_calculated": "", 
-        "visualize": false, 
-        "foreach_question": null, 
-        "options_json": "", 
-        "lat": null, 
-        "slug": "trap-gear-sets", 
-        "info": null, 
-        "integer_max": null, 
-        "attach_to_profile": false, 
-        "required": true, 
-        "persistent": false, 
-        "options": [], 
-        "filter_questions": [], 
-        "skip_condition": null, 
-        "hoist_answers": null, 
-        "order": 1
-    }
-},
-{
-    "pk": 166, 
-    "model": "survey.question", 
-    "fields": {
-        "cols": "", 
-        "term_condition": null, 
-        "zoom": null, 
-        "filterBy": false, 
-        "min_zoom": 10, 
-        "report_type": null, 
-        "lng": null, 
-        "skip_question": null, 
-        "rows": "", 
-        "options_from_previous_answer": null, 
-        "title": "Vessel Name", 
-        "allow_other": false, 
-        "geojson": "", 
-        "label": "Vessel Name", 
-        "grid_cols": [], 
-        "type": "text", 
-        "randomize_groups": false, 
-        "blocks": [], 
-        "modalQuestion": null, 
-        "integer_min": null, 
-        "pre_calculated": "", 
-        "visualize": false, 
-        "foreach_question": null, 
-        "options_json": "", 
-        "lat": null, 
-        "slug": "vessel-name", 
-        "info": null, 
-        "integer_max": null, 
-        "attach_to_profile": true, 
-        "required": false, 
-        "persistent": false, 
-        "options": [], 
-        "filter_questions": [], 
-        "skip_condition": null, 
-        "hoist_answers": null, 
-        "order": 1
-    }
-},
-{
-    "pk": 167, 
-    "model": "survey.question", 
-    "fields": {
-        "cols": "", 
-        "term_condition": null, 
-        "zoom": null, 
-        "filterBy": false, 
-        "min_zoom": 10, 
-        "report_type": null, 
-        "lng": null, 
-        "skip_question": null, 
-        "rows": "", 
-        "options_from_previous_answer": null, 
-        "title": "Vessel Number", 
-        "allow_other": false, 
-        "geojson": "", 
-        "label": "Vessel Number", 
-        "grid_cols": [], 
-        "type": "text", 
-        "randomize_groups": false, 
-        "blocks": [], 
-        "modalQuestion": null, 
-        "integer_min": null, 
-        "pre_calculated": "", 
-        "visualize": false, 
-        "foreach_question": null, 
-        "options_json": "", 
-        "lat": null, 
-        "slug": "vessel-number", 
-        "info": null, 
-        "integer_max": null, 
-        "attach_to_profile": true, 
-        "required": false, 
-        "persistent": false, 
-        "options": [], 
-        "filter_questions": [], 
-        "skip_condition": null, 
-        "hoist_answers": null, 
-        "order": 2
-    }
-},
-{
-    "pk": 168, 
-    "model": "survey.question", 
-    "fields": {
-        "cols": "", 
-        "term_condition": null, 
-        "zoom": null, 
-        "filterBy": false, 
-        "min_zoom": 10, 
-        "report_type": null, 
-        "lng": null, 
-        "skip_question": null, 
-        "rows": "", 
-        "options_from_previous_answer": null, 
-        "title": "License Number", 
-        "allow_other": false, 
-        "geojson": "", 
-        "label": "License Number", 
-        "grid_cols": [], 
-        "type": "text", 
-        "randomize_groups": false, 
-        "blocks": [], 
-        "modalQuestion": null, 
-        "integer_min": null, 
-        "pre_calculated": "", 
-        "visualize": false, 
-        "foreach_question": null, 
-        "options_json": "", 
-        "lat": null, 
-        "slug": "license-number", 
-        "info": null, 
-        "integer_max": null, 
-        "attach_to_profile": true, 
-        "required": false, 
-        "persistent": false, 
-        "options": [], 
-        "filter_questions": [], 
-        "skip_condition": null, 
-        "hoist_answers": null, 
-        "order": 3
-    }
-},
-{
-    "pk": 169, 
-    "model": "survey.question", 
-    "fields": {
-        "cols": "", 
-        "term_condition": null, 
-        "zoom": null, 
-        "filterBy": false, 
-        "min_zoom": 10, 
-        "report_type": null, 
-        "lng": null, 
-        "skip_question": null, 
-        "rows": "", 
-        "options_from_previous_answer": null, 
-        "title": "Permit Number", 
-        "allow_other": false, 
-        "geojson": "", 
-        "label": "Permit Number", 
-        "grid_cols": [], 
-        "type": "text", 
-        "randomize_groups": false, 
-        "blocks": [], 
-        "modalQuestion": null, 
-        "integer_min": null, 
-        "pre_calculated": "", 
-        "visualize": false, 
-        "foreach_question": null, 
-        "options_json": "", 
-        "lat": null, 
-        "slug": "permit-number", 
-        "info": null, 
-        "integer_max": null, 
-        "attach_to_profile": true, 
-        "required": false, 
-        "persistent": false, 
-        "options": [], 
-        "filter_questions": [], 
-        "skip_condition": null, 
-        "hoist_answers": null, 
-        "order": 4
-    }
-},
-{
-    "pk": 170, 
-    "model": "survey.question", 
-    "fields": {
-        "cols": "", 
-        "term_condition": null, 
-        "zoom": null, 
-        "filterBy": false, 
-        "min_zoom": 10, 
-        "report_type": null, 
-        "lng": null, 
-        "skip_question": null, 
-        "rows": "Port #1\nPort #2\nPort #3", 
-        "options_from_previous_answer": null, 
-        "title": "Landing Port", 
-        "allow_other": false, 
-        "geojson": "", 
-        "label": "Landing Port", 
-        "grid_cols": [], 
-        "type": "single-select", 
-        "randomize_groups": false, 
-        "blocks": [], 
-        "modalQuestion": null, 
-        "integer_min": null, 
-        "pre_calculated": "", 
-        "visualize": false, 
-        "foreach_question": null, 
-        "options_json": "", 
-        "lat": null, 
-        "slug": "landing-port", 
-        "info": null, 
-        "integer_max": null, 
-        "attach_to_profile": false, 
-        "required": false, 
-        "persistent": true, 
-        "options": [], 
-        "filter_questions": [], 
-        "skip_condition": null, 
-        "hoist_answers": null, 
-        "order": 1
-    }
-},
-{
-    "pk": 171, 
-    "model": "survey.question", 
-    "fields": {
-        "cols": "", 
-        "term_condition": null, 
-        "zoom": null, 
-        "filterBy": false, 
-        "min_zoom": 10, 
-        "report_type": null, 
-        "lng": null, 
-        "skip_question": null, 
-        "rows": "", 
-        "options_from_previous_answer": null, 
-        "title": "Dealer", 
-        "allow_other": false, 
-        "geojson": "", 
-        "label": "Dealer", 
-        "grid_cols": [], 
-        "type": "text", 
-        "randomize_groups": false, 
-        "blocks": [], 
-        "modalQuestion": null, 
-        "integer_min": null, 
-        "pre_calculated": "", 
-        "visualize": false, 
-        "foreach_question": null, 
-        "options_json": "", 
-        "lat": null, 
-        "slug": "dealer", 
-        "info": null, 
-        "integer_max": null, 
-        "attach_to_profile": false, 
-        "required": false, 
-        "persistent": true, 
-        "options": [], 
-        "filter_questions": [], 
-        "skip_condition": null, 
-        "hoist_answers": null, 
-        "order": 2
-    }
-},
-{
-    "pk": 172, 
-    "model": "survey.question", 
-    "fields": {
-        "cols": "", 
-        "term_condition": null, 
-        "zoom": null, 
-        "filterBy": false, 
-        "min_zoom": 10, 
-        "report_type": null, 
-        "lng": null, 
-        "skip_question": null, 
-        "rows": "", 
-        "options_from_previous_answer": null, 
-        "title": "Date", 
-        "allow_other": false, 
-        "geojson": "", 
-        "label": "Date", 
-        "grid_cols": [], 
-        "type": "datepicker", 
-        "randomize_groups": false, 
-        "blocks": [], 
-        "modalQuestion": null, 
-        "integer_min": null, 
-        "pre_calculated": "", 
-        "visualize": false, 
-        "foreach_question": null, 
-        "options_json": "", 
-        "lat": null, 
-        "slug": "date", 
-        "info": null, 
-        "integer_max": null, 
-        "attach_to_profile": false, 
-        "required": false, 
-        "persistent": false, 
-        "options": [], 
-        "filter_questions": [], 
-        "skip_condition": null, 
-        "hoist_answers": null, 
+        "logbook": false, 
         "order": 1
     }
 },
@@ -975,11 +582,12 @@
         "integer_max": null, 
         "attach_to_profile": false, 
         "required": false, 
-        "persistent": true, 
+        "persistent": false, 
         "options": [], 
         "filter_questions": [], 
         "skip_condition": null, 
         "hoist_answers": null, 
+        "logbook": false, 
         "order": 1
     }
 },
@@ -1002,7 +610,7 @@
         "geojson": "", 
         "label": "Min Depth", 
         "grid_cols": [], 
-        "type": "number-with-unit", 
+        "type": "number", 
         "randomize_groups": false, 
         "blocks": [], 
         "modalQuestion": null, 
@@ -1022,6 +630,7 @@
         "filter_questions": [], 
         "skip_condition": null, 
         "hoist_answers": null, 
+        "logbook": false, 
         "order": 1
     }
 },
@@ -1039,10 +648,10 @@
         "skip_question": null, 
         "rows": "", 
         "options_from_previous_answer": null, 
-        "title": "Hours Bottom Time", 
+        "title": "Max Depth", 
         "allow_other": false, 
         "geojson": "", 
-        "label": "Hours Bottom Time", 
+        "label": "Max Depth", 
         "grid_cols": [], 
         "type": "number", 
         "randomize_groups": false, 
@@ -1054,7 +663,7 @@
         "foreach_question": null, 
         "options_json": "", 
         "lat": null, 
-        "slug": "hours-bottom-time", 
+        "slug": "max-depth", 
         "info": null, 
         "integer_max": null, 
         "attach_to_profile": false, 
@@ -1064,6 +673,7 @@
         "filter_questions": [], 
         "skip_condition": null, 
         "hoist_answers": null, 
+        "logbook": false, 
         "order": 2
     }
 },
@@ -1106,6 +716,7 @@
         "filter_questions": [], 
         "skip_condition": null, 
         "hoist_answers": null, 
+        "logbook": false, 
         "order": 1
     }
 },
@@ -1148,6 +759,7 @@
         "filter_questions": [], 
         "skip_condition": null, 
         "hoist_answers": null, 
+        "logbook": false, 
         "order": 1
     }
 },
@@ -1170,8 +782,8 @@
         "geojson": "", 
         "label": "Catch Weight", 
         "grid_cols": [
-            24, 
-            25
+            25, 
+            24
         ], 
         "type": "grid", 
         "randomize_groups": false, 
@@ -1193,6 +805,7 @@
         "filter_questions": [], 
         "skip_condition": null, 
         "hoist_answers": null, 
+        "logbook": false, 
         "order": 1
     }
 },
@@ -1237,6 +850,7 @@
         "filter_questions": [], 
         "skip_condition": null, 
         "hoist_answers": null, 
+        "logbook": false, 
         "order": 1
     }
 },
@@ -1279,7 +893,1177 @@
         "filter_questions": [], 
         "skip_condition": null, 
         "hoist_answers": null, 
+        "logbook": false, 
         "order": 1
+    }
+},
+{
+    "pk": 183, 
+    "model": "survey.question", 
+    "fields": {
+        "cols": "", 
+        "term_condition": null, 
+        "zoom": null, 
+        "filterBy": false, 
+        "min_zoom": 10, 
+        "report_type": null, 
+        "lng": null, 
+        "skip_question": null, 
+        "rows": "", 
+        "options_from_previous_answer": null, 
+        "title": "Vessel Name", 
+        "allow_other": false, 
+        "geojson": "", 
+        "label": "Vessel Name", 
+        "grid_cols": [], 
+        "type": "text", 
+        "randomize_groups": false, 
+        "blocks": [], 
+        "modalQuestion": null, 
+        "integer_min": null, 
+        "pre_calculated": "", 
+        "visualize": false, 
+        "foreach_question": null, 
+        "options_json": "", 
+        "lat": null, 
+        "slug": "vessel-name", 
+        "info": null, 
+        "integer_max": null, 
+        "attach_to_profile": false, 
+        "required": false, 
+        "persistent": false, 
+        "options": [], 
+        "filter_questions": [], 
+        "skip_condition": null, 
+        "hoist_answers": null, 
+        "logbook": true, 
+        "order": 1
+    }
+},
+{
+    "pk": 184, 
+    "model": "survey.question", 
+    "fields": {
+        "cols": "", 
+        "term_condition": null, 
+        "zoom": null, 
+        "filterBy": false, 
+        "min_zoom": 10, 
+        "report_type": null, 
+        "lng": null, 
+        "skip_question": null, 
+        "rows": "", 
+        "options_from_previous_answer": null, 
+        "title": "Vessel Number", 
+        "allow_other": false, 
+        "geojson": "", 
+        "label": "Vessel Number", 
+        "grid_cols": [], 
+        "type": "text", 
+        "randomize_groups": false, 
+        "blocks": [], 
+        "modalQuestion": null, 
+        "integer_min": null, 
+        "pre_calculated": "", 
+        "visualize": false, 
+        "foreach_question": null, 
+        "options_json": "", 
+        "lat": null, 
+        "slug": "vessel-number", 
+        "info": null, 
+        "integer_max": null, 
+        "attach_to_profile": false, 
+        "required": false, 
+        "persistent": false, 
+        "options": [], 
+        "filter_questions": [], 
+        "skip_condition": null, 
+        "hoist_answers": null, 
+        "logbook": true, 
+        "order": 2
+    }
+},
+{
+    "pk": 185, 
+    "model": "survey.question", 
+    "fields": {
+        "cols": "", 
+        "term_condition": null, 
+        "zoom": null, 
+        "filterBy": false, 
+        "min_zoom": 10, 
+        "report_type": null, 
+        "lng": null, 
+        "skip_question": null, 
+        "rows": "", 
+        "options_from_previous_answer": null, 
+        "title": "Permit Number", 
+        "allow_other": false, 
+        "geojson": "", 
+        "label": "Permit Number", 
+        "grid_cols": [], 
+        "type": "text", 
+        "randomize_groups": false, 
+        "blocks": [], 
+        "modalQuestion": null, 
+        "integer_min": null, 
+        "pre_calculated": "", 
+        "visualize": false, 
+        "foreach_question": null, 
+        "options_json": "", 
+        "lat": null, 
+        "slug": "permit-number", 
+        "info": null, 
+        "integer_max": null, 
+        "attach_to_profile": false, 
+        "required": false, 
+        "persistent": false, 
+        "options": [], 
+        "filter_questions": [], 
+        "skip_condition": null, 
+        "hoist_answers": null, 
+        "logbook": true, 
+        "order": 4
+    }
+},
+{
+    "pk": 186, 
+    "model": "survey.question", 
+    "fields": {
+        "cols": "", 
+        "term_condition": null, 
+        "zoom": null, 
+        "filterBy": false, 
+        "min_zoom": 10, 
+        "report_type": null, 
+        "lng": null, 
+        "skip_question": null, 
+        "rows": "", 
+        "options_from_previous_answer": null, 
+        "title": "Date", 
+        "allow_other": false, 
+        "geojson": "", 
+        "label": "Date", 
+        "grid_cols": [], 
+        "type": "datepicker", 
+        "randomize_groups": false, 
+        "blocks": [], 
+        "modalQuestion": null, 
+        "integer_min": null, 
+        "pre_calculated": "", 
+        "visualize": false, 
+        "foreach_question": null, 
+        "options_json": "", 
+        "lat": null, 
+        "slug": "date", 
+        "info": null, 
+        "integer_max": null, 
+        "attach_to_profile": false, 
+        "required": false, 
+        "persistent": false, 
+        "options": [], 
+        "filter_questions": [], 
+        "skip_condition": null, 
+        "hoist_answers": null, 
+        "logbook": true, 
+        "order": 1
+    }
+},
+{
+    "pk": 188, 
+    "model": "survey.question", 
+    "fields": {
+        "cols": "", 
+        "term_condition": null, 
+        "zoom": null, 
+        "filterBy": false, 
+        "min_zoom": 10, 
+        "report_type": null, 
+        "lng": null, 
+        "skip_question": null, 
+        "rows": "", 
+        "options_from_previous_answer": null, 
+        "title": "License Number", 
+        "allow_other": false, 
+        "geojson": "", 
+        "label": "License Number", 
+        "grid_cols": [], 
+        "type": "text", 
+        "randomize_groups": false, 
+        "blocks": [], 
+        "modalQuestion": null, 
+        "integer_min": null, 
+        "pre_calculated": "", 
+        "visualize": false, 
+        "foreach_question": null, 
+        "options_json": "", 
+        "lat": null, 
+        "slug": "license", 
+        "info": null, 
+        "integer_max": null, 
+        "attach_to_profile": true, 
+        "required": false, 
+        "persistent": false, 
+        "options": [], 
+        "filter_questions": [], 
+        "skip_condition": null, 
+        "hoist_answers": null, 
+        "logbook": false, 
+        "order": 3
+    }
+},
+{
+    "pk": 189, 
+    "model": "survey.question", 
+    "fields": {
+        "cols": "", 
+        "term_condition": null, 
+        "zoom": null, 
+        "filterBy": false, 
+        "min_zoom": 10, 
+        "report_type": null, 
+        "lng": null, 
+        "skip_question": null, 
+        "rows": "Fort Bragg\nMarina Del Ray\nMission Bay\nOceanside\nVentura", 
+        "options_from_previous_answer": null, 
+        "title": "Landing Port", 
+        "allow_other": true, 
+        "geojson": "", 
+        "label": "Landing Port", 
+        "grid_cols": [], 
+        "type": "single-select", 
+        "randomize_groups": false, 
+        "blocks": [], 
+        "modalQuestion": null, 
+        "integer_min": null, 
+        "pre_calculated": "", 
+        "visualize": false, 
+        "foreach_question": null, 
+        "options_json": "", 
+        "lat": null, 
+        "slug": "landing-port", 
+        "info": null, 
+        "integer_max": null, 
+        "attach_to_profile": false, 
+        "required": false, 
+        "persistent": true, 
+        "options": [], 
+        "filter_questions": [], 
+        "skip_condition": null, 
+        "hoist_answers": null, 
+        "logbook": true, 
+        "order": 1
+    }
+},
+{
+    "pk": 190, 
+    "model": "survey.question", 
+    "fields": {
+        "cols": "", 
+        "term_condition": null, 
+        "zoom": null, 
+        "filterBy": false, 
+        "min_zoom": 10, 
+        "report_type": null, 
+        "lng": null, 
+        "skip_question": null, 
+        "rows": "", 
+        "options_from_previous_answer": null, 
+        "title": "Dealer", 
+        "allow_other": false, 
+        "geojson": "", 
+        "label": "Dealer", 
+        "grid_cols": [], 
+        "type": "text", 
+        "randomize_groups": false, 
+        "blocks": [], 
+        "modalQuestion": null, 
+        "integer_min": null, 
+        "pre_calculated": "", 
+        "visualize": false, 
+        "foreach_question": null, 
+        "options_json": "", 
+        "lat": null, 
+        "slug": "dealer", 
+        "info": null, 
+        "integer_max": null, 
+        "attach_to_profile": false, 
+        "required": false, 
+        "persistent": true, 
+        "options": [], 
+        "filter_questions": [], 
+        "skip_condition": null, 
+        "hoist_answers": null, 
+        "logbook": true, 
+        "order": 1
+    }
+},
+{
+    "pk": 191, 
+    "model": "survey.question", 
+    "fields": {
+        "cols": "", 
+        "term_condition": null, 
+        "zoom": null, 
+        "filterBy": false, 
+        "min_zoom": 10, 
+        "report_type": null, 
+        "lng": null, 
+        "skip_question": null, 
+        "rows": "", 
+        "options_from_previous_answer": null, 
+        "title": "Block Number", 
+        "allow_other": false, 
+        "geojson": "", 
+        "label": "Block Number", 
+        "grid_cols": [], 
+        "type": "text", 
+        "randomize_groups": false, 
+        "blocks": [], 
+        "modalQuestion": null, 
+        "integer_min": null, 
+        "pre_calculated": "", 
+        "visualize": false, 
+        "foreach_question": null, 
+        "options_json": "", 
+        "lat": null, 
+        "slug": "block-number", 
+        "info": null, 
+        "integer_max": null, 
+        "attach_to_profile": false, 
+        "required": false, 
+        "persistent": false, 
+        "options": [], 
+        "filter_questions": [], 
+        "skip_condition": null, 
+        "hoist_answers": null, 
+        "logbook": false, 
+        "order": 1
+    }
+},
+{
+    "pk": 192, 
+    "model": "survey.question", 
+    "fields": {
+        "cols": "", 
+        "term_condition": null, 
+        "zoom": null, 
+        "filterBy": false, 
+        "min_zoom": 10, 
+        "report_type": null, 
+        "lng": null, 
+        "skip_question": null, 
+        "rows": "", 
+        "options_from_previous_answer": null, 
+        "title": "Landmark", 
+        "allow_other": false, 
+        "geojson": "", 
+        "label": "Landmark", 
+        "grid_cols": [], 
+        "type": "text", 
+        "randomize_groups": false, 
+        "blocks": [], 
+        "modalQuestion": null, 
+        "integer_min": null, 
+        "pre_calculated": "", 
+        "visualize": false, 
+        "foreach_question": null, 
+        "options_json": "", 
+        "lat": null, 
+        "slug": "landmark", 
+        "info": null, 
+        "integer_max": null, 
+        "attach_to_profile": false, 
+        "required": false, 
+        "persistent": false, 
+        "options": [], 
+        "filter_questions": [], 
+        "skip_condition": null, 
+        "hoist_answers": null, 
+        "logbook": false, 
+        "order": 2
+    }
+},
+{
+    "pk": 3, 
+    "model": "survey.multianswer", 
+    "fields": {
+        "answer_label": "red-sea-urchin", 
+        "answer_text": "Red Sea Urchin", 
+        "response": 13
+    }
+},
+{
+    "pk": 4, 
+    "model": "survey.multianswer", 
+    "fields": {
+        "answer_label": "purple-sea-urchin", 
+        "answer_text": "Purple Sea Urchin", 
+        "response": 13
+    }
+},
+{
+    "pk": 6, 
+    "model": "survey.multianswer", 
+    "fields": {
+        "answer_label": "wavy-turbon-snails", 
+        "answer_text": "Wavy Turbon Snails", 
+        "response": 14
+    }
+},
+{
+    "pk": 9, 
+    "model": "survey.multianswer", 
+    "fields": {
+        "answer_label": "red-sea-urchin", 
+        "answer_text": "Red Sea Urchin", 
+        "response": 32
+    }
+},
+{
+    "pk": 10, 
+    "model": "survey.multianswer", 
+    "fields": {
+        "answer_label": "worty-sea-cucumber", 
+        "answer_text": "Worty Sea Cucumber", 
+        "response": 32
+    }
+},
+{
+    "pk": 12, 
+    "model": "survey.multianswer", 
+    "fields": {
+        "answer_label": "wavy-turbon-snails", 
+        "answer_text": "Wavy Turbon Snails", 
+        "response": 33
+    }
+},
+{
+    "pk": 2, 
+    "model": "survey.gridanswer", 
+    "fields": {
+        "col_label": "grade", 
+        "answer_number": "0.00", 
+        "col_text": "Grade", 
+        "answer_text": "0", 
+        "row_label": "red-sea-urchin", 
+        "response": 15, 
+        "row_text": "Red Sea Urchin"
+    }
+},
+{
+    "pk": 5, 
+    "model": "survey.gridanswer", 
+    "fields": {
+        "col_label": "lbs", 
+        "answer_number": "65.00", 
+        "col_text": "LBS", 
+        "answer_text": "65", 
+        "row_label": "red-sea-urchin", 
+        "response": 34, 
+        "row_text": "Red Sea Urchin"
+    }
+},
+{
+    "pk": 6, 
+    "model": "survey.gridanswer", 
+    "fields": {
+        "col_label": "lbs", 
+        "answer_number": "25.00", 
+        "col_text": "LBS", 
+        "answer_text": "25", 
+        "row_label": "worty-sea-cucumber", 
+        "response": 34, 
+        "row_text": "Worty Sea Cucumber"
+    }
+},
+{
+    "pk": 8, 
+    "model": "survey.gridanswer", 
+    "fields": {
+        "col_label": "lbs", 
+        "answer_number": "22.00", 
+        "col_text": "LBS", 
+        "answer_text": "22", 
+        "row_label": "wavy-turbon-snails", 
+        "response": 35, 
+        "row_text": "Wavy Turbon Snails"
+    }
+},
+{
+    "pk": 8, 
+    "model": "survey.response", 
+    "fields": {
+        "respondant": "offline_1391544584054", 
+        "question": 162, 
+        "ts": "2014-02-04T13:19:03.259", 
+        "user": 1, 
+        "answer": "[]", 
+        "unit": null, 
+        "answer_raw": "[]"
+    }
+},
+{
+    "pk": 9, 
+    "model": "survey.response", 
+    "fields": {
+        "respondant": "offline_1391544584054", 
+        "question": 173, 
+        "ts": "2014-02-04T13:19:03.271", 
+        "user": 1, 
+        "answer": "NA", 
+        "unit": null, 
+        "answer_raw": "\"NA\""
+    }
+},
+{
+    "pk": 10, 
+    "model": "survey.response", 
+    "fields": {
+        "respondant": "offline_1391544584054", 
+        "question": 174, 
+        "ts": "2014-02-04T13:19:03.292", 
+        "user": 1, 
+        "answer": "{}", 
+        "unit": "Unknown", 
+        "answer_raw": "{}"
+    }
+},
+{
+    "pk": 11, 
+    "model": "survey.response", 
+    "fields": {
+        "respondant": "offline_1391544584054", 
+        "question": 176, 
+        "ts": "2014-02-04T13:19:03.303", 
+        "user": 1, 
+        "answer": "NA", 
+        "unit": null, 
+        "answer_raw": "\"NA\""
+    }
+},
+{
+    "pk": 12, 
+    "model": "survey.response", 
+    "fields": {
+        "respondant": "offline_1391544584054", 
+        "question": 164, 
+        "ts": "2014-02-04T13:19:03.312", 
+        "user": 1, 
+        "answer": "NA", 
+        "unit": null, 
+        "answer_raw": "\"NA\""
+    }
+},
+{
+    "pk": 13, 
+    "model": "survey.response", 
+    "fields": {
+        "respondant": "offline_1391544584054", 
+        "question": 177, 
+        "ts": "2014-02-04T13:19:03.322", 
+        "user": 1, 
+        "answer": "Red Sea Urchin, Purple Sea Urchin", 
+        "unit": null, 
+        "answer_raw": "[{\"text\":\"Red Sea Urchin\",\"label\":\"red-sea-urchin\",\"checked\":true,\"isGroupName\":false,\"activitySlug\":\"redseaurchin\",\"activityText\":\"Red Sea Urchin\",\"grade\":0},{\"text\":\"Purple Sea Urchin\",\"label\":\"purple-sea-urchin\",\"checked\":true,\"isGroupName\":false,\"activitySlug\":\"purpleseaurchin\",\"activityText\":\"Purple Sea Urchin\"}]"
+    }
+},
+{
+    "pk": 14, 
+    "model": "survey.response", 
+    "fields": {
+        "respondant": "offline_1391544584054", 
+        "question": 178, 
+        "ts": "2014-02-04T13:19:03.341", 
+        "user": 1, 
+        "answer": "Wavy Turbon Snails", 
+        "unit": null, 
+        "answer_raw": "[{\"text\":\"Wavy Turbon Snails\",\"label\":\"wavy-turbon-snails\",\"checked\":true,\"isGroupName\":false,\"activitySlug\":\"wavyturbonsnails\",\"activityText\":\"Wavy Turbon Snails\"}]"
+    }
+},
+{
+    "pk": 15, 
+    "model": "survey.response", 
+    "fields": {
+        "respondant": "offline_1391544584054", 
+        "question": 179, 
+        "ts": "2014-02-04T13:19:03.355", 
+        "user": 1, 
+        "answer": "[{u'checked': True, u'grade': 0, u'text': u'Red Sea Urchin', u'isGroupName': False, u'label': u'red-sea-urchin', u'activitySlug': u'redseaurchin', u'activityText': u'Red Sea Urchin'}, {u'checked': True, u'text': u'Purple Sea Urchin', u'isGroupName': False, u'label': u'purple-sea-urchin', u'activitySlug': u'purpleseaurchin', u'activityText': u'Purple Sea Urchin'}]", 
+        "unit": null, 
+        "answer_raw": "[{\"text\":\"Red Sea Urchin\",\"label\":\"red-sea-urchin\",\"checked\":true,\"isGroupName\":false,\"activitySlug\":\"redseaurchin\",\"activityText\":\"Red Sea Urchin\",\"grade\":0},{\"text\":\"Purple Sea Urchin\",\"label\":\"purple-sea-urchin\",\"checked\":true,\"isGroupName\":false,\"activitySlug\":\"purpleseaurchin\",\"activityText\":\"Purple Sea Urchin\"}]"
+    }
+},
+{
+    "pk": 16, 
+    "model": "survey.response", 
+    "fields": {
+        "respondant": "offline_1391544584054", 
+        "question": 180, 
+        "ts": "2014-02-04T13:19:03.391", 
+        "user": 1, 
+        "answer": "[{u'checked': True, u'text': u'Wavy Turbon Snails', u'isGroupName': False, u'label': u'wavy-turbon-snails', u'activitySlug': u'wavyturbonsnails', u'activityText': u'Wavy Turbon Snails'}]", 
+        "unit": null, 
+        "answer_raw": "[{\"text\":\"Wavy Turbon Snails\",\"label\":\"wavy-turbon-snails\",\"checked\":true,\"isGroupName\":false,\"activitySlug\":\"wavyturbonsnails\",\"activityText\":\"Wavy Turbon Snails\"}]"
+    }
+},
+{
+    "pk": 17, 
+    "model": "survey.response", 
+    "fields": {
+        "respondant": "offline_1391544584054", 
+        "question": 181, 
+        "ts": "2014-02-04T13:19:03.411", 
+        "user": 1, 
+        "answer": "NA", 
+        "unit": null, 
+        "answer_raw": "\"NA\""
+    }
+},
+{
+    "pk": 18, 
+    "model": "survey.response", 
+    "fields": {
+        "respondant": "offline_1392163864169", 
+        "question": 183, 
+        "ts": "2014-02-11T14:05:59.071", 
+        "user": 1, 
+        "answer": "Salty Sea Maiden", 
+        "unit": null, 
+        "answer_raw": "\"Salty Sea Maiden\""
+    }
+},
+{
+    "pk": 19, 
+    "model": "survey.response", 
+    "fields": {
+        "respondant": "offline_1392163864169", 
+        "question": 184, 
+        "ts": "2014-02-11T14:05:59.092", 
+        "user": 1, 
+        "answer": "CF 4567", 
+        "unit": null, 
+        "answer_raw": "\"CF 4567\""
+    }
+},
+{
+    "pk": 20, 
+    "model": "survey.response", 
+    "fields": {
+        "respondant": "offline_1392163864169", 
+        "question": 188, 
+        "ts": "2014-02-11T14:05:59.111", 
+        "user": 1, 
+        "answer": "CA-098765", 
+        "unit": null, 
+        "answer_raw": "\"CA-098765\""
+    }
+},
+{
+    "pk": 21, 
+    "model": "survey.response", 
+    "fields": {
+        "respondant": "offline_1392163864169", 
+        "question": 185, 
+        "ts": "2014-02-11T14:05:59.131", 
+        "user": 1, 
+        "answer": "12345", 
+        "unit": null, 
+        "answer_raw": "\"12345\""
+    }
+},
+{
+    "pk": 22, 
+    "model": "survey.response", 
+    "fields": {
+        "respondant": "offline_1392163864169", 
+        "question": 186, 
+        "ts": "2014-02-11T14:05:59.151", 
+        "user": 1, 
+        "answer": "2014-02-11", 
+        "unit": null, 
+        "answer_raw": "\"2014-02-11\""
+    }
+},
+{
+    "pk": 23, 
+    "model": "survey.response", 
+    "fields": {
+        "respondant": "offline_1392155312386", 
+        "question": 189, 
+        "ts": "2014-02-11T14:05:59.160", 
+        "user": 1, 
+        "answer": "NO_ANSWER", 
+        "unit": null, 
+        "answer_raw": "{\"text\":\"NO_ANSWER\"}"
+    }
+},
+{
+    "pk": 24, 
+    "model": "survey.response", 
+    "fields": {
+        "respondant": "offline_1392155312386", 
+        "question": 190, 
+        "ts": "2014-02-11T14:05:59.169", 
+        "user": 1, 
+        "answer": "NA", 
+        "unit": null, 
+        "answer_raw": "\"NA\""
+    }
+},
+{
+    "pk": 25, 
+    "model": "survey.response", 
+    "fields": {
+        "respondant": "offline_1392155312386", 
+        "question": 162, 
+        "ts": "2014-02-11T14:05:59.179", 
+        "user": 1, 
+        "answer": "{u'lat': 34.21634468843465, u'lng': -119.94873046875}", 
+        "unit": null, 
+        "answer_raw": "{\"lat\":34.21634468843465,\"lng\":-119.94873046875}"
+    }
+},
+{
+    "pk": 26, 
+    "model": "survey.response", 
+    "fields": {
+        "respondant": "offline_1392155312386", 
+        "question": 191, 
+        "ts": "2014-02-11T14:05:59.188", 
+        "user": 1, 
+        "answer": "NA", 
+        "unit": null, 
+        "answer_raw": "\"NA\""
+    }
+},
+{
+    "pk": 27, 
+    "model": "survey.response", 
+    "fields": {
+        "respondant": "offline_1392163864169", 
+        "question": 192, 
+        "ts": "2014-02-11T14:05:59.197", 
+        "user": 1, 
+        "answer": "Gulf Rock", 
+        "unit": null, 
+        "answer_raw": "\"Gulf Rock\""
+    }
+},
+{
+    "pk": 28, 
+    "model": "survey.response", 
+    "fields": {
+        "respondant": "offline_1392163864169", 
+        "question": 173, 
+        "ts": "2014-02-11T14:05:59.205", 
+        "user": 1, 
+        "answer": "Santa Cruz North", 
+        "unit": null, 
+        "answer_raw": "\"Santa Cruz North\""
+    }
+},
+{
+    "pk": 29, 
+    "model": "survey.response", 
+    "fields": {
+        "respondant": "offline_1392163864169", 
+        "question": 174, 
+        "ts": "2014-02-11T14:05:59.216", 
+        "user": 1, 
+        "answer": "20", 
+        "unit": null, 
+        "answer_raw": "20"
+    }
+},
+{
+    "pk": 30, 
+    "model": "survey.response", 
+    "fields": {
+        "respondant": "offline_1392163864169", 
+        "question": 176, 
+        "ts": "2014-02-11T14:05:59.224", 
+        "user": 1, 
+        "answer": "60", 
+        "unit": null, 
+        "answer_raw": "60"
+    }
+},
+{
+    "pk": 31, 
+    "model": "survey.response", 
+    "fields": {
+        "respondant": "offline_1392155312386", 
+        "question": 164, 
+        "ts": "2014-02-11T14:05:59.233", 
+        "user": 1, 
+        "answer": "NA", 
+        "unit": null, 
+        "answer_raw": "\"NA\""
+    }
+},
+{
+    "pk": 32, 
+    "model": "survey.response", 
+    "fields": {
+        "respondant": "offline_1392155312386", 
+        "question": 177, 
+        "ts": "2014-02-11T14:05:59.243", 
+        "user": 1, 
+        "answer": "Red Sea Urchin, Worty Sea Cucumber", 
+        "unit": null, 
+        "answer_raw": "[{\"text\":\"Red Sea Urchin\",\"label\":\"red-sea-urchin\",\"checked\":true,\"isGroupName\":false,\"activitySlug\":\"redseaurchin\",\"activityText\":\"Red Sea Urchin\",\"lbs\":65,\"grade\":\"A\\r\"},{\"text\":\"Worty Sea Cucumber\",\"label\":\"worty-sea-cucumber\",\"checked\":true,\"isGroupName\":false,\"activitySlug\":\"wortyseacucumber\",\"activityText\":\"Worty Sea Cucumber\",\"lbs\":25}]"
+    }
+},
+{
+    "pk": 33, 
+    "model": "survey.response", 
+    "fields": {
+        "respondant": "offline_1392155312386", 
+        "question": 178, 
+        "ts": "2014-02-11T14:05:59.259", 
+        "user": 1, 
+        "answer": "Wavy Turbon Snails", 
+        "unit": null, 
+        "answer_raw": "[{\"text\":\"Wavy Turbon Snails\",\"label\":\"wavy-turbon-snails\",\"checked\":true,\"isGroupName\":false,\"activitySlug\":\"wavyturbonsnails\",\"activityText\":\"Wavy Turbon Snails\",\"lbs\":22}]"
+    }
+},
+{
+    "pk": 34, 
+    "model": "survey.response", 
+    "fields": {
+        "respondant": "offline_1392163864169", 
+        "question": 179, 
+        "ts": "2014-02-11T14:05:59.276", 
+        "user": 1, 
+        "answer": "[{u'lbs': 65, u'checked': True, u'grade': u'A\\r', u'text': u'Red Sea Urchin', u'isGroupName': False, u'label': u'red-sea-urchin', u'activitySlug': u'redseaurchin', u'activityText': u'Red Sea Urchin'}, {u'lbs': 25, u'checked': True, u'text': u'Worty Sea Cucumber', u'isGroupName': False, u'label': u'worty-sea-cucumber', u'activitySlug': u'wortyseacucumber', u'activityText': u'Worty Sea Cucumber'}]", 
+        "unit": null, 
+        "answer_raw": "[{\"text\":\"Red Sea Urchin\",\"label\":\"red-sea-urchin\",\"checked\":true,\"isGroupName\":false,\"activitySlug\":\"redseaurchin\",\"activityText\":\"Red Sea Urchin\",\"lbs\":65,\"grade\":\"A\\r\"},{\"text\":\"Worty Sea Cucumber\",\"label\":\"worty-sea-cucumber\",\"checked\":true,\"isGroupName\":false,\"activitySlug\":\"wortyseacucumber\",\"activityText\":\"Worty Sea Cucumber\",\"lbs\":25}]"
+    }
+},
+{
+    "pk": 35, 
+    "model": "survey.response", 
+    "fields": {
+        "respondant": "offline_1392163864169", 
+        "question": 180, 
+        "ts": "2014-02-11T14:05:59.327", 
+        "user": 1, 
+        "answer": "[{u'lbs': 22, u'checked': True, u'text': u'Wavy Turbon Snails', u'isGroupName': False, u'label': u'wavy-turbon-snails', u'activitySlug': u'wavyturbonsnails', u'activityText': u'Wavy Turbon Snails'}]", 
+        "unit": null, 
+        "answer_raw": "[{\"text\":\"Wavy Turbon Snails\",\"label\":\"wavy-turbon-snails\",\"checked\":true,\"isGroupName\":false,\"activitySlug\":\"wavyturbonsnails\",\"activityText\":\"Wavy Turbon Snails\",\"lbs\":22}]"
+    }
+},
+{
+    "pk": 36, 
+    "model": "survey.response", 
+    "fields": {
+        "respondant": "offline_1392155312386", 
+        "question": 181, 
+        "ts": "2014-02-11T14:05:59.358", 
+        "user": 1, 
+        "answer": "NA", 
+        "unit": null, 
+        "answer_raw": "\"NA\""
+    }
+},
+{
+    "pk": 37, 
+    "model": "survey.response", 
+    "fields": {
+        "respondant": "offline_1392157488491", 
+        "question": 189, 
+        "ts": "2014-02-11T15:09:40.114", 
+        "user": 1, 
+        "answer": "NO_ANSWER", 
+        "unit": null, 
+        "answer_raw": "{\"text\":\"NO_ANSWER\"}"
+    }
+},
+{
+    "pk": 38, 
+    "model": "survey.response", 
+    "fields": {
+        "respondant": "offline_1392157488491", 
+        "question": 190, 
+        "ts": "2014-02-11T15:09:40.124", 
+        "user": 1, 
+        "answer": "NA", 
+        "unit": null, 
+        "answer_raw": "\"NA\""
+    }
+},
+{
+    "pk": 39, 
+    "model": "survey.response", 
+    "fields": {
+        "respondant": "offline_1392157488491", 
+        "question": 162, 
+        "ts": "2014-02-11T15:09:40.135", 
+        "user": 1, 
+        "answer": "{u'lat': 34.116352469972746, u'lng': -119.794921875}", 
+        "unit": null, 
+        "answer_raw": "{\"lat\":34.116352469972746,\"lng\":-119.794921875}"
+    }
+},
+{
+    "pk": 40, 
+    "model": "survey.response", 
+    "fields": {
+        "respondant": "offline_1392157488491", 
+        "question": 191, 
+        "ts": "2014-02-11T15:09:40.144", 
+        "user": 1, 
+        "answer": "NA", 
+        "unit": null, 
+        "answer_raw": "\"NA\""
+    }
+},
+{
+    "pk": 41, 
+    "model": "survey.response", 
+    "fields": {
+        "respondant": "offline_1392157488491", 
+        "question": 164, 
+        "ts": "2014-02-11T15:09:40.156", 
+        "user": 1, 
+        "answer": "NA", 
+        "unit": null, 
+        "answer_raw": "\"NA\""
+    }
+},
+{
+    "pk": 42, 
+    "model": "survey.response", 
+    "fields": {
+        "respondant": "offline_1392157488491", 
+        "question": 181, 
+        "ts": "2014-02-11T15:09:40.166", 
+        "user": 1, 
+        "answer": "NA", 
+        "unit": null, 
+        "answer_raw": "\"NA\""
+    }
+},
+{
+    "pk": 43, 
+    "model": "survey.response", 
+    "fields": {
+        "respondant": "offline_1392162201170", 
+        "question": 189, 
+        "ts": "2014-02-11T15:31:15.825", 
+        "user": 1, 
+        "answer": "NO_ANSWER", 
+        "unit": null, 
+        "answer_raw": "{\"text\":\"NO_ANSWER\"}"
+    }
+},
+{
+    "pk": 44, 
+    "model": "survey.response", 
+    "fields": {
+        "respondant": "offline_1392162201170", 
+        "question": 190, 
+        "ts": "2014-02-11T15:31:15.847", 
+        "user": 1, 
+        "answer": "NA", 
+        "unit": null, 
+        "answer_raw": "\"NA\""
+    }
+},
+{
+    "pk": 45, 
+    "model": "survey.response", 
+    "fields": {
+        "respondant": "offline_1392162201170", 
+        "question": 162, 
+        "ts": "2014-02-11T15:31:15.868", 
+        "user": 1, 
+        "answer": "{u'lat': 34.17999758688084, u'lng': -119.95971679687499}", 
+        "unit": null, 
+        "answer_raw": "{\"lat\":34.17999758688084,\"lng\":-119.95971679687499}"
+    }
+},
+{
+    "pk": 46, 
+    "model": "survey.response", 
+    "fields": {
+        "respondant": "offline_1392162201170", 
+        "question": 191, 
+        "ts": "2014-02-11T15:31:15.878", 
+        "user": 1, 
+        "answer": "NA", 
+        "unit": null, 
+        "answer_raw": "\"NA\""
+    }
+},
+{
+    "pk": 47, 
+    "model": "survey.response", 
+    "fields": {
+        "respondant": "offline_1392162201170", 
+        "question": 164, 
+        "ts": "2014-02-11T15:31:15.889", 
+        "user": 1, 
+        "answer": "NA", 
+        "unit": null, 
+        "answer_raw": "\"NA\""
+    }
+},
+{
+    "pk": 48, 
+    "model": "survey.response", 
+    "fields": {
+        "respondant": "offline_1392162201170", 
+        "question": 181, 
+        "ts": "2014-02-11T15:31:15.899", 
+        "user": 1, 
+        "answer": "NA", 
+        "unit": null, 
+        "answer_raw": "\"NA\""
+    }
+},
+{
+    "pk": 49, 
+    "model": "survey.response", 
+    "fields": {
+        "respondant": "offline_1392163292163", 
+        "question": 189, 
+        "ts": "2014-02-11T15:45:31.486", 
+        "user": 1, 
+        "answer": "NO_ANSWER", 
+        "unit": null, 
+        "answer_raw": "{\"text\":\"NO_ANSWER\"}"
+    }
+},
+{
+    "pk": 50, 
+    "model": "survey.response", 
+    "fields": {
+        "respondant": "offline_1392163864169", 
+        "question": 190, 
+        "ts": "2014-02-11T15:45:31.507", 
+        "user": 1, 
+        "answer": "My Dealer", 
+        "unit": null, 
+        "answer_raw": "\"My Dealer\""
+    }
+},
+{
+    "pk": 51, 
+    "model": "survey.response", 
+    "fields": {
+        "respondant": "offline_1392163292163", 
+        "question": 162, 
+        "ts": "2014-02-11T15:45:31.526", 
+        "user": 1, 
+        "answer": "{u'lat': 34.13454168193739, u'lng': -120.06958007812499}", 
+        "unit": null, 
+        "answer_raw": "{\"lat\":34.13454168193739,\"lng\":-120.06958007812499}"
+    }
+},
+{
+    "pk": 52, 
+    "model": "survey.response", 
+    "fields": {
+        "respondant": "offline_1392163292163", 
+        "question": 191, 
+        "ts": "2014-02-11T15:45:31.535", 
+        "user": 1, 
+        "answer": "NA", 
+        "unit": null, 
+        "answer_raw": "\"NA\""
+    }
+},
+{
+    "pk": 53, 
+    "model": "survey.response", 
+    "fields": {
+        "respondant": "offline_1392163292163", 
+        "question": 164, 
+        "ts": "2014-02-11T15:45:31.545", 
+        "user": 1, 
+        "answer": "NA", 
+        "unit": null, 
+        "answer_raw": "\"NA\""
+    }
+},
+{
+    "pk": 54, 
+    "model": "survey.response", 
+    "fields": {
+        "respondant": "offline_1392163292163", 
+        "question": 181, 
+        "ts": "2014-02-11T15:45:31.556", 
+        "user": 1, 
+        "answer": "NA", 
+        "unit": null, 
+        "answer_raw": "\"NA\""
+    }
+},
+{
+    "pk": 55, 
+    "model": "survey.response", 
+    "fields": {
+        "respondant": "offline_1392163864169", 
+        "question": 189, 
+        "ts": "2014-02-11T16:07:30.788", 
+        "user": 1, 
+        "answer": "Fort Bragg", 
+        "unit": null, 
+        "answer_raw": "{\"text\":\"Fort Bragg\",\"label\":\"fort-bragg\",\"checked\":true,\"isGroupName\":false}"
+    }
+},
+{
+    "pk": 56, 
+    "model": "survey.response", 
+    "fields": {
+        "respondant": "offline_1392163864169", 
+        "question": 162, 
+        "ts": "2014-02-11T16:07:30.808", 
+        "user": 1, 
+        "answer": "{u'lat': 34.13454168193739, u'lng': -119.7509765625}", 
+        "unit": null, 
+        "answer_raw": "{\"lat\":34.13454168193739,\"lng\":-119.7509765625}"
+    }
+},
+{
+    "pk": 57, 
+    "model": "survey.response", 
+    "fields": {
+        "respondant": "offline_1392163864169", 
+        "question": 191, 
+        "ts": "2014-02-11T16:07:30.820", 
+        "user": 1, 
+        "answer": "NA", 
+        "unit": null, 
+        "answer_raw": "\"NA\""
+    }
+},
+{
+    "pk": 58, 
+    "model": "survey.response", 
+    "fields": {
+        "respondant": "offline_1392163864169", 
+        "question": 164, 
+        "ts": "2014-02-11T16:07:30.832", 
+        "user": 1, 
+        "answer": "NA", 
+        "unit": null, 
+        "answer_raw": "\"NA\""
+    }
+},
+{
+    "pk": 59, 
+    "model": "survey.response", 
+    "fields": {
+        "respondant": "offline_1392163864169", 
+        "question": 181, 
+        "ts": "2014-02-11T16:07:30.844", 
+        "user": 1, 
+        "answer": "NA", 
+        "unit": null, 
+        "answer_raw": "\"NA\""
     }
 }
 ]

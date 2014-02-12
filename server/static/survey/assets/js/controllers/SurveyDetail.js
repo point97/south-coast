@@ -113,11 +113,12 @@ angular.module('askApp')
             question: answer.question.slug
         });
         if (answer.question.attach_to_profile || answer.question.persistent) {
-            if ( !app.user.registration ) {
-                app.user.registration = {};
-            }
-            app.user.registration[answer.question.slug] = answer.answer;
+            survey.addAnswerToProfile(answer.question.slug, answer.answer);
         }
+        // new for SOUTH COAST
+        // if (answer.question.logbook) {
+        //     survey.addLogbookAnswerToCurrentTrip($scope.survey.slug, answer);            
+        // }
 
         app.respondents[$routeParams.uuidSlug].resumePath = app.user.resumePath = window.location.hash;
         $scope.answers[answer.question.slug] = answer;
@@ -188,9 +189,16 @@ angular.module('askApp')
                     $scope.answers[answer.slug] = answer.answer;
 
                     // update user profile
-                    if (question.attach_to_profile || question.persistent) {
-                        app.user.registration[answer.question.slug] = answer.answer;
+                    // if (question.attach_to_profile || question.persistent) {
+                    //     app.user.registration[answer.question.slug] = answer.answer;
+                    // }
+                    if (answer.question.attach_to_profile || answer.question.persistent) {
+                        survey.addAnswerToProfile(answer.question.slug, answer.answer);
                     }
+                    // new for SOUTH COAST
+                    // if (answer.question.logbook) {
+                    //     survey.addLogbookAnswerToCurrentTrip($scope.survey.slug, answer);            
+                    // }
                     if (!app.data.responses) {
                         app.data.responses = [];
                     }
@@ -439,7 +447,7 @@ angular.module('askApp')
                 text: question.otherAnswers[0],
                 other: true
             };
-        } else if (!question.required && question.type !== 'yes-no') {
+        } else if (! answer && question.type !== 'yes-no') {
             // No answer given. Submit empty.
            answer = {
                 text: 'NO_ANSWER'
@@ -472,6 +480,14 @@ angular.module('askApp')
 
     };
 
+    $scope.getFirstNonProfilePage = function() {
+        var pages = $scope.survey.pages;
+        for (var i=0; i<pages.length; i+=1) {
+            if (!pages[i].questions[0].logbook && !pages[i].questions[0].attach_to_profile) {
+                return i+1;
+            }
+        }
+    };
 
 
     // gets called whenever new page is loaded...?
@@ -490,6 +506,13 @@ angular.module('askApp')
             _.each(app.user.registration, function(val, key) {
                 $scope.answers[key] = val;
             });
+            // get profile answers specific to logbook (SPECIFIC TO SOUTH COAST) 
+            var profile = app.user.registration;
+            if (profile.logbooks && profile.logbooks[$scope.survey.slug]) {
+                _.each(profile.logbooks[$scope.survey.slug], function(val, key) {
+                    $scope.answers[key] = val;
+                });
+            }
         }
 
         _.each(data.responses, function(response) {
@@ -509,13 +532,22 @@ angular.module('askApp')
         //     $location.path(['survey', $scope.survey.slug, 'complete', $routeParams.uuidSlug].join('/'));
         // }
         // we may inject a question into the scope
+        
         if ($routeParams.pageID) {
-            $scope.page = _.findWhere($scope.survey.pages, { order: parseInt($routeParams.pageID, 10) });
+            var pageID = parseInt($routeParams.pageID, 10);
+            // skip over profile questions if this is a subsequent event in the same logbook (SPECIFIC TO SOUTH COAST)
+            if (app.currentTrip && app.currentTrip.events[$scope.survey.slug]) {
+                var nonProfilePageID = $scope.getFirstNonProfilePage();
+                if (nonProfilePageID > pageID) {
+                    pageID = nonProfilePageID;
+                }
+            } 
+            $scope.page = _.findWhere($scope.survey.pages, { order: pageID });
             if (!$scope.page) {
                 $scope.page = {
                     questions: []
                 };
-            }
+            }           
         } else if (!$scope.question) {
             $scope.question = _.findWhere($scope.survey.questions, { slug: $routeParams.questionSlug });
         }

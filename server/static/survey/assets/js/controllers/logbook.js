@@ -14,21 +14,24 @@ angular.module('askApp')
 
     /*** will need to fetch from profileService ***/
     $scope.remainingLogbookTypes = profileService.getRemainingLogbookTypes();
-    /*** end BETA ***/
 
     $scope.getVesselReference = function(vesselNumber) {
         return _.findWhere($scope.profile.vessels, {number: vesselNumber});
     };
     
     if (profileService.hasLogbookToEdit()) {
-        $scope.logbookToEdit = profileService.getLogbookToEdit();    
+        $scope.logbookToEdit = profileService.getLogbookToEdit();   
+        if ($scope.logbookToEdit['vessel-name'] && $scope.profile.vessels && $scope.profile.vessels.length  ) {
+            $scope.logbookToEdit.vessel = _.findWhere($scope.profile.vessels, { name: $scope.logbookToEdit['vessel-name'] });    
+        }        
         $scope.title = "Edit Logbook";  
-        if ($scope.logbookToEdit.vessel) {
-            $scope.logbookToEdit.vessel = $scope.getVesselReference($scope.logbookToEdit.vessel.number); 
-        }
+        // if ($scope.logbookToEdit.vessel) {
+        //     $scope.logbookToEdit.vessel = $scope.getVesselReference($scope.logbookToEdit.vessel-number); 
+        // }
     } else {
-        $scope.logbook = { type: $scope.remainingLogbookTypes[0] };
-        if ($scope.profile.vessels.length) {
+        $scope.logbook = {};
+        $scope.logbook.type = $scope.remainingLogbookTypes[0];
+        if ($scope.profile.vessels && $scope.profile.vessels.length) {
             $scope.logbook = { vessel: $scope.profile.vessels[0] };
         }
     }
@@ -36,20 +39,20 @@ angular.module('askApp')
     $scope.updateProfile = function(form) {
         if (!$scope.logbookToEdit) {
             // validate
-            if (!form.logbook.permit) {
+            if (!form.logbook['permit-number']) {
                 $scope.missingPermit = true;
             } else {
                 // add logbook in profile
-                profileService.addLogbook(form.logbook.type, form.logbook.permit, form.logbook.vessel, $scope.profile.vessels);
+                profileService.addLogbook(form.logbook.type, form.logbook['permit-number'], form.logbook.vessel, $scope.profile.vessels);
                 // return to profile view
                 $location.path('/profile'); 
             }
         } else { // if $scope.logbookToEdit
-            if (!$scope.logbookToEdit.permit) {
+            if (!$scope.logbookToEdit['permit-number']) {
                 $scope.missingPermit = true;
             } else {
                 // update logbook to profile
-                profileService.updateLogbook($scope.logbookToEdit.type, $scope.logbookToEdit.permit, $scope.logbookToEdit.vessel, $scope.profile.vessels);
+                profileService.updateLogbook($scope.logbookToEdit.type, $scope.logbookToEdit['permit-number'], $scope.logbookToEdit.vessel, $scope.profile.vessels);
                 // return to profile view
                 $location.path('/profile'); 
             }
@@ -79,6 +82,9 @@ angular.module('askApp')
         });
 
         modalInstance.result.then(function (vessel) {
+            if (!$scope.profile.vessels) {
+                $scope.profile.vessels = [];
+            }
             $scope.profile.vessels.push(vessel);
             if ($scope.logbookToEdit) {
                 $scope.logbookToEdit.vessel = vessel;

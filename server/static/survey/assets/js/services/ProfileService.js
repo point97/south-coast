@@ -1,22 +1,20 @@
 //'use strict';
 
 angular.module('askApp')
-  .factory('profileService', function ($http, $location) {
+  .factory('profileService', function ($http, $location, storage) {
 
     var getEmptyProfile = function() {
         var profile = {};
         if (app.user) {
             profile.email = app.user.email;
         }
-        profile.logbooks = [];
+        profile.logbooks = {};
         profile.vessels = [];
         profile.ports = [];
         profile.buoys = [];
         profile.crew = [];        
         return profile;
     };
-    var profile = getEmptyProfile();
-    var logbookToEdit = undefined;
     
     var getProfile = function() {
         if (app.user && app.user.registration) {
@@ -27,34 +25,51 @@ angular.module('askApp')
         return angular.copy(profile);
         
     };
+    var profile = getProfile();
+    var logbookToEdit = undefined;
 
     var addLogbook = function(type, permit, vessel, vessels) {
         var logbook = { 'type': type,
-                        'permit': permit,
-                        'vessel': vessel };
-        profile.logbooks.push(logbook);   
+                        'permit-number': permit,
+                        'vessel-name': vessel.name,
+                        'vessel-number': vessel.number };
+        if (!profile.logbooks) {
+            profile.logbooks = {};
+        }
+        profile.logbooks[type] = logbook;   
         profile.vessels = vessels;             
     };
 
     var updateLogbook = function(type, permit, vessel, vessels) {
         var newLogbook = {  'type': type,
-                            'permit': permit,
-                            'vessel': vessel  };
-        var oldLogbook = _.findWhere(profile.logbooks, {'type': type});
-        oldLogbook = newLogbook;     
+                            'permit-number': permit,
+                            'vessel-name': vessel.name,
+                            'vessel-number': vessel.number };
+        // var oldLogbook = profile.logbooks[type];
+        profile.logbooks[type] = newLogbook;     
         logbookToEdit = undefined;  
         profile.vessels = vessels;       
     };
 
     var getRemainingLogbookTypes = function() {
         // will want to get Logbook Types from Server 
-        var allTypes = ['DIVE', 'CPFV', 'TRAP'];
-        var existingTypes = _.pluck(profile.logbooks, 'type');
-        return _.difference(allTypes, existingTypes);
+        var remainingTypes = [];
+        if (!profile.logbooks) {
+            remainingTypes = ['dive'];
+        } else if (!profile.logbooks['dive']) {
+            remainingTypes.push('dive');
+        } 
+        // if (!profile.logbooks['cpfv']) {
+        //     remainingTypes.push('cpfv');
+        // }
+        // if (!profile.logbooks['trap']) {
+        //     remainingTypes.push('trap');
+        // }
+        return remainingTypes;
     };
 
     var prepLogbookToEdit = function(type) {
-        logbookToEdit = _.findWhere(profile.logbooks, {'type': type});
+        logbookToEdit = profile.logbooks[type];
     };
 
     var purgeLogbookToEdit = function(type) {
@@ -108,9 +123,11 @@ angular.module('askApp')
                     $location.path('/main');      
                 }
                 else if (data) {
-                    $scope.showError = data;    
+                    // $scope.showError = data;  
+                    debugger;  
                 } else {
-                    $scope.showError = "There was a problem saving your information.  Please try again later."
+                    // $scope.showError = "There was a problem saving your information.  Please try again later."
+                    debugger;
                 }            
             });
     };

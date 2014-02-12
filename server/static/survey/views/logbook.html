@@ -21,7 +21,7 @@
                                         <option ng-repeat="logbook in remainingLogbooks" value={{logbook.slugname}}>{{logbook.slugname | uppercase}}</option>
                                     </select> -->
                                     <select class="logbook-dropdown" ng-model="logbook.type">
-                                        <option value={{type}} ng-repeat="type in remainingLogbookTypes">{{type}}</option>
+                                        <option value={{type}} ng-repeat="type in remainingLogbookTypes">{{type | uppercase}}</option>
                                     </select>
                                 </div>
                                 <div ng-show="logbookToEdit">
@@ -31,16 +31,22 @@
                         </div>
 
                         <!-- PERMIT NUMBER -->
-                        <div class="well" style="padding: 5px">    
-                            <div class="alert alert-danger" style="margin-bottom: 5px; padding: 5px; font-size: 16px;" ng-show="missingPermit">
-                                <span>Enter CPFG Permit #</span>
-                            </div>        
+                        <div class="well" style="padding: 5px">  
+                            <div class="alert alert-danger" ng-show="missingPermit">
+                                <span style="font-size: 18px; font-weight: bold; text-transform: uppercase; color: #555;">{{logbookToEdit.type }} Permit #</span>
+                            </div>     
+                            <div ng-show="logbookToEdit"> 
+                                <div ng-hide="missingPermit">
+                                    <span style="font-size: 18px; font-weight: bold; text-transform: uppercase; color: #555;">{{logbookToEdit.type }} Permit #</span>
+                                </div>   
+                            </div>
+                                
                             <div class="question profile-question">
                                 <div ng-hide="logbookToEdit">
-                                    <input class="form-control" style="margin-bottom: 0px;" type="text" placeholder="CPFG Permit #" ng-model="logbook.permit">
+                                    <input class="form-control" style="margin-bottom: 0px;" type="text" placeholder="Enter Permit #" ng-model="logbook['permit-number']">
                                 </div>
                                 <div ng-show="logbookToEdit">
-                                    <input class="form-control" style="margin-bottom: 0px;" type="text" ng-bind="logbookToEdit.cpfv" ng-model="logbookToEdit.permit">
+                                    <input class="form-control" style="margin-bottom: 0px;" type="text" ng-bind="logbookToEdit['permit-number']" ng-model="logbookToEdit['permit-number']">
                                 </div>
                             </div>
                         </div>

@@ -200,6 +200,7 @@ class Question(caching.base.CachingMixin, models.Model):
     order = models.IntegerField(default=0)
     slug = models.SlugField(max_length=64)
     attach_to_profile = models.BooleanField(default=False)
+    logbook = models.BooleanField(default=False)
     persistent = models.BooleanField(default=False)
     type = models.CharField(max_length=20,choices=QUESTION_TYPE_CHOICES,default='text')
     options = models.ManyToManyField(Option, null=True, blank=True)

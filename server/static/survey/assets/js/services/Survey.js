@@ -42,6 +42,11 @@ angular.module('askApp')
         return _.findWhere(page.questions, {slug: slug}).resource_uri;
     };
 
+    var getQuestionFromSlug = function(slug) {
+        var page = getPageFromQuestion(slug);
+        return _.findWhere(page.questions, {slug: slug});
+    };
+
     
     // var getNextPagePath = function(numQsToSkips) {
     //     console.log('getNextPagePath');
@@ -249,7 +254,6 @@ angular.module('askApp')
         return sendRespondent(respondent);
     }
 
-
     var resume = function(respondent) {
         var url;
         if (respondent.responses.length) {
@@ -266,6 +270,38 @@ angular.module('askApp')
        $location.path(url);
     };
 
+    var ensureCurrentTripExists = function() {
+        if ( ! app.currentTrip) {
+            var ts = new Date();
+            app.currentTrip = {
+                user: app.user,
+                events: {},  
+                uuid: ts.getTime()
+            }            
+        }
+    };
+
+    var addLogbookAnswerToCurrentTrip = function(logbookSlug, questionSlug, answer) {
+        ensureCurrentTripExists();
+        if (!app.currentTrip) {
+            app.currentTrip = {};
+        } 
+        if (!app.currentTrip.events) {
+            app.currentTrip.events = {};
+        }
+        if (!app.currentTrip.events[logbookSlug]) {
+            app.currentTrip.events[logbookSlug] = {};
+        } 
+        app.currentTrip.events[logbookSlug][questionSlug] = answer;
+    };
+
+    var addAnswerToProfile = function(questionSlug, answer) {
+        if ( !app.user.registration ) {
+            app.user.registration = {};
+        }
+        app.user.registration[questionSlug] = answer;
+    };
+
     // Public API here
     return {
       'getNextPage': getNextPage,
@@ -274,7 +310,11 @@ angular.module('askApp')
       'getAnswer': getAnswer,
       'cleanSurvey': cleanSurvey,
       'getQuestionUriFromSlug': getQuestionUriFromSlug,
+      'getQuestionFromSlug': getQuestionFromSlug,
       'submitSurvey': submitSurvey,
-      'resume': resume
+      'resume': resume,
+      'ensureCurrentTripExists': ensureCurrentTripExists,
+      'addLogbookAnswerToCurrentTrip': addLogbookAnswerToCurrentTrip,
+      'addAnswerToProfile': addAnswerToProfile
     };
   });
