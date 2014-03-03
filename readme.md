@@ -155,7 +155,10 @@ brew upgrade node
 sudo npm install -g phonegap
 sudo npm install -g ios-sim
 phonegap create mobile -n DigitalDeckSouthCoast -i com.pointnineseven.digitaldecksouthcoast
-cd mobile && phonegap local plugin add https://git-wip-us.apache.org/repos/asf/cordova-plugin-inappbrowser.git
+cd mobile
+phonegap local plugin add https://git-wip-us.apache.org/repos/asf/cordova-plugin-inappbrowser.git
+phonegap local plugin add https://git-wip-us.apache.org/repos/asf/cordova-plugin-network-information.git
+phonegap local plugin add https://git-wip-us.apache.org/repos/asf/cordova-plugin-geolocation.git
 ```
 
 edit mobile/www/config.xml 
