@@ -159,8 +159,10 @@ cd mobile && phonegap local plugin add https://git-wip-us.apache.org/repos/asf/c
 ```
 
 edit mobile/www/config.xml 
-1. set "webviewbounce"="false"
-2. set "origin"="*"
+```
+"webviewbounce"="false"
+"origin"="*"
+```
 
 force add config.xml because .gitignore should be ignoring everything else in mobile/www
 ```
