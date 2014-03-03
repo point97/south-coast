@@ -158,10 +158,11 @@ phonegap create mobile -n DigitalDeckSouthCoast -i com.pointnineseven.digitaldec
 cd mobile && phonegap local plugin add https://git-wip-us.apache.org/repos/asf/cordova-plugin-inappbrowser.git
 ```
 
-##Edit mobile/www/config.xml 
+##edit mobile/www/config.xml 
 1. set "webviewbounce"="false"
 2. set "origin"="*"
-##Force add config.xml because .gitignore should be ignoring everything else in mobile/www
+
+##force add config.xml because .gitignore should be ignoring everything else in mobile/www
 ```
 git add -f mobile/www/config.xml
 ```
