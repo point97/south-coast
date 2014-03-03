@@ -158,7 +158,6 @@ phonegap create mobile -n DigitalDeckSouthCoast -i com.pointnineseven.digitaldec
 cd mobile
 phonegap local plugin add https://git-wip-us.apache.org/repos/asf/cordova-plugin-inappbrowser.git
 phonegap local plugin add https://git-wip-us.apache.org/repos/asf/cordova-plugin-network-information.git
-phonegap local plugin add https://git-wip-us.apache.org/repos/asf/cordova-plugin-geolocation.git
 ```
 
 edit mobile/www/config.xml 
