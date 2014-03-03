@@ -153,13 +153,14 @@ Make sure that you have a recent version of node and install the phonegap node m
 ```bash
 brew upgrade node
 sudo npm install -g phonegap
-phonegap create mobile -n DigitalDeck -i com.pointnineseven.digitaldeck
-cd mobile && phonegap local plugin add https://git-wip-us.apache.org/repos/asf/cordova-plugin-console.git
+phonegap create mobile -n DigitalDeckSouthCoast -i com.pointnineseven.digitaldecksouthcoast
+cd mobile && phonegap local plugin add https://git-wip-us.apache.org/repos/asf/cordova-plugin-inappbrowser.git
+sudo npm install -g ios-sim
 ```
 
 To run the ios simulator
 ```bash
-fab vagrant emulate_ios
+fab vagrant emulate_ios_vagrant
 ```
 
 To build and stage the android app
