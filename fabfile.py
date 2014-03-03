@@ -327,7 +327,7 @@ def prepare():
 @task
 def emulate_ios_vagrant():
     run("cd %s && %s/bin/python manage.py package http://localhost:8000 '../mobile/www' --stage=vagrant --test-run" % (env.app_dir, env.venv))
-    local("cd mobile && /usr/local/share/npm/bin/phonegap run -V ios")
+    local("cd mobile && phonegap run -V ios")
 
 @task
 def emulate_ios_dev():
