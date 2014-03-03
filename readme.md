@@ -153,9 +153,17 @@ Make sure that you have a recent version of node and install the phonegap node m
 ```bash
 brew upgrade node
 sudo npm install -g phonegap
+sudo npm install -g ios-sim
 phonegap create mobile -n DigitalDeckSouthCoast -i com.pointnineseven.digitaldecksouthcoast
 cd mobile && phonegap local plugin add https://git-wip-us.apache.org/repos/asf/cordova-plugin-inappbrowser.git
-sudo npm install -g ios-sim
+```
+
+Edit mobile/www/config.xml 
+set "webviewbounce"="false"
+set "origin"="*"
+Force add config.xml because .gitignore should be ignoring everything else in mobile/www
+```
+git add -f mobile/www/config.xml
 ```
 
 To run the ios simulator
