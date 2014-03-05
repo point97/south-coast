@@ -30,7 +30,7 @@ angular.module('askApp')
                 });
 
                 // Map init
-                var initPoint = new L.LatLng(18.35, -64.85);
+                var initPoint = new L.LatLng(45.52847, -122.68067);
                 if (scope.question.lat && scope.question.lng) {
                     initPoint = new L.LatLng(scope.question.lat, scope.question.lng);
                 }
