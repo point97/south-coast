@@ -53,8 +53,8 @@ angular.module('askApp')
                 var marker = L.marker();
                 map.on('click', function(e) {
                     repositionMarker(e.latlng);                                     
-                        //alert('Latitude: ' + ConvertDDToDMS(position.lat) + '\n' + 'lnggitude: ' + ConvertDDToDMS(position.lng));
-                        // marker.setLatLng([position],{draggable:'true'}).bindPopup(position).update();
+                    //alert('Latitude: ' + ConvertDDToDMS(position.lat) + '\n' + 'lnggitude: ' + ConvertDDToDMS(position.lng));
+                    // marker.setLatLng([position],{draggable:'true'}).bindPopup(position).update();
                 });
                 var repositionMarker = function (latlng) {
                     console.log(latlng);
@@ -101,6 +101,24 @@ angular.module('askApp')
                     }
                     return {lat: lat, lng: lng};
                 };
+
+                /*** GeoLocating ***/
+                navigator.geolocation.getCurrentPosition(foundLocation, noLocation);
+
+                function foundLocation(position) {
+                    var lat = position.coords.latitude,
+                        lng = position.coords.longitude,
+                        latlng = L.latLng(lat, lng);
+
+                    repositionMarker(latlng); 
+
+                    console.log('Found location: ' + lat + ', ' + lng);
+                }
+                function noLocation() {
+                    // alert('Could not find location');
+                    console.log('position not found');
+                }
+                /*** End GeoLocating ***/
 
                 scope.$watch('[question.latDegrees,question.latMinutes,question.latSeconds,question.lngDegrees,question.lngMinutes,question.lngSeconds]', function(values) {
                     var numValues = _.map(values, function(num) { return parseFloat(num); });
