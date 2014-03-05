@@ -5,7 +5,7 @@
             <span style="font-size: 28px; position: absolute; left: 55px; top: 25px;">{{user.username}}</span>  
         </div>
     </a>
-    <div class="container">
+    <div class="container" style="padding-left: 10px">
         <div style="margin-top: -10px">
             <a href="#/main" ng-click="$spMenu.toggle()">
                 <div class="sp-nav-option">
@@ -32,8 +32,8 @@
                 </div>
             </a>
         </div>
-        <div style="color: #ccc; border-top: 1px; border-top-style:solid; margin-top: 15px;">
-            <div>
+        <div id="left-nav-on-my-device-div" style="">
+            <div style="margin-bottom: 10px">
                 <span>On My Device</span>
                 <span class="pull-right" ng-show="version">v {{version}}</span>
             </div>
@@ -49,21 +49,4 @@
             </a>
         </div>
     </div>
-    <style media="screen" type="text/css">
-    .sp-nav-option {
-        font-size: 24px; 
-        color: #ccc;
-        list-style-type: none;
-        margin: 5px;  
-        margin-bottom: 10px;
-        cursor: pointer;
-    }
-    .sp-nav-option .left-align {
-        position: absolute;
-        left: 60px;
-    }
-    .sp-nav-option:hover {
-        background-color: rgb(25, 25, 25);  
-    }
-    </style>
 </div>

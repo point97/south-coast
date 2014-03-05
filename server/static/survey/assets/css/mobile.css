@@ -606,6 +606,36 @@ img.center {
 }
 
 /*** SOUTH COAST SPECIFIC ***/
+
+.sp-nav-option {
+    font-size: 23px; 
+    color: #ccc;
+    list-style-type: none;
+    margin: 5px;  
+    margin-bottom: 15px;
+    cursor: pointer;
+}
+.sp-nav-option .left-align {
+    position: absolute;
+    left: 50px;
+}
+.sp-nav-option:hover {
+    background-color: rgb(25, 25, 25);  
+}
+
+#left-nav-on-my-device-div {
+    color: #ccc; 
+    border-top: 1px; 
+    border-top-style: solid; 
+    margin-top: 15px;
+    position: absolute;
+    bottom: 10px;
+    width: 90%;
+}
+#left-nav-on-my-device-div .left-align {
+    left: 38px;
+}
+
 .profile-question input.form-control {
     margin-bottom: 5px;
 }
