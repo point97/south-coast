@@ -694,7 +694,21 @@ angular.module('askApp')
                 $scope.gotoNextQuestion();
             });
         }
-
+        
+        if ($scope.page && $scope.page.questions && _.findWhere($scope.page.questions, {slug: 'block-number'})) {
+            $http.get("/static/survey/data/sc_blocks_transformed_clipped_simplified_001.json").success(function(data) {
+                var landingBlocks = L.geoJson(data),
+                    latLng = survey.getAnswer('map-set-location'),
+                    polygons = leafletPip.pointInLayer([latLng.lng, latLng.lat], landingBlocks),
+                    polygon = polygons.length ? polygons[0] : undefined;
+                if (polygon) {
+                    blockNumberQuestion = _.findWhere($scope.page.questions, {slug: 'block-number'});
+                    blockNumberQuestion.answer = polygon.feature.properties['BLOCK10_ID'];
+                }
+            }).error(function(data) {
+                debugger;
+            });
+        }
 
 
         if ($scope.question && $scope.question.options_from_previous_answer) {
