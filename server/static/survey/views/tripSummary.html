@@ -34,35 +34,37 @@
                 </div>
 
                 <script id="speciesSummary" type="text/ng-template" options="{dialogClass: 'testing'}"> 
-                    <div class="modal-header">
-                        <div ng-show="title" class="navbar-brand" style="text-align: center; font-size: 28px; color: #ddd;">
-                            <span>{{speciesObj.name}}</span>
-                            <button class="btn btn-primary pull-right" style="margin-top: -7px; margin-right: -10px;" ng-click="ok()">OK</button>
+                    <div id="species-summary-modal">
+                        <div class="modal-header">
+                            <div ng-show="title" class="navbar-brand modal-header-title-bar">
+                                <span class="modal-header-title">{{speciesObj.name}}</span>
+                                <button class="btn btn-primary pull-right modal-header-ok" ng-click="ok()">OK</button>
+                            </div>
                         </div>
-                    </div>
-                    <div class="modal-body">
-                        <div class="well" style="padding: 5px;" ng-repeat="event in speciesObj.events">
-                            <h4 class="question-title" style="color: #555; margin-top: 5px">{{event.siteName | uppercase}}</h4>
-                            <div class="well" style="padding: 5px">
-                                <span class="profile-question-header">Location</span>
-                                <div><span>Lat: {{event.location.lat}}</span></div>
-                                <div><span>Long: {{event.location.lng}}</span></div>
-                                <div><span>Block: {{event.location.block}}</span></div>
-                                <div><span>Landmark: {{event.location.landmark}}</span></div>
-                            </div>
-                            <div class="well" style="padding: 5px">
-                                <span class="profile-question-header">Harvest</span>
-                                <div><span>Weight: {{event.harvest.weight}} lbs</span></div>
-                                <div><span>Hours: {{event.harvest.hours}}</span></div>
-                                <div><span>Depth: {{event.harvest.minDepth}} - {{event.harvest.maxDepth}} ft</span></div>
-                            </div>
-                            <div class="well" style="padding: 5px">
-                                <span class="profile-question-header">Incidental Species</span>
-                                <div ng-repeat="species in event.incidentals.answer"><span>{{species.text}}: {{species.lbs}} lbs</span></div>
-                            </div>
-                            <div class="well" style="padding: 5px">
-                                <span class="profile-question-header">Notes</span>
-                                <div><span>{{event.notes.answer}}</span></div>
+                        <div class="modal-body">
+                            <div class="well" style="padding: 5px;" ng-repeat="event in speciesObj.events">
+                                <h4 class="question-title" style="color: #555; margin-top: 5px">{{event.siteName | uppercase}}</h4>
+                                <div class="well" style="padding: 5px">
+                                    <span class="profile-question-header">Location</span>
+                                    <div><span>Lat: {{event.location.lat}}</span></div>
+                                    <div><span>Long: {{event.location.lng}}</span></div>
+                                    <div><span>Block: {{event.location.block}}</span></div>
+                                    <div><span>Landmark: {{event.location.landmark}}</span></div>
+                                </div>
+                                <div class="well" style="padding: 5px">
+                                    <span class="profile-question-header">Harvest</span>
+                                    <div><span>Weight: {{event.harvest.weight}} lbs</span></div>
+                                    <div><span>Hours: {{event.harvest.hours}}</span></div>
+                                    <div><span>Depth: {{event.harvest.minDepth}} - {{event.harvest.maxDepth}} ft</span></div>
+                                </div>
+                                <div class="well" style="padding: 5px">
+                                    <span class="profile-question-header">Incidental Species</span>
+                                    <div ng-repeat="species in event.incidentals.answer"><span>{{species.text}}: {{species.lbs}} lbs</span></div>
+                                </div>
+                                <div class="well" style="padding: 5px">
+                                    <span class="profile-question-header">Notes</span>
+                                    <div><span>{{event.notes.answer}}</span></div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -80,5 +82,31 @@
     </div>
 
     <div ng-show="busy" ng-include="viewPath + 'views/spinner.html'"></div>
+
+    <style media="screen" type="text/css">
+        #species-summary-modal .modal-header {
+            max-height: 75px;
+        }
+        #species-summary-modal .modal-header-title-bar {
+            text-align: center; 
+            font-size: 28px; 
+            color: #ddd;
+            margin-top: 0px;
+        }
+        #species-summary-modal .modal-header-title {
+            display: inline-block;
+            max-width: 90%;
+            margin-top: -13px;
+            line-height: 30px;
+            margin-bottom: -5px;
+            margin-left: -50px;
+        }
+        #species-summary-modal .modal-header-ok {
+            margin-right: -10px;
+            position: absolute;
+            right: 20px;
+            top: 12px;
+        }
+    </style>    
 
 </div>
