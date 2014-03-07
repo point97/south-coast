@@ -17,6 +17,8 @@ angular.module('askApp')
         $location.path('/');
         return false;
     }
+    
+    $scope.hideHamburger = true;
 
     $scope.survey = {
         state: 'loading'

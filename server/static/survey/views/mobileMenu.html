@@ -3,14 +3,14 @@
     <!-- <a type="button" class="navbar-toggle" href="#/main">
         <i class="icon-align-justify"></i>
     </a> -->
-    <a id="topnav-menu-button" type="button" class="navbar-toggle" ng-click="$spMenu.toggle()">
+    <a id="topnav-menu-button" type="button" ng-hide="hideHamburger" class="navbar-toggle" ng-click="$spMenu.toggle()">
         <span class="sr-only">Toggle navigation</span>
         <span class="icon-reorder" style="color: #ddd; cursor: pointer;"></span>
     </a>
 
     <div ng-show="answers">
         <a class="pull-right survey-arrow" ng-class="{ 'valid': pageIsValid }" ng-click="submitPage(page)"><span class="glyphicon glyphicon-arrow-right"></span></a>
-        <a class="pull-right survey-arrow" ng-click="skipBack()"><span class="glyphicon glyphicon-arrow-left"></span></a>
+        <a class="pull-left survey-arrow" ng-click="skipBack()"><span class="glyphicon glyphicon-arrow-left"></span></a>
     </div>
 
     <!-- <a type="button" class="navbar-comment" ng-show="showFeedback" ng-click="sendingFeedback = ! sendingFeedback">
@@ -43,7 +43,7 @@
     <style media="screen" type="text/css">
          .survey-arrow {
             font-size: 40px; 
-            padding: 0px 20px 0px 0px;
+            padding: 0px 20px 0px 20px;
             margin-top: 1px; 
             top: 5px; 
             position: relative;
