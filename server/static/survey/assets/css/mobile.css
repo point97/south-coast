@@ -827,6 +827,10 @@ input.multi-select-other:-ms-input-placeholder {
     margin-bottom: 10px;
 }
 
+.question textarea {
+    width: 100%;
+}
+
 .form-control.ng-pristine, .unit-select.ng-pristine {
     background-color: rgb(255,255,255);
     border: 0;
