@@ -160,9 +160,19 @@ angular.module('askApp').directive('multiquestion', function() {
                 //     // $scope.question.otherAnswers[1] = null;
                 //     // $scope.question.otherAnswers[2] = null;
                 // }
-                question.answerSelected = _.some(_.pluck(_.flatten(_.map(question.groupedOptions, function(option) {
-                    return option.options;
-                })), 'checked'));
+                if (question.groupedOptions && question.groupedOptions.length) {
+                    question.answerSelected = _.some(_.pluck(_.flatten(_.map(question.groupedOptions, function(option) {
+                        return option.options;
+                    })), 'checked'));
+                } else {
+                    question.answerSelected = _.findWhere(question.options, {checked: true}) ? true : false;
+                }
+
+                // answerSelected is true if Other answers exist
+                if (_.compact(question.otherAnswers).length) {
+                    question.answerSelected = true;
+                }
+                
             };
 
             // handle single select clicks
@@ -412,6 +422,8 @@ angular.module('askApp').directive('multiquestion', function() {
                     if ( (!newVal.length || newVal[0]==="") && !_.some(_.pluck(scope.question.options, 'checked')) ) {  
                         scope.question.answerSelected = false;    
                     }                    
+                } else if (scope.question.type == 'multi-select' && scope.question.allow_other && scope.question.otherAnswers.length) {                    
+                    scope.onMultiSelectClicked({checked: false}, scope.question);
                 }
             }, true);
 

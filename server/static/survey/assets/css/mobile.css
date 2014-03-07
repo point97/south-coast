@@ -421,6 +421,88 @@ img.center {
 .main .navbar .container > * {
     display: none;
 }
+
+.btn-lg {
+    border-radius: 0px;
+}
+
+
+
+
+
+
+/*** SINGLE / MULTI SELECT STYLINGS ***/
+
+.question .option {
+     margin-bottom: 10px !important;
+}
+.question .select {
+    margin-top: 10px;
+}
+.select ul {
+    list-style: none;
+    -webkit-margin-before: 0;
+    -webkit-margin-after: 0;
+    -webkit-margin-start: 0;
+    -webkit-margin-end: 0;
+    -webkit-padding-start: 0;
+}
+.select .select-content h4 {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.select-checked .checkbox {
+    display: block;
+}
+.question .select-content {
+    padding: 10px 15px;
+    color: rgb(150,150,150);
+}
+.question .panel-body .select-content {
+    padding: 2px 10px;
+}
+.question .panel-body .select-content .select-name {
+    padding-left: 20px;
+}
+
+/* NOTHING SELECTED, beige boxes with black text*/
+.option-unchecked .select-content {
+    color: rgb(0,0,0);
+    background-color: rgb(246, 236, 194);
+}
+.option-unchecked .select-content .select-name {
+    color: rgb(0,0,0);
+}
+
+/* OPTION(S) SELECTED - selected are beige with dark text, un-selected are blue with white text*/
+
+/* SELECTED - beige with dark text and checkbox */
+.option-checked .select-checked .select-content {
+    color: rgb(0,0,0);
+    background-color: rgb(246, 236, 194);
+}
+.option-checked .select-checked .select-content .select-name {
+    color: rgb(0,0,0);
+}
+.option-checked .select-checked .checkbox {
+    display: block;
+    width: 15px;
+    height: 15px;
+    background-image: url(../img/checkbox.png);
+    float: right;
+    margin: 0;
+}
+
+/* NON-SELECTED are blue with white text */
+.option-checked .select-unchecked .select-content {
+    color: rgb(0,0,0);
+    background-color: rgb(24, 75, 83);
+}
+.option-checked .select-unchecked .select-content .select-name {
+    color: rgb(0,0,0);
+}
+
+/*** ACCORDION styles ***/
 .select-content, .accordion-heading {
     text-transform: uppercase;
     font-weight: bolder;
@@ -432,26 +514,42 @@ img.center {
     color: rgb(46, 46, 46) !important;
     min-width: 100px;
 }
-.btn-lg {
-    border-radius: 0px;
+.select-content, .btn-main:active, .accordion-heading {
+    background-color: rgb(24, 75, 83);
+    border-color: rgba(0, 0, 0, 0);
 }
-
-.select ul {
-    list-style: none;
-    -webkit-margin-before: 0;
-    -webkit-margin-after: 0;
-    -webkit-margin-start: 0;
-    -webkit-margin-end: 0;
-    -webkit-padding-start: 0;
+.question .select .accordion-div {
+    border-style: solid;
+    border-bottom-width: 0;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
-.select .select-content {
-    background-color: rgb(246, 235, 194);
-    
-}
-
-.select .select-content h4 {
-    margin-top: 0;
+.question .select .accordion-heading {
     margin-bottom: 0;
+}
+.question .select .accordion-group {
+    border: 0px;
+}
+.question .select .accordion-toggle {
+    text-decoration: none;
+    color: rgb(50, 50, 50);
+}
+.question .select .accordion-body {
+    margin-top: 10px;
+}
+.question .select .accordion-body .select-name {
+    padding-left: 20px;
+}
+
+
+/*** OTHER OPTION - not handling colors here, handling colors above ***/
+
+.question .select .accordion-other-div {
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 .select .checkbox, .option .checkbox, .select-unchecked .other-checkbox  {
     display: none;
@@ -461,68 +559,86 @@ img.center {
     float: right;
     margin: 0;
 }
-.select-checked .checkbox {
-    display: block;
+.question .other-input-selected {
+    margin-top: -20px;
 }
-
-.multi-select .select-name {
-    color: rgb(0,0,0);
-}
-
-/* nothing select, beige boxes */
-.select .option-unchecked .select-content {
-  color: rgb(0,0,0);
-  background-color: rgb(246, 236, 194) !important;
-}
-
-
-/* option selected, selected is beige others are blue */
-.select .option-checked .select-checked .select-content .select-name {
-  color: rgb(0,0,0) !important;
-  background-color: rgb(246, 236, 194) !important;
-}
-
-.grouped-options .panel-title,.select .option-unchecked .select-content .select-name {
-  color: rgb(0,0,0) !important;
-  
-}
-
-
-.select .option-checked .select-unchecked .select-content {
-  color: rgb(0,0,0);
-  background-color: rgb(24, 75, 83) !important;
-}
-
-
-.question .panel-body .select-unchecked .select-content .select-name {
-    color: rgb(244,244,244);
-
-}
-.question .panel-body .select-checked .select-content .select-name {
-    color: rgb(24, 75, 83);
+.question .other-checkbox {
+    background-image: url(../img/checkbox.png);
+    position: relative;
+    width: 20px;
+    height: 20px;
+    top: 32px;
+    float: right;
+    right: 10px;
 }
 .question .single-select-other {
-    /*background-color: rgb(24, 75, 83) !important;*/
-    background-color: rgb(246, 235, 194);
+    /*background-color: rgb(246, 235, 194);*/
     font-size: 18px;
     font-weight: 500;
-    /*padding-left: 50px;*/
-    color: rgb(46, 46, 46);
+    /*color: rgb(46, 46, 46);*/
     border: 0px;
     width: 100%;
 }
-
 .question .other-option.select-checked {
     margin-top: -20px;
 }
+.question .multi-select-other {
+    /*background-color: rgb(246, 235, 194);*/
+    font-size: 18px;
+    font-weight: 500;
+    /*color: rgb(46, 46, 46);*/
+    border: 0px;
+    width: 100%;
+}
+.question .multi-select-grouped-other {
+    /*background-color: rgb(24, 75, 83) !important;*/
+    font-size: 18px;
+    font-weight: 500;
+    padding-left: 50px;
+    /*color: rgb(46, 46, 46);*/
+    border: 0px;
+    width: 100%;
+}
+.question .multi-select-grouped-other.with-text {
+    /*background-color: rgb(244, 218, 130) !important;*/
+    font-size: 18px;
+    font-weight: 500;
+    padding-left: 50px;
+    /*color: rgb(46, 46, 46);*/
+}
+.question .multi-select-grouped-other:focus {
+    /*background-color: rgb(244, 218, 130) !important;*/
+    font-size: 18px;
+    font-weight: 500;
+    padding-left: 50px;
+    /*color: rgb(46, 46, 46);*/
+}
 
+input.multi-select-other::-webkit-input-placeholder {
+    color: rgb(22, 59, 66) !important;
+}
+input.multi-select-other:-moz-placeholder { 
+    color: rgb(22, 59, 66) !important;  
+}
+input.multi-select-other::-moz-placeholder  {  
+    color: rgb(22, 59, 66) !important;  
+}
+input.multi-select-other:-ms-input-placeholder {  
+    color: rgb(22, 59, 66) !important;  
+}
+
+/*** yes-no selection ***/ 
 .yes-no .select-checked .select-name {
     color: rgb(0,0,0) !important;
 }
-
 .yes-no .option-unchecked .select-name {
     color: rgb(0,0,0) !important;
 }
+
+/*** END OF SINGLE / MULTI SELECT STYLINGS ***/
+
+
+
 
 
 .menu-page .progress {
@@ -605,6 +721,9 @@ img.center {
     background-color: rgb(77, 136, 153);
 }
 
+
+
+
 /*** SOUTH COAST SPECIFIC ***/
 
 .sp-nav-option {
@@ -670,6 +789,10 @@ img.center {
 
 /*** END SOUTH COAST SPECIFIC ***/
 
+
+
+
+
 .question .panel-group {
     margin-top: 10px;
 }
@@ -680,20 +803,6 @@ img.center {
     text-transform: uppercase;
     border-radius: 0;
     margin-bottom: 5px !important;
-}
-
-.question .select-content {
-    padding: 10px 15px;
-    color: rgb(150,150,150);
-   
-}
-
-.question .option {
-     margin-bottom: 10px !important;
-}
-.select-content, .btn-main:active, .accordion-heading {
-    background-color: rgb(24, 75, 83);
-    border-color: rgba(0, 0, 0, 0);
 }
 
 .question .panel-heading a:hover {
@@ -707,66 +816,10 @@ img.center {
 .question .panel-body .checkbox {
     margin-top: 10px;
 }
-.question .panel-body .select-content {
-    padding: 2px 10px;
-}
-.question .panel-body .select-checked .select-content {
-    background-color: rgb(244, 218, 130);
-}
-.question .panel-body .select-content .select-name {
-    padding-left: 20px;
-}
 .question .panel, .question .panel-collapse {
     background-color: inherit;
     border-radius: 0;
     border: 0;
-}
-.question .multi-select-other {
-    /*background-color: rgb(24, 75, 83) !important;*/
-    background-color: rgb(246, 235, 194);
-    font-size: 18px;
-    font-weight: 500;
-    /*padding-left: 50px;*/
-    color: rgb(46, 46, 46);
-    border: 0px;
-    width: 100%;
-}
-.question .multi-select-grouped-other {
-    background-color: rgb(24, 75, 83) !important;*/
-    /*background-color: rgb(246, 235, 194);*/
-    font-size: 18px;
-    font-weight: 500;
-    padding-left: 50px;
-    color: rgb(46, 46, 46);
-    border: 0px;
-    width: 100%;
-}
-.question .multi-select-grouped-other.with-text {
-    background-color: rgb(244, 218, 130) !important;
-    font-size: 18px;
-    font-weight: 500;
-    padding-left: 50px;
-    color: rgb(46, 46, 46);
-}
-.question .multi-select-grouped-other:focus {
-    background-color: rgb(244, 218, 130) !important;
-    font-size: 18px;
-    font-weight: 500;
-    padding-left: 50px;
-    color: rgb(46, 46, 46);
-}
-.question .other-input-selected {
-    margin-top: -20px;
-}
-.question .other-checkbox {
-    /*background-color: rgb(49, 49, 49);*/
-    background-image: url(../img/checkbox.png);
-    position: relative;
-    width: 20px;
-    height: 20px;
-    top: 32px;
-    float: right;
-    right: 10px;
 }
 
 .feedback textarea {
@@ -774,18 +827,6 @@ img.center {
     margin-bottom: 10px;
 }
 
-input.multi-select-other::-webkit-input-placeholder {
-   color: rgb(22, 59, 66) !important;
-}
-input.multi-select-other:-moz-placeholder { 
-   color: rgb(22, 59, 66) !important;  
-}
-input.multi-select-other::-moz-placeholder  {  
-   color: rgb(22, 59, 66) !important;  
-}
-input.multi-select-other:-ms-input-placeholder {  
-   color: rgb(22, 59, 66) !important;  
-}
 .form-control.ng-pristine, .unit-select.ng-pristine {
     background-color: rgb(255,255,255);
     border: 0;
@@ -847,51 +888,6 @@ input.multi-select-other:-ms-input-placeholder {
     transition: height 0.8s;
 }
 */
-.question .select {
-    margin-top: 10px;
-}
-.question .select .accordion-div {
-    border-style: solid;
-    border-bottom-width: 0;
-    border-left-width: 0;
-    border-right-width: 0;
-    border-top-width: 0;
-    padding-top: 5px;
-    padding-bottom: 5px;
-}
-.question .select .accordion-heading {
-    margin-bottom: 0;
-}
-.question .select .accordion-other-div {
-    padding-top: 5px;
-    padding-bottom: 5px;
-}
-.question .select .accordion-group {
-    border: 0px;
-}
-.question .select .accordion-toggle {
-    text-decoration: none;
-    color: rgb(50, 50, 50);
-}
-/*.question .select .open {
- color: rgb(222,222,222); 
- background-color: rgb(246 , 235, 194);
-}*/
-
-.question .select .accordion-body {
-    margin-top: 10px;
-}
-.question .select .accordion-body .select-name {
-    padding-left: 20px;
-}
-
-.question .select .select-content h4 {
-    color: rgb(0,0,0);
-}
-
-.question .select .select-unchecked .select-content h4 {
-    color: rgb(244, 244, 244);   
-}
 
 .ngViewport {
   height: auto !important;
