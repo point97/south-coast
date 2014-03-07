@@ -31,7 +31,7 @@ angular.module('askApp')
         app.respondents[$routeParams.uuidSlug].complete = true;
         app.respondents[$routeParams.uuidSlug].status = 'complete';
         delete app.user.resumePath;
-        app.message = "You have completed a catch report.";
+        app.message = "You have completed a trip log.";
 
         storage.saveState(app);       
     } else {
