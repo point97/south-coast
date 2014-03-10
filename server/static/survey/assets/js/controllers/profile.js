@@ -19,8 +19,12 @@ angular.module('askApp')
     $scope.profile = profileService.getProfile();
 
     $scope.addLogbook = function() {
-        profileService.saveState($scope.profile.fullName, $scope.profile.email, $scope.profile.license, $scope.profile.logbooks, $scope.profile.buoys, $scope.profile.crew);
-        $location.path('/profile/logbook')    
+        if (profileService.getRemainingLogbookTypes().length) {
+            profileService.saveState($scope.profile.fullName, $scope.profile.email, $scope.profile.license, $scope.profile.logbooks, $scope.profile.buoys, $scope.profile.crew);
+            $location.path('/profile/logbook'); 
+        } else {   
+            $scope.noRemainingLogbooks();
+        }        
     };
 
     $scope.editLogbook = function(logbookType) {
@@ -43,6 +47,15 @@ angular.module('askApp')
     };
 
     /*** Modals ***/
+
+    $scope.noRemainingLogbooks = function () {
+
+        var modalInstance = $modal.open({
+            templateUrl: 'noRemainingLogbooks',
+            controller: NoRemainingLogbooksCtrl
+        });
+
+    };
 
     $scope.addBuoy = function () {
 
@@ -143,6 +156,14 @@ angular.module('askApp')
 
     
 });
+
+var NoRemainingLogbooksCtrl = function ($scope, $modalInstance) {
+
+    $scope.ok = function () {
+        $modalInstance.close();
+    };
+
+};
 
 var AddBuoyCtrl = function ($scope, $modalInstance) {
 

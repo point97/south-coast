@@ -40,6 +40,23 @@
                                     </span>
                                 </div>
                             </div>
+
+                            <script id="noRemainingLogbooks" type="text/ng-template">                                
+                                <div class="modal-body">
+                                    <div class="well" style="padding: 5px; margin-bottom: 0px;"> 
+                                        <div>
+                                            <span>You have already created a logbook for each available logbook type.</span>
+                                        </div>
+                                        <div style="margin-top: 10px">
+                                            <span>Click the Edit Icon <span class="icon-pencil" style="margin-top: 3px;"></span> to edit an existing Logbook</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer" style="margin-top: 0px">
+                                    <button class="btn btn-primary" ng-click="ok()">OK</button>
+                                </div>
+                            </script>
+
                         </div>
 
                         <!-- PORTS -->
@@ -154,6 +171,7 @@
 
 
                         <!-- Crew -->
+                        <!--
                         <div class="well" style="padding: 5px">
                             <span class="profile-question-header">My Crew</span>
                             <span class="pull-right icon-plus" ng-click="addCrewMember()" style="font-size: 18px; margin-top: 3px; text-decoration: none; color: #555; cursor: pointer;"></span>
@@ -202,7 +220,7 @@
                             </script>
                             
                         </div>
-
+                        -->
 
 
                         <button class="btn btn-main btn-default btn-block" ng-click="cancel()">cancel</button>

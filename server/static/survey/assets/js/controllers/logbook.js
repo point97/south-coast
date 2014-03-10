@@ -12,7 +12,6 @@ angular.module('askApp')
     // retrieve a copy of the profile 
     $scope.profile = profileService.getProfile();
 
-    /*** will need to fetch from profileService ***/
     $scope.remainingLogbookTypes = profileService.getRemainingLogbookTypes();
 
     $scope.getVesselReference = function(vesselNumber) {
