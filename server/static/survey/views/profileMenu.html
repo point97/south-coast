@@ -1,13 +1,17 @@
 <div class="navbar navbar-default navbar-fixed-top" style="height: 60px;">
     <div class="status-bar"></div>
 
-    <button class="btn pull-right" style="margin-top: 12px; margin-right: 10px;" ng-click="updateProfile(this)">
+    <button class="btn pull-left" style="margin-top: 12px; margin-left: 10px; background-color: white;" ng-click="updateProfile(this)">
         <span ng-hide="savePage">Done</span><span ng-show="savePage">Save</span>
+    </button>
+
+    <button class="btn pull-right" style="margin-top: 12px; margin-right: 10px; background-color: white;" ng-click="cancel()">
+        <span class="icon-remove"></span>
     </button>
 
     <div class="container" style="background-color: rgb(51,51,51);">
         <div class="navbar-header">
-            <div ng-show="title" class="navbar-brand" style="text-align: center; font-size: 28px; color: #ddd;">
+            <div ng-show="title" class="navbar-brand" style="text-align: center; font-size: 28px; color: #ddd; margin-top: 5px">
                 {{title}}
                 <!-- <img src="assets/img/deck-logo.svg" class="center logo" /> -->
             </div>
