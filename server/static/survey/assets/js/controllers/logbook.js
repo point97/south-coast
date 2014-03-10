@@ -35,6 +35,10 @@ angular.module('askApp')
         }
     }
 
+    $scope.cancel = function() {
+        $location.path('/profile');
+    };
+
     $scope.updateProfile = function(form) {
         if (!$scope.logbookToEdit) {
             // validate
