@@ -45,19 +45,19 @@ angular.module('askApp', ['ngRoute', 'ui', 'ui.bootstrap', 'ngGrid', 'shoppinpal
         templateUrl: app.viewPath + 'views/splash.html',
         controller: 'SplashCtrl'
     })
-    .when('/signup', {
-            templateUrl: app.viewPath + 'views/signup.html',
-            controller: 'MainCtrl'
-        })
-    .when('/signin', {
-            templateUrl: app.viewPath + 'views/signin.html',
-            controller: 'MainCtrl'
-        })
-    .when('/main', {
-            templateUrl: app.viewPath + 'views/main.html',
-            controller: 'MainCtrl',
-            reloadOnSearch: false
-        })
+        .when('/signup', {
+        templateUrl: app.viewPath + 'views/signup.html',
+        controller: 'MainCtrl'
+    })
+        .when('/signin', {
+        templateUrl: app.viewPath + 'views/signin.html',
+        controller: 'MainCtrl'
+    })
+        .when('/main', {
+        templateUrl: app.viewPath + 'views/main.html',
+        controller: 'MainCtrl',
+        reloadOnSearch: false
+    })
         .when('/author/:surveySlug', {
         templateUrl: app.viewPath + 'views/author.html',
         controller: 'AuthorCtrl'
@@ -66,7 +66,6 @@ angular.module('askApp', ['ngRoute', 'ui', 'ui.bootstrap', 'ngGrid', 'shoppinpal
         templateUrl: app.viewPath + 'views/SurveyList.html',
         controller: 'SurveyListCtrl'
     })
-
         .when('/survey/:surveySlug/complete/:uuidSlug', {
         templateUrl: app.viewPath + 'views/complete.html',
         controller: 'CompleteCtrl'
