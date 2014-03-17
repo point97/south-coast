@@ -36,7 +36,9 @@ def authenticateUser(request):
                 'name': ' '.join([user.first_name, user.last_name]),
                 'email': user.email,
                 'is_staff': user.is_staff,
-                'registration': user.profile.registration
+                'registration': user.profile.registration,
+                'api_key': user.api_key.key, 
+                'id': user.id
             }
             return HttpResponse(simplejson.dumps({
                 'success': True, 'user': user_dict
@@ -74,12 +76,18 @@ def createUser(request):
             user = authenticate(
                 username=user.username, password=param.get('password'))
             login(request, user)
+            api_key, created = ApiKey.objects.get_or_create(user=user)
+            api_key.key = api_key.generate_key()
+            api_key.save()
+            
             user_dict = {
                 'username': user.username,
                 'name': ' '.join([user.first_name, user.last_name]),
                 'email': user.email,
                 'is_staff': user.is_staff,
-                'registration': profile.registration
+                'registration': profile.registration,
+                'api_key': user.api_key.key,
+                'id': user.id
             }
             return HttpResponse(simplejson.dumps({'success': True, 'user': user_dict}))
         else:

@@ -43,7 +43,7 @@ USE_I18N = False
 USE_L10N = False
 
 # If you set this to False, Django will not use timezone-aware datetimes.
-USE_TZ = False
+USE_TZ = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
@@ -142,7 +142,8 @@ INSTALLED_APPS = (
     'apps.mobile',
     'apps.places',
     'apps.survey',
-    'apps.reports'
+    'apps.reports',
+    'tastypie',
 )
 
 # A sample logging configuration. The only tangible logging

@@ -1,45 +1,14 @@
 from tastypie.resources import ModelResource, ALL, ALL_WITH_RELATIONS
 from tastypie import fields, utils
 
-from tastypie.authentication import SessionAuthentication, Authentication
 from tastypie.authorization import DjangoAuthorization, Authorization
+from tastypie.authentication import SessionAuthentication, ApiKeyAuthentication, MultiAuthentication, Authentication
+
 from django.conf.urls import url
 from django.db.models import Avg, Max, Min, Count
 
-from survey.models import Survey, Question, Option, Respondant, Response, Page, Block
+from survey.models import Survey, Question, Option, Respondant, Response, Page, Block, Trip
 
-# def main_save_m2m(self, bundle):
-#     for field_name, field_object in self.fields.items():
-#         if not getattr(field_object, 'is_m2m', False):
-#             continue
-
-#         if not field_object.attribute:
-#             continue
-
-#         if field_object.readonly:
-#             continue
-
-#         # Get the manager.
-#         related_mngr = getattr(bundle.obj, field_object.attribute)
-#             # This is code commented out from the original function
-#             # that would clear out the existing related "Person" objects
-#         if hasattr(related_mngr, 'clear'):
-#             #Clear it out, just to be safe.
-#             related_mngr.clear()
-
-#         related_objs = []
-
-#         for related_bundle in bundle.data[field_name]:
-#             try:
-#                 obj = related_mngr.model.objects.get(id=related_bundle.obj.id)
-#             except related_mngr.model.DoesNotExist:
-#                 print "could not get object"
-#                 obj = related_bundle.obj
-#                 obj.save()
-
-#             related_objs.append(obj)
-
-#         related_mngr.add(*related_objs)
 
 
 class SurveyModelResource(ModelResource):
@@ -54,13 +23,6 @@ class SurveyModelResource(ModelResource):
         return bundle
 
 class StaffUserOnlyAuthorization(Authorization):
-
-    # def create_list(self, object_list, bundle):
-    #     # Assuming their auto-assigned to ``user``.
-    #     return bundle.request.user.is_staff
-
-    # def create_detail(self, object_list, bundle):
-    #     return bundle.request.user.is_staff
 
     def update_list(self, object_list, bundle):
         return bundle.request.user.is_staff
@@ -89,16 +51,14 @@ class UserObjectsOnlyAuthorization(Authorization):
         return object_list
 
     def create_detail(self, object_list, bundle):
-        return bundle.obj.user == bundle.request.user
+        return True
 
     def update_list(self, object_list, bundle):
         allowed = []
-
         # Since they may not all be saved, iterate over them.
         for obj in object_list:
             if obj.user == bundle.request.user:
                 allowed.append(obj)
-
         return allowed
 
     def update_detail(self, object_list, bundle):
@@ -130,9 +90,32 @@ class OfflineResponseResource(SurveyModelResource):
     class Meta:
         queryset = Response.objects.all()
         authorization = UserObjectsOnlyAuthorization()
-        authentication = Authentication()
+        authentication = MultiAuthentication(ApiKeyAuthentication(), SessionAuthentication())
     def obj_create(self, bundle, **kwargs):
         return super(OfflineResponseResource, self).obj_create(bundle, user=bundle.request.user)
+
+class TripResource(SurveyModelResource):
+    respondants = fields.ToManyField('apps.survey.api.OfflineRespondantResource', 'respondant_set', null=True, blank=True)
+    user = fields.ToOneField('apps.account.api.UserResource', 'user', null=True, blank=True)
+
+    class Meta:
+        always_return_data = False
+        queryset = Trip.objects.all()
+        authorization = UserObjectsOnlyAuthorization()
+        authentication = MultiAuthentication(ApiKeyAuthentication(), SessionAuthentication())
+    
+    def obj_create(self, bundle, **kwargs):
+        print bundle.request.user
+        if not bundle.request.user.is_authenticated():
+            return None
+        return super(TripResource, self).obj_create(bundle, user=bundle.request.user)
+
+    def save_related(self, bundle):
+        resource_uri = self.get_resource_uri(bundle.obj)
+        user_uri = self.get_resource_uri(bundle.request.user)
+        for respondant in bundle.data.get('respondants'):
+            respondant['trip'] = resource_uri
+            respondant['user'] = user_uri
 
 class OfflineRespondantResource(SurveyModelResource):
     responses = fields.ToManyField('apps.survey.api.OfflineResponseResource', 'responses', null=True, blank=True)
@@ -142,7 +125,7 @@ class OfflineRespondantResource(SurveyModelResource):
         always_return_data = True
         queryset = Respondant.objects.all()
         authorization = UserObjectsOnlyAuthorization()
-        authentication = Authentication()
+        authentication = MultiAuthentication(ApiKeyAuthentication(), SessionAuthentication())
         ordering = ['-ts']
     
     def obj_create(self, bundle, **kwargs):
@@ -174,7 +157,7 @@ class ReportRespondantResource(SurveyModelResource):
         }
         #ordering = ['-ordering_date']
         authorization = StaffUserOnlyAuthorization()
-        authentication = Authentication()
+        authentication = MultiAuthentication(ApiKeyAuthentication(), SessionAuthentication())
 
 class DashRespondantResource(ReportRespondantResource):
     user = fields.ToOneField('apps.account.api.UserResource', 'user', null=True, blank=True, full=True, readonly=True)
@@ -202,7 +185,7 @@ class RespondantResource(SurveyModelResource):
         }
         ordering = ['-ts']
         authorization = StaffUserOnlyAuthorization()
-        authentication = Authentication()
+        authentication = MultiAuthentication(ApiKeyAuthentication(), SessionAuthentication())
 
 
 class OptionResource(SurveyModelResource):
@@ -210,7 +193,7 @@ class OptionResource(SurveyModelResource):
         always_return_data = True
         queryset = Option.objects.all().order_by('order');
         authorization = StaffUserOnlyAuthorization()
-        authentication = Authentication()
+        authentication = MultiAuthentication(ApiKeyAuthentication(), SessionAuthentication())
 
 
     # save_m2m = main_save_m2m
@@ -224,7 +207,7 @@ class PageResource(SurveyModelResource):
         queryset = Page.objects.all().order_by('order')
         always_return_data = True
         authorization = StaffUserOnlyAuthorization()
-        authentication = Authentication()
+        authentication = MultiAuthentication(ApiKeyAuthentication(), SessionAuthentication())
         filtering = {
             'survey': ALL_WITH_RELATIONS
         }
@@ -241,7 +224,7 @@ class BlockResource(SurveyModelResource):
         queryset = Block.objects.all()
         always_return_data = True
         authorization = StaffUserOnlyAuthorization()
-        authentication = Authentication()
+        authentication = MultiAuthentication(ApiKeyAuthentication(), SessionAuthentication())
 
 
 class QuestionResource(SurveyModelResource):
@@ -263,7 +246,7 @@ class QuestionResource(SurveyModelResource):
         queryset = Question.objects.all()
         always_return_data = True
         authorization = StaffUserOnlyAuthorization()
-        authentication = Authentication()
+        authentication = MultiAuthentication(ApiKeyAuthentication(), SessionAuthentication())
         filtering = {
             'slug': ALL,
             'surveys': ALL_WITH_RELATIONS
@@ -280,7 +263,7 @@ class SurveyResource(SurveyModelResource):
         queryset = Survey.objects.all()
         always_return_data = True
         authorization = StaffUserOnlyAuthorization()
-        authentication = Authentication()
+        authentication = MultiAuthentication(ApiKeyAuthentication(), SessionAuthentication())
         filtering = {
             'slug': ['exact']
         }
