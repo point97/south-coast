@@ -13,10 +13,12 @@
                     <span class="left-align">Trips</span>
                 </div>
             </a>
-            <div class="sp-nav-option">
-                <span class="icon-globe"></span>
-                <span class="left-align">Maps</span>
-            </div>
+            <a href="#/maps" ng-click="$spMenu.toggle()">
+                <div class="sp-nav-option">
+                    <span class="icon-globe"></span>
+                    <span class="left-align">Maps</span>
+                </div>
+            </a>
             <div class="sp-nav-option">
                 <span class="icon-bar-chart"></span>
                 <span class="left-align">Reports</span>
@@ -37,10 +39,12 @@
                 <span>On My Device</span>
                 <span class="pull-right" ng-show="version">v {{version}}</span>
             </div>
-            <div class="sp-nav-option">
-                <span class="icon-folder-open"></span>
-                <span class="left-align">Unsubmitted Trips</span>
-            </div>
+            <a href="#/unSubmittedTripList" ng-click="$spMenu.toggle()">
+                <div class="sp-nav-option">
+                    <span class="icon-folder-open"></span>
+                    <span class="left-align">Unsubmitted Trips</span>
+                </div>
+            </a>
             <a href="#/settings" ng-click="$spMenu.toggle()">
                 <div class="sp-nav-option">
                     <span class="icon-pencil"></span>

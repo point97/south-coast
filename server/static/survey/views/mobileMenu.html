@@ -8,6 +8,10 @@
         <span class="icon-reorder" style="color: #ddd; cursor: pointer;"></span>
     </a>
 
+    <button ng-show="showBackButton" class="btn pull-left" style="margin-top: 18px; margin-left: 10px; background-color: white;" ng-click="back()">
+        <span>Back</span>
+    </button>
+
     <div ng-show="answers">
         <a class="pull-right survey-arrow" ng-class="{ 'valid': pageIsValid }" ng-click="submitPage(page)"><span class="glyphicon glyphicon-arrow-right"></span></a>
         <a class="pull-left survey-arrow" ng-click="skipBack()"><span class="glyphicon glyphicon-arrow-left"></span></a>
@@ -37,9 +41,11 @@
         <!--/.nav-collapse -->
 
     </div>
+
     <div class="progress" style="margin-bottom: 0; border-radius: 0; background-color: rgb(50, 50, 50); height: 10px;">
         <div class=" progress-bar" style="width: {{ surveyProgress }}%;"></div>
     </div>
+    
     <style media="screen" type="text/css">
          .survey-arrow {
             font-size: 40px; 

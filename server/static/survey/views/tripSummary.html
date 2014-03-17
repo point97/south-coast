@@ -6,10 +6,18 @@
     <div mobilemenu></div>
 
     <div class="container">
-        <div>
+
+        <div class="loading-indicator" ng-show="working">
+            <div class="bar">
+                <i class="sphere"></i>
+            </div>
+        </div>
+
+        <div ng-hide="working">
+
             <div>
-                <div ng-repeat="(type, event) in currentTrip.events">
-                    <h4>{{type | uppercase}} LOG <span class="pull-right">{{ currentTrip.uuid | date: 'MM/dd/yy' }}</span></h4>
+                <div ng-repeat="(type, event) in trip.events">
+                    <h4>{{type | uppercase}} LOG <span class="pull-right">{{ trip.uuid | date: 'MM/dd/yy' }}</span></h4>
                     <div class="well"> 
                         <div><span>Vessel Name: {{event['vessel-name']}}</span></div>
                         <div><span>License #: {{user.registration.license}}</span></div>
@@ -19,18 +27,13 @@
                     </div>
                     <div class="well" style="padding: 5px">
                         <span class="profile-question-header">Log Summaries</span>
-                        <div class="form-control ng-pristine" style="padding-top: 10px; margin-bottom: 5px; font-size: 16px" ng-repeat="speciesObj in speciesCaught">
-                            <span ng-click="viewSpeciesSummary(speciesObj)" style="width: 100%; cursor: pointer; color: #555;">
+                        <div class="form-control ng-pristine" style="padding-top: 10px; margin-bottom: 5px; font-size: 16px; cursor: pointer;" ng-click="viewSpeciesSummary(speciesObj)" ng-repeat="speciesObj in speciesCaught">
+                            <span style="width: 100%; color: #555;">
                                 <span class="pull-left" style="font-weight: bold; text-transform: capitalize;">{{speciesObj.name | uppercase}}</span>
                                 <span class="pull-right icon-chevron-right" style="margin-top: 3px;"></span>
                             </span>
                         </div>
                     </div>
-                </div>
-
-                <div>
-                    
-
                 </div>
 
                 <script id="speciesSummary" type="text/ng-template" options="{dialogClass: 'testing'}"> 
@@ -74,9 +77,8 @@
             </div>
 
             <div>
-                <h3>Submit Trip Log</h3>
-                <a class="btn btn-main btn-default btn-lg btn-block btn-danger" ng-click="submitTripLog()">now</a>
-                <a class="btn btn-main btn-default btn-lg btn-block" ng-click="saveTripLog()">later</a>
+                <a class="btn btn-main btn-default btn-lg btn-block btn-danger" ng-click="submitTripLog()">Submit Trip Log</a>
+                <a class="btn btn-main btn-default btn-lg btn-block" ng-click="saveTripToLocalStorage()">Save for later</a>
             </div>
         </div>
     </div>

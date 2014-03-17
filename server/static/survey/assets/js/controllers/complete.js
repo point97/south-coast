@@ -28,10 +28,10 @@ angular.module('askApp')
     survey.initializeSurvey($scope.survey);
 
     if (app.offline) {
-        app.respondents[$routeParams.uuidSlug].complete = true;
-        app.respondents[$routeParams.uuidSlug].status = 'complete';
-        delete app.user.resumePath;
-        app.message = "You have completed a trip log.";
+        // app.respondents[$routeParams.uuidSlug].complete = true;
+        // app.respondents[$routeParams.uuidSlug].status = 'complete';
+        // delete app.user.resumePath;
+        // app.message = "You have completed a trip log.";
 
         storage.saveState(app);       
     } else {
@@ -45,6 +45,9 @@ angular.module('askApp')
     $scope.completeView = '/static/survey/survey-pages/' + $routeParams.surveySlug + '/complete.html';
 
     $scope.surveyProgress = 100;
+
+    // setting resumePath so users can 'resume' to this page rather than the last question in the survey 
+    app.respondents[$routeParams.uuidSlug].resumePath = app.user.resumePath = window.location.hash;
 
     $scope.updateCurrentTripLogbook = function() {
         // add logbook answers to currentTrip
@@ -61,24 +64,24 @@ angular.module('askApp')
 
     };
 
-    $scope.addRespondentToCurrentTrip = function() {
-        // survey.ensureCurrentTripExists();
-        // $scope.currentTrip = app.currentTrip;
+    // $scope.addRespondentToCurrentTrip = function() {
+    //     // survey.ensureCurrentTripExists();
+    //     // $scope.currentTrip = app.currentTrip;
 
-        if (!$scope.currentTrip.events[$routeParams.surveySlug].respondents) {
-            $scope.currentTrip.events[$routeParams.surveySlug].respondents = [];
-        }
+    //     if (!$scope.currentTrip.events[$routeParams.surveySlug].respondents) {
+    //         $scope.currentTrip.events[$routeParams.surveySlug].respondents = [];
+    //     }
 
-        $scope.currentTrip.events[$routeParams.surveySlug].respondents.push(app.respondents[$routeParams.uuidSlug]);
+    //     $scope.currentTrip.events[$routeParams.surveySlug].respondents.push(app.respondents[$routeParams.uuidSlug]);
         
-    };
+    // };
 
     // if (!app.currentTrip) {  
-        survey.ensureCurrentTripExists();
-        $scope.updateCurrentTripLogbook();      
+    // survey.ensureCurrentTripExists();
+    // $scope.updateCurrentTripLogbook();      
     // }  
     $scope.currentTrip = app.currentTrip;   
-    $scope.addRespondentToCurrentTrip();
+    // $scope.addRespondentToCurrentTrip();
     
 
     $scope.skipBack = function () {
@@ -101,29 +104,32 @@ angular.module('askApp')
         return history.trapTypeIncludes(type, $scope.respondent);
     };
     
-    $scope.addCurrentTripToUnSubmittedTrips = function() {
-        if ( ! app.unSubmittedTrips ) { // should be created prior to here...
-            app.unSubmittedTrips = {};
-        }
-        app.unSubmittedTrips[$scope.currentTrip.uuid] = angular.copy($scope.currentTrip);
-        storage.saveState(app);
+    // $scope.addCurrentTripToUnSubmittedTrips = function() {
+    //     if ( ! app.unSubmittedTrips ) { // should be created prior to here...
+    //         app.unSubmittedTrips = {};
+    //     }
+    //     app.unSubmittedTrips[$scope.currentTrip.uuid] = angular.copy($scope.currentTrip);
+    //     storage.saveState(app);
 
-        delete app.respondents[$routeParams.uuidSlug];
-    };
+    //     delete app.respondents[$routeParams.uuidSlug];
+    // };
 
-    $scope.startNewEvent = function() {            
+    $scope.startNewEvent = function() {    
+        app.currentRespondent.complete = true;
+        app.currentRespondent.status = 'complete';
+        delete app.user.resumePath;
         $location.path('/survey/' + 'dive' + '/1/offline');
     }
 
     $scope.newEvent = function() {        
         //$scope.addRespondentToCurrentTrip();
-        $scope.addCurrentTripToUnSubmittedTrips();
+        // $scope.addCurrentTripToUnSubmittedTrips();
         $scope.startNewEvent();
     };
 
     $scope.reviewTripReport = function() {
         //$scope.addRespondentToCurrentTrip();
-        $scope.addCurrentTripToUnSubmittedTrips();
+        // $scope.addCurrentTripToUnSubmittedTrips();
         $location.path('/tripSummary');
     };
 

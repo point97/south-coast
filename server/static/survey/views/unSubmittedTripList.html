@@ -1,0 +1,103 @@
+<!-- Sliding Left Nav for mobile -->
+<div mobile-left-nav></div>
+
+<div id="history-wrap" class="menu-page sp-page">
+    <div mobilemenu></div>
+    <!-- Begin page content -->
+    
+    <div class="container">
+        <div ng-show="showSurveyList">
+
+            <div class="well" style="padding: 5px; margin-top: 20px">
+                <span class="profile-question-header">Completed Trips</span>
+                <div ng-show="!completedTrips.length" style="color: rgb(51, 51, 51);">This device has no completed trips.</div>
+                <div class="form-control ng-pristine" style="cursor: pointer; padding-top: 10px; margin-bottom: 5px;" ng-repeat="trip in completedTrips" ng-click="viewTripSummary(trip.uuid)">
+                    <span style="width: 100%; color: #555;">
+                        <span class="pull-left" style="font-weight: bold; text-transform: capitalize;">{{trip.events.dive.date | date : 'MM/dd/yyyy'}}</span>
+                        <span class="pull-right icon-chevron-right" style="margin-top: 3px"></span>
+                    </span>
+                </div>
+            </div>
+
+
+            <div class="well" style="padding: 5px; margin-top: 20px">
+                <span class="profile-question-header">Trips In Progress</span>
+                <div ng-show="!unCompletedTrips.length" style="color: rgb(51, 51, 51);">This device has no trips in progress.</div>
+                <div class="form-control ng-pristine" style="cursor: pointer; padding-top: 10px; margin-bottom: 5px;" ng-repeat="trip in unCompletedTrips">
+                    <span style="width: 100%; color: #555;">
+                        <span class="pull-left" style="font-weight: bold; text-transform: capitalize;">{{trip.events.dive.date | date : 'MM/dd/yyyy'}}</span>
+                        <span class="pull-right icon-chevron-right" style="margin-top: 3px"></span>
+                    </span>
+                </div>
+            </div>
+
+
+            
+            
+            <div ng-show="showSubmitDone">
+                <p>All completed trips have been submitted.</p>
+                <a class="btn btn-main btn-default btn-block blue-btn" ng-click="showSubmitDone = false">return to main</a>
+            </div>
+
+            <!-- <div ng-hide="confirmSubmit || showSubmitDone"> -->
+            <div ng-hide=true>
+                <div class="panel report-list panel-default" ng-repeat="respondent in respondents track by $index">  <!-- track by $index is present to prevent 'Duplicates in repeater' error -->
+                    <div class="panel-heading" ng-click="openRespondent(respondent)" ng-class="{ 'darkSalmonBackground': respondent.open }">
+                        <h3 class="panel-title">
+                            <i ng-class="{ 'icon-caret-right': ! respondent.open,'icon-caret-down': respondent.open }"></i>
+                            {{ respondent.survey_title }}
+                            <span ng-hide="respondent.complete" class="badge pull-right">
+                                incomplete
+                            </span>
+                        </h3>
+                        <span>
+                            {{ respondent.ts | date: 'MM/dd/yyyy HH:mm' }}
+                        </span>
+                    </div>
+                    <div id="{{ respondent.survey_title }}" class="panel-collapse collapse" ng-class="{ 'in': respondent.open }">
+                        <div class="panel-body">
+                            <div ng-include="'views/surveyAnswers.html'"></div>
+                        </div>
+                        <div class="button-row">
+                            <div class="clearfix row">
+                                <span class="col-xs-4"><a type="button" class="btn btn-main btn-default btn-block" ng-show="respondent.complete" ng-click="submitSurvey(respondent)">Submit</a></span>
+                                <!-- <span class="col-xs-4"><a type="button" class="btn btn-main btn-default btn-block" ng-click="resumeSurvey(respondent)">Edit</a></span> -->
+                                <span class="col-xs-4"><a type="button" class="btn btn-main btn-default btn-block" ng-click="deleteSurvey(respondent)">Delete</a></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <a class="btn btn-main btn-default btn-block" ng-show="hasUnsubmittedTrips" ng-click="confirmSubmit = true">submit all trips</a>            
+
+            <div ng-show="confirmSubmit">
+                <h3>Submit Reports</h3>
+                <a class="btn btn-main btn-default btn-lg btn-block btn-danger" ng-click="syncronize(respondents)">ok</a>
+                <a class="btn btn-main btn-default btn-lg btn-block" ng-tap="confirmSubmit = false">cancel</a>
+            </div>
+        </div>
+
+        <div ng-show="showErrorMessage">
+            <div class="error">Problem</div>
+            <div>There was a problem loading your surveys.</div>
+            <div>Please sign in again.</div>
+            <a class="btn btn-default btn-lg btn-block panel-heading" href="#/signin">Sign In</a>
+        </div>
+        
+    </div>
+
+    <div class="alert-notice" ng-show="message">
+        <div class="pull-left" style="width: 85%">{{ message }}</div>
+        <button class="btn btn-default btn-outline-inverse pull-right" ng-tap="dismissMessage()">ok</button>
+    </div>
+    
+    <div ng-show="busy" ng-include="viewPath + 'views/spinner.html'"></div>
+
+</div>
+
+
+<!-- <div id="history-footer">
+    <a class="btn pull-left" href="#/history"><span class="glyphicon glyphicon-chevron-left"></span></a>
+</div> -->

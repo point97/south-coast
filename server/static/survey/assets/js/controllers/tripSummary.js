@@ -10,15 +10,26 @@ angular.module('askApp')
         } else {
             $location.path('/');
         }
-        $scope.title = "Log Summary";
+        $scope.title = "Trip Summary";
+        $scope.hideHamburger = true;
+        $scope.showBackButton = true;
+
+        $scope.working = false;
 
         $scope.path = $location.path().slice(1,5);
 
-        $scope.currentTrip = app.currentTrip;
+        if ($routeParams.uuid && app.unSubmittedTrips && app.unSubmittedTrips[$routeParams.uuid]) {
+            $scope.trip = app.unSubmittedTrips[$routeParams.uuid];
+            $scope.calledFromUnsubmittedTripList = true;
+        } else {
+            $scope.trip = app.currentTrip;    
+            $scope.calledFromUnsubmittedTripList = false;
+        }
+        
 
         $scope.speciesCaught = [];
 
-        _.each($scope.currentTrip.events, function(value, key) {
+        _.each($scope.trip.events, function(value, key) {
             _.each(value.respondents, function(respondent) {
                 if (respondent) {
                     var eventSpecies = _.findWhere(respondent.responses, {question: 'harvest-species'}).answer;
@@ -96,7 +107,7 @@ angular.module('askApp')
         };
 
         $scope.updateUserRegistration = function() {
-            _.each($scope.currentTrip.events, function(value, key) {
+            _.each($scope.trip.events, function(value, key) {
                 if (app.user.registration.logbooks[key]) {
                     app.user.registration.logbooks[key]['permit-number'] = value['permit-number'];
                     app.user.registration.logbooks[key]['vessel-number'] = value['vessel-number'];
@@ -128,40 +139,102 @@ angular.module('askApp')
         };
 
         $scope.submitTripLog = function() {
-            console.log('submitting trip log');
-
             // update profile (from contents of app.user.registration)
-            console.log('saving to server');
             $scope.updateUserRegistration();
             $scope.saveProfileToServer();
+            $scope.working = true;
+            $scope.hideHamburger = true;
+            $scope.title = 'Saving...';
 
+            // app.respondents[$routeParams.uuidSlug].complete = true;
+            // app.respondents[$routeParams.uuidSlug].status = 'complete';
+            delete app.user.resumePath;
+            // app.message = "You have completed a trip log.";
+            // $scope.trip.complete = true;
+            // $scope.trip.status = 'complete';
 
-            // save all respondents in all events for this trip
-            _.each($scope.currentTrip.events, function(event, key) {
-                _.each(event.respondents, function(respondent) {
-                    survey.submitSurvey(respondent, _.findWhere(app.surveys, {slug: key}))
-                        .success( function(data) {
-                            //remove from app.respondents and save state
-                            //$scope.deleteRespondent(respondent);
-                            app.respondents = _.without(app.respondents, respondent);
-                            storage.saveState(app);
-                        }).error( function(err) {
-                            debugger;
-                        });
+            // delete relevant app.respondents
+            _.each($scope.trip.events, function(value, key) {
+                _.each(value.respondents, function(respondent) {
+                    if (app.respondents[respondent.uuid]) {
+                        delete app.respondents[respondent.uuid];
+                    }
                 });
             });
 
-            // delete app.currentTrip; // already deleted somehow...(after saving profile to server)
-            $location.path('/main');
+            if (app.currentRespondent) {
+                app.currentRespondent = true;   
+            }
+
+            // delete curentTrip and currentRespondent
+            delete app.currentRespondent; 
+            delete app.currentTrip;            
+
+            survey.saveTripToServer($scope.trip)
+                .success( function(data) {
+                    // remove $scope.trip from unsubmittedTrips (check for trip.uuid as key in unsubmittedTrips)
+                    // and clear out currentTrip
+                    // will want to have set flag to cause loading... spinner to occur (and then toggle that flag here to stop loading... spinner)
+                    $scope.working = false;
+                    $scope.hideHamburger = false;
+                    app.message = "Your trip has been submitted.";
+
+                    delete app.unSubmittedTrips[$scope.trip.uuid];
+                    
+                    if ($scope.calledFromUnsubmittedTripList) {
+                        $location.path('/unSubmittedTripList')
+                    } else {
+                        $location.path('/main');
+                    }
+                }).error (function(err) {
+                    $scope.working = false;
+                    $scope.hideHamburger = false;
+                    app.message = "A problem was experienced when saving your trip.  Click Unsubmitted Trips to try again now, or try again later.";
+                    if ($scope.calledFromUnsubmittedTripList) {
+                        $location.path('/unSubmittedTripList')
+                    } else {
+                        $location.path('/main');
+                    }
+                });
+
         };
 
-        $scope.saveTripLog = function() {
-            console.log('saving trip log');
-            
+        $scope.saveTripToLocalStorage = function() { 
             storage.saveState(app);
-            delete app.currentTrip;
-            $location.path('/main');
+            if ($scope.calledFromUnsubmittedTripList) {
+                $location.path('/unSubmittedTripList')
+            } else {                
+                // app.respondents[$routeParams.uuidSlug].complete = true;
+                // app.respondents[$routeParams.uuidSlug].status = 'complete';
+                // delete app.user.resumePath;
+                // app.message = "You have completed a trip log.";
+
+                if (app.currentRespondent) {
+                    app.currentRespondent.complete = true;
+                    app.currentRespondent.status = 'complete';
+                }
+                delete app.currentRespondent;    
+                delete app.currentTrip;
+                delete app.currentRespondent;
+                app.message = "View Unsubmitted Trips at anytime to save your trip.";
+                $location.path('/main');
+            }
+
+            // app.respondents[$routeParams.uuidSlug].complete = true;
+            // app.respondents[$routeParams.uuidSlug].status = 'complete';
+            // delete app.user.resumePath;
+            // app.message = "You have completed a trip log.";
+
+
         };
+
+        $scope.back = function() {
+            if ($scope.calledFromUnsubmittedTripList) {
+                $location.path('/unSubmittedTripList')
+            } else {     
+                $location.path('/survey/'+app.currentRespondent.survey+'/complete/'+app.currentRespondent.uuid);
+            }
+        }
 
 });
 

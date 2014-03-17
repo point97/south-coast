@@ -353,7 +353,7 @@ img.center {
 .navbar .navbar-toggle {
     position: absolute;
     padding: 10px;
-    margin-top: -5px;
+    margin-top: 0px;
     margin-left: 10px;
     border: 0;
     font-size: 36px;
@@ -380,7 +380,7 @@ img.center {
 }
 .navbar-brand {
     float: none;
-    margin-top: 8px;
+    margin-top: 10px;
 }
 .navbar-brand img {
     margin-top: -24px;

@@ -107,6 +107,14 @@ angular.module('askApp', ['ngRoute', 'ui', 'ui.bootstrap', 'ngGrid', 'shoppinpal
         templateUrl: app.viewPath + 'views/speciesSummary.html',
         controller: 'speciesSummaryCtrl'
     })
+        .when('/tripSummary/unSubmitted/:uuid', {
+        templateUrl: app.viewPath + 'views/tripSummary.html',
+        controller: 'tripSummaryCtrl'
+    })
+        .when('/unSubmittedTripList', {
+        templateUrl: app.viewPath + 'views/unSubmittedTripList.html',
+        controller: 'unSubmittedTripListCtrl'
+    })
         .when('/unSubmittedSurveyList', {
         templateUrl: app.viewPath + 'views/unSubmittedSurveyList.html',
         controller: 'unSubmittedSurveyListCtrl'
@@ -139,10 +147,10 @@ angular.module('askApp', ['ngRoute', 'ui', 'ui.bootstrap', 'ngGrid', 'shoppinpal
         templateUrl: app.viewPath + 'views/logbook.html',
         controller: 'LogbookCtrl'
     })
-    //     .when('/profile/logbooks/dive', {
-    //     templateUrl: app.viewPath + 'views/dive.html',
-    //     controller: 'DiveCtrl'
-    // })
+        .when('/maps', {
+        templateUrl: app.viewPath + 'views/maps.html',
+        controller: 'MapsCtrl'
+    })
         .when('/settings', {
         templateUrl: app.viewPath + 'views/settings.html',
         controller: 'SettingsCtrl'

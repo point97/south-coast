@@ -124,6 +124,64 @@ angular.module('askApp')
 
         app.respondents[$routeParams.uuidSlug].resumePath = app.user.resumePath = window.location.hash;
         $scope.answers[answer.question.slug] = answer;
+
+        // if this question is not a logbook or profile question, then ensure currenTrip exists (and has been added to unSubmittedTrips)
+        if (!answer.question.logbook && !answer.question.attach_to_profile) {
+            if (!app.currentRespondent || (app.currentRespondent !== app.respondents[$routeParams.uuidSlug])) {
+                //set current respondent
+                app.currentRespondent = app.respondents[$routeParams.uuidSlug];
+            }
+            // set started to true
+            app.currentRespondent.started = true;
+            // set complete to false
+            app.curre
+
+            // if currentTrip is actually from Resume Trip (an unsubmitted trip), then populate app.currentTrip
+            // PROBLEM: tif a later question is accessed through Resume Trip then 'ensure app.currentTrip exists' does not work as intended
+            // SOLUTION:  'ensure app.currentTrip exists' is only necessary if we're proceeding through the first survey in an event
+            // if we are here due to a Resume request, then the logbook answers are already populated 
+            // in this case we need to make sure that app.currentTrip is populated correctly...
+            if (!app.currentTrip && app.unSubmittedTrips) {
+                _.each(_.keys(app.unSubmittedTrips), function(trip_uuid) {
+                    if ( _.findWhere(app.unSubmittedTrips[trip_uuid].events[app.currentRespondent.survey].respondents, {uuid: $routeParams.uuidSlug}) ) {
+                        app.currentTrip = app.unSubmittedTrips[trip_uuid];
+                    }
+                }); 
+            } 
+            // ensure app.currentTrip exists
+            if (!app.currentTrip || !app.currentTrip.events || !app.currentTrip.events[$scope.survey.slug]) { // and if not...
+                // update currentTrip logbook answers with all previously answered question/answer pairs
+                
+                _.each(app.currentRespondent.responses, function(response) {
+                    if (response.question !== answer.question.slug) {
+                        survey.addLogbookAnswerToCurrentTrip($scope.survey.slug, response.question, response.answer); 
+                    }
+                }); 
+                
+                // and add respondents obj
+                if (!app.currentTrip.events[$scope.survey.slug].respondents) {
+                    app.currentTrip.events[$scope.survey.slug].respondents = [];
+                }
+                app.currentTrip.events[$routeParams.surveySlug].respondents.push(app.currentRespondent);
+
+                // ensure currentTrip has been added to unSubmittedTrip
+                if (!app.unSubmittedTrips) {
+                    app.unSubmittedTrips = {};
+                } 
+                if (!app.unSubmittedTrips[app.currentTrip.uuid]) {
+                    app.unSubmittedTrips[app.currentTrip.uuid] = app.currentTrip;
+                }
+                
+            } else { 
+                // if currentTrip[this event] does already exist, but this respondent has not yet been added, ensure respondent is still added
+                if ( ! _.findWhere(app.currentTrip.events[$scope.survey.slug].respondents, {uuid: $routeParams.uuidSlug}) )  {
+                    app.currentTrip.events[$routeParams.surveySlug].respondents.push(app.currentRespondent);
+                }
+            }
+        }
+        
+        
+
         storage.saveState(app);
     };
 
