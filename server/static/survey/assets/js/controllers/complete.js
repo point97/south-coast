@@ -57,6 +57,7 @@ angular.module('askApp')
                 _.each(event.respondents, function(respondent) {
                     if (respondent.uuid === resume_uuid) {
                         app.currentTrip = trip;
+                        app.currentRespondent = respondent;
                     }
                 });
             });
