@@ -1,7 +1,8 @@
 from django.contrib import admin
-from survey.models import Survey, Question, Option, Response, Respondant, Page, Location, LocationAnswer, MultiAnswer, GridAnswer, Block
+from survey.models import Survey, Question, Option, Response, Respondant, Page, Location, LocationAnswer, MultiAnswer, GridAnswer, Block, Trip
 
-
+class TripAdmin(admin.ModelAdmin):
+    list_display = ('user', 'uuid', 'start_date', 'end_date', 'ts')
 
 class RespondantAdmin(admin.ModelAdmin):
     readonly_fields=('uuid', 'responses')
@@ -65,6 +66,7 @@ class OptionAdmin(admin.ModelAdmin):
 
 
 
+admin.site.register(Trip, TripAdmin)
 admin.site.register(Respondant, RespondantAdmin)
 admin.site.register(Question, QuestionAdmin)
 admin.site.register(Survey, SurveyAdmin)

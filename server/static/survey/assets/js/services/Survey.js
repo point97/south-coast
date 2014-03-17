@@ -252,7 +252,103 @@ angular.module('askApp')
         initializeSurvey(survey, null, answers);
         respondent.responses = cleanSurvey(respondent);
         return sendRespondent(respondent);
+    };
+
+    var postTripToServer = function (trip) {
+        // var url = app.server + '/api/v1/offlinetrip/',
+        var url = app.server + '/api/v1/trip/',
+            newTrip = angular.copy(trip);
+        newTrip.user = '/api/v1/user/' + app.user.id + '/';
+        _.each(trip.events, function(event, key) {
+            newTrip.respondants = [];
+            var logbookResponses = [];
+            _.each(event.respondents, function(respondent) {
+                var responses = angular.copy(respondent.responses),
+                    survey = _.findWhere(app.surveys, {slug: key});
+                // preserve the logbook and profile questions from the first respondent and add these to subsequent respondent
+                if (!newTrip.respondants.length) { // if first respondent, then
+                    _.each(responses, function(response) {
+                        var question = _.findWhere(getPageFromQuestion(response.question).questions, {slug: response.question});
+                        if (question.logbook || question.attach_to_profile) {
+                            logbookResponses.push(angular.copy(response));
+                        }
+                    });
+                } else {
+                    responses.unshift(angular.copy(logbookResponses));
+                    responses = _.flatten(responses);
+                }
+                var answers = _.indexBy(responses, function(item) { return item.question; });
+                initializeSurvey(survey, null, answers);
+                _.each(responses, function (response) {
+                    // console.log(response.question);
+                    if (response.question === 'date') {
+                        var date = new Date(getAnswer(response.question).answer).toISOString();
+                        if (!newTrip.start_date) {
+                            newTrip.start_date = date;
+                        } else if (date < newTrip.start_date) {
+                            newTrip.start_date = date;
+                        }
+                        if (!newTrip.end_date) {
+                            newTrip.end_date = date;
+                        } else if (date > newTrip.end_date) {
+                            newTrip.end_date = date;
+                        }
+                    }
+                    // var question_uri = response.question.resource_uri;
+                    var question_uri = getQuestionUriFromSlug(response.question);
+                    response.question = question_uri;
+                    response.answer_raw = JSON.stringify(response.answer);
+
+                });
+                var newRespondent = {
+                    ts: respondent.ts,
+                    uuid: respondent.uuid.replace(':', '_'),
+                    responses: responses,
+                    status: respondent.status,
+                    complete: respondent.complete,
+                    survey: '/api/v1/survey/' + respondent.survey + '/'
+                };
+                newTrip.respondants.push(newRespondent);
+            });
+        });
+        if (!newTrip.start_date) {
+            newTrip.start_date = new Date().toISOString();
+        } 
+        if (!newTrip.end_date) {
+            newTrip.end_date = new Date().toISOString();  
+        }
+        return $http({
+            url: url,
+            method: 'POST',
+            data: newTrip,            
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'ApiKey' + ' ' + app.user.username + ':' + app.user.api_key
+            }
+        });
+        // return $http.post(url, newTrip);
+    };
+
+    var cleanRespondents = function (trip) {
+        _.each(trip.events, function(event, key) {
+            _.each(event.respondents, function(respondent) {
+                //survey.submitSurvey(respondent, _.findWhere(app.surveys, {slug: key}))
+                //clean survey of any unncecessary question/answers 
+                var survey = _.findWhere(app.surveys, {slug: key}),
+                    answers = _.indexBy(respondent.responses, function(item) {
+                        return item.question;
+                    });
+                initializeSurvey(survey, null, answers);
+                respondent.responses = cleanSurvey(respondent);
+            });
+        });
     }
+
+    var saveTripToServer = function (trip) {
+        // console.log(trip);
+        cleanRespondents(trip);        
+        return postTripToServer(trip);
+    };
 
     var resume = function(respondent) {
         var url;
@@ -312,6 +408,7 @@ angular.module('askApp')
       'getQuestionUriFromSlug': getQuestionUriFromSlug,
       'getQuestionFromSlug': getQuestionFromSlug,
       'submitSurvey': submitSurvey,
+      'saveTripToServer': saveTripToServer,
       'resume': resume,
       'ensureCurrentTripExists': ensureCurrentTripExists,
       'addLogbookAnswerToCurrentTrip': addLogbookAnswerToCurrentTrip,

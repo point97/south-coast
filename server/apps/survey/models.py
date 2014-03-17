@@ -4,6 +4,7 @@ from django.db.models import Avg, Max, Min, Count, Sum
 from django.contrib.auth.models import User
 from django.db.models import signals
 from django.shortcuts import get_object_or_404
+from django.utils.timezone import utc
 from account.models import UserProfile
 
 import dateutil.parser
@@ -20,6 +21,22 @@ STATE_CHOICES = (
     ('terminate', 'Terminate'),
 
 )
+
+class Trip(caching.base.CachingMixin, models.Model):
+    uuid = models.CharField(max_length=36, primary_key=True, default=make_uuid, editable=False)
+    start_date = models.DateTimeField()
+    end_date = models.DateTimeField()
+    ts = models.DateTimeField()
+    user = models.ForeignKey(User)
+
+    # def __unicode__(self):
+    #     return '%s - %s' %(user.username, start_date)
+
+    def save(self, *args, **kwargs):        
+        if not self.ts:
+            self.ts = datetime.datetime.utcnow().replace(tzinfo=utc)
+        super(Trip, self).save(*args, **kwargs)
+
 class Respondant(caching.base.CachingMixin, models.Model):
     uuid = models.CharField(max_length=36, primary_key=True, default=make_uuid, editable=False)
     survey = models.ForeignKey('Survey')
@@ -32,11 +49,13 @@ class Respondant(caching.base.CachingMixin, models.Model):
     state = models.CharField(max_length=240, null=True, blank=True)
     locations = models.IntegerField(null=True, blank=True)
 
-    ts = models.DateTimeField(default=datetime.datetime.now())
+    ts = models.DateTimeField()
     email = models.EmailField(max_length=254, null=True, blank=True, default=None)
     ordering_date = models.DateTimeField(null=True, blank=True)
 
     user = models.ForeignKey(User, null=True, blank=True)
+
+    trip = models.ForeignKey(Trip, null=True, blank=True)
 
     objects = caching.base.CachingManager()
 
@@ -75,7 +94,7 @@ class Respondant(caching.base.CachingMixin, models.Model):
     def save(self, *args, **kwargs):
         ''' On save, update timestamps '''
         if not self.uuid:
-            self.ts = datetime.datetime.now()
+            self.ts = datetime.datetime.utcnow().replace(tzinfo=utc)
         else:
             if ":" in self.uuid:
                 self.uuid = self.uuid.replace(":", "_")
@@ -326,7 +345,7 @@ class Response(caching.base.CachingMixin, models.Model):
     answer = models.TextField(null=True, blank=True)
     answer_raw = models.TextField(null=True, blank=True)
     unit = models.TextField(null=True, blank=True)
-    ts = models.DateTimeField(default=datetime.datetime.now())
+    ts = models.DateTimeField()
     user = models.ForeignKey(User, null=True, blank=True)
     objects = caching.base.CachingManager()
 
@@ -487,7 +506,7 @@ class Response(caching.base.CachingMixin, models.Model):
     def save(self, *args, **kwargs):
         ''' On save, update timestamps '''
         if not self.id:
-            self.ts = datetime.datetime.now()
+            self.ts = datetime.datetime.utcnow().replace(tzinfo=utc)
         super(Response, self).save(*args, **kwargs)
 
 def save_related(sender, instance, created, **kwargs):

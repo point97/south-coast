@@ -53,7 +53,6 @@ def fisher(request, uuid=None, template='survey/fisher-dash.html'):
         return render_to_response(template, RequestContext(request, {'respondent': respondent}))
     
 
-
 def submit_page(request, survey_slug, uuid): #, survey_slug, question_slug, uuid):
     if request.method == 'POST':
         survey = get_object_or_404(Survey, slug=survey_slug)
