@@ -49,6 +49,23 @@ angular.module('askApp')
     // setting resumePath so users can 'resume' to this page rather than the last question in the survey 
     app.respondents[$routeParams.uuidSlug].resumePath = app.user.resumePath = window.location.hash;
 
+    //ensure currentTrip is populated (if arriving here directly from Resume Trip, then currentTrip may not exist)
+    if (!app.currentTrip && app.unSubmittedTrips) {
+        var resume_uuid = $routeParams.uuidSlug;
+        _.each(app.unSubmittedTrips, function(trip, trip_uuid) {
+            _.each(trip.events, function(event, event_type) {
+                _.each(event.respondents, function(respondent) {
+                    if (respondent.uuid === resume_uuid) {
+                        app.currentTrip = trip;
+                    }
+                });
+            });
+        });
+    } 
+    $scope.currentTrip = app.currentTrip;       
+    
+    
+
     $scope.updateCurrentTripLogbook = function() {
         // add logbook answers to currentTrip
         _.each($scope.respondent.responses, function(response) {
@@ -80,7 +97,7 @@ angular.module('askApp')
     // survey.ensureCurrentTripExists();
     // $scope.updateCurrentTripLogbook();      
     // }  
-    $scope.currentTrip = app.currentTrip;   
+    // $scope.currentTrip = app.currentTrip;   
     // $scope.addRespondentToCurrentTrip();
     
 
