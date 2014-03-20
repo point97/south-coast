@@ -159,6 +159,10 @@ angular.module('askApp', ['ngRoute', 'ui', 'ui.bootstrap', 'ngGrid', 'shoppinpal
         templateUrl: app.viewPath + 'views/settings.html',
         controller: 'SettingsCtrl'
     })
+        .when('/support', {
+        templateUrl: app.viewPath + 'views/support.html',
+        controller: 'SupportCtrl'
+    })
         .otherwise({
         redirectTo: '/'
     });

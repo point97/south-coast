@@ -19,22 +19,22 @@
                     <span class="left-align">Maps</span>
                 </div>
             </a>
-            <div class="sp-nav-option">
+            <!-- <div class="sp-nav-option">
                 <span class="icon-bar-chart"></span>
                 <span class="left-align">Reports</span>
-            </div>
+            </div> -->
             <!-- <div class="sp-nav-option">
                 <span class="icon-dollar"></span>
                 <span class="left-align">Expenses</span>
             </div> -->
-            <a href="http://www.dfg.ca.gov/marine/fishing.asp#Commercial" target="_blank">
+            <!-- <a href="http://www.dfg.ca.gov/marine/fishing.asp#Commercial" target="_blank">
                 <div class="sp-nav-option">
                     <span class="icon-file-text-alt"></span>
                     <span class="left-align">Regulations</span>
                 </div>
-            </a>
+            </a> -->
         </div>
-        <div id="left-nav-on-my-device-div" style="">
+        <div id="left-nav-on-my-device-div">
             <div style="margin-bottom: 10px">
                 <span>On My Device</span>
                 <span class="pull-right" ng-show="version">v {{version}}</span>
@@ -49,6 +49,12 @@
                 <div class="sp-nav-option">
                     <span class="icon-pencil"></span>
                     <span class="left-align">Settings</span>
+                </div>
+            </a>
+            <a href="#/support" ng-click="$spMenu.toggle()">
+                <div class="sp-nav-option">
+                    <span class="icon-user-md"></span>
+                    <span class="left-align">Support</span>
                 </div>
             </a>
         </div>
