@@ -6,6 +6,9 @@ angular.module('askApp')
 
         $scope.title = "Unsubmitted";
 
+        if (!app.unSubmittedTrips) {
+            app.unSubmittedTrips = {};
+        }
         $scope.completedTrips = _.values(app.unSubmittedTrips);
 
         $scope.unCompletedTrips = []; // flesh out after app.unCompletedTrips has become functional...
