@@ -18,71 +18,153 @@ angular.module('askApp')
 
         $scope.path = $location.path().slice(1,5);
 
-        if ($routeParams.uuid && app.unSubmittedTrips && app.unSubmittedTrips[$routeParams.uuid]) {
-            $scope.trip = app.unSubmittedTrips[$routeParams.uuid];
-            $scope.calledFromUnsubmittedTripList = true;
-        } else {
-            $scope.trip = app.currentTrip;    
-            $scope.calledFromUnsubmittedTripList = false;
-        }
-        
+        $scope.calledFrom = $location.path().split('/')[2];
 
         $scope.speciesCaught = [];
 
-        _.each($scope.trip.events, function(value, key) {
-            _.each(value.respondents, function(respondent) {
-                if (respondent) {
-                    var eventSpecies = _.findWhere(respondent.responses, {question: 'harvest-species'}).answer;
-                    _.each(eventSpecies, function(species) {
-                        var speciesObj = _.findWhere($scope.speciesCaught, {name: species.text});
-                        if (!speciesObj) {
-                            speciesObj = { name: species.text, events: [] };
-                            $scope.speciesCaught.push(speciesObj);
-                        } 
-                        var event = {};
-                        event.siteName = _.findWhere(respondent.responses, {question: 'site-name'}).answer;
-
-                        var notFound = { answer: 'Question Not Found' };
-
-                        var location = _.findWhere(respondent.responses, {question: 'map-set-location'}) || notFound,
-                            block = _.findWhere(respondent.responses, {question: 'block-number'}) || notFound,
-                            landmark = _.findWhere(respondent.responses, {question: 'landmark'}) || notFound;                        
-                        event.location = {  
-                            lat: location.answer.lat,
-                            lng: location.answer.lng,
-                            block: block.answer,
-                            landmark: landmark.answer
-                        };
-
-                        var minDepth = _.findWhere(respondent.responses, {question: 'min-depth'}) || notFound,
-                            maxDepth = _.findWhere(respondent.responses, {question: 'max-depth'}) || notFound,
-                            hours = _.findWhere(respondent.responses, {question: 'hours-bottom'}) || notFound,
-                            harvest = _.findWhere(respondent.responses, {question: 'harvest-species'}) || notFound,
-                            weight = '',
-                            grade = '';
-                        if (harvest.answer.length) {
-                            weight = _.findWhere(harvest.answer, {text: speciesObj.name}).lbs,
-                            grade = _.findWhere(harvest.answer, {text: speciesObj.name}).grade;
+        $scope.constructTripSummary = function() {
+            _.each($scope.trip.events, function(value, key) {
+                _.each(value.respondents, function(respondent) {
+                    if (respondent) {
+                        var eventSpecies = _.findWhere(respondent.responses, {question: 'harvest-species'}).answer;
+                        if ( !(eventSpecies instanceof Array) ) {
+                            eventSpecies = [{text: eventSpecies}];
+                            // eventSpecies = [eventSpecies];
                         }
-                            
-                        event.harvest = {
-                            minDepth: minDepth.answer,
-                            maxDepth: maxDepth.answer,
-                            hours: hours.answer,
-                            weight: weight,
-                            grade: grade
-                        };
+                        if (!$scope.trip.startDate) {
+                            $scope.trip.startDate = _.findWhere(respondent.responses, {question: 'date'}).answer;    
+                        }                        
+                        _.each(eventSpecies, function(species) {
+                            var speciesObj = _.findWhere($scope.speciesCaught, {name: species.text});
+                            if (!speciesObj) {
+                                speciesObj = { name: species.text, events: [] };
+                                $scope.speciesCaught.push(speciesObj);
+                            } 
+                            var event = {};
+                            event.siteName = _.findWhere(respondent.responses, {question: 'site-name'}).answer;
 
-                        event.incidentals = _.findWhere(respondent.responses, {question: 'incidental-species'}) || notFound;
-                        // will need to loop through this list and output text (species name) and lbs (weight)
+                            var notFound = { answer: 'Question Not Found' };
 
-                        event.notes = _.findWhere(respondent.responses, {question: 'notes'}) || notFound;
+                            var location = _.findWhere(respondent.responses, {question: 'map-set-location'}) || notFound,
+                                block = _.findWhere(respondent.responses, {question: 'block-number'}) || notFound,
+                                landmark = _.findWhere(respondent.responses, {question: 'landmark'}) || notFound;                        
+                            event.location = {  
+                                lat: location.answer.lat || location.answer.split(',')[0],
+                                lng: location.answer.lng || location.answer.split(',')[1],
+                                block: block.answer,
+                                landmark: landmark.answer
+                            };
 
-                        speciesObj.events.push(event);                                    
-                    });
-                }
+                            var minDepth = _.findWhere(respondent.responses, {question: 'min-depth'}) || notFound,
+                                maxDepth = _.findWhere(respondent.responses, {question: 'max-depth'}) || notFound,
+                                hours = _.findWhere(respondent.responses, {question: 'hours-bottom'}) || notFound,
+                                harvest = _.findWhere(respondent.responses, {question: 'harvest-species'}) || notFound,
+                                weight = '',
+                                grade = '';
+                            if (harvest.answer.length) {
+                                weight = _.findWhere(harvest.answer, {text: speciesObj.name}).lbs,
+                                grade = _.findWhere(harvest.answer, {text: speciesObj.name}).grade;
+                            }
+                                
+                            event.harvest = {
+                                minDepth: minDepth.answer,
+                                maxDepth: maxDepth.answer,
+                                hours: hours.answer,
+                                weight: weight,
+                                grade: grade
+                            };
+
+                            event.incidentals = _.findWhere(respondent.responses, {question: 'incidental-species'}) || notFound;
+                            // will need to loop through this list and output text (species name) and lbs (weight)
+
+                            event.notes = _.findWhere(respondent.responses, {question: 'notes'}) || notFound;
+
+                            speciesObj.events.push(event);                                    
+                        });
+                    }
+                });
             });
-        });
+        };
+
+        $scope.getAnswerFromRespondent = function(respondent, questionSlug) {
+            var response = _.findWhere(respondent.responses, {question_slug: 'vessel-name'});
+            if (response && response.answer) {
+                return response.answer;
+            } 
+            return undefined;
+        };
+
+        $scope.retrieveTripFromServer = function(trip_uuid) {
+            var url = app.server 
+                  + '/api/v1/tripreportdetails/'
+                  + trip_uuid
+                  + '/?format=json';        
+
+            return $http.get(url)
+                .success(function (data) {
+                    //TODO
+                    //construct $scope.trip to reflect expectations 
+                    $scope.trip = {
+                        user: {},
+                        events: {},
+                        uuid: data.uuid,
+                        startDate: data.start_date
+                    };
+                    _.each(data.respondants, function(respondent) {
+                        var event_type = respondent.survey_slug;
+                        if (!$scope.trip.events[event_type]) {
+                            $scope.trip.events[event_type] = {};
+                            $scope.trip.events[event_type].respondents = [];
+                        } 
+                        $scope.trip.events[event_type].respondents.push(respondent); 
+                        $scope.trip.events[event_type]['vessel-name'] = $scope.getAnswerFromRespondent(respondent, 'vessel-name');
+                        $scope.trip.events[event_type]['permit-number'] = $scope.getAnswerFromRespondent(respondent, 'permit-number');
+                        $scope.trip.events[event_type]['landing-port'] = $scope.getAnswerFromRespondent(respondent, 'landing-port');
+                        $scope.trip.events[event_type]['dealer'] = $scope.getAnswerFromRespondent(respondent, 'dealer');
+                        _.each(respondent.responses, function(response) {
+                            response.question = response.question_slug;
+                            response.answer = response.answer;
+                        });
+                    });
+                    $scope.constructTripSummary();
+                    $scope.working = false;
+                    // var respondent = data;
+                    // if (typeof(respondent.responses.question) !== 'string') {
+                    //     _.each(respondent.responses, function(response, index) {
+                    //         var questionSlug = response.question.slug;
+                    //         try {
+                    //             answer_raw = JSON.parse(response.answer_raw);
+                    //         } catch(e) {
+                    //             console.log('failed to parse answer_raw');
+                    //             answer_raw = response.answer;
+                    //         }
+                    //         response.question = questionSlug;
+                    //         response.answer = answer_raw;
+                    //     });
+                    // }
+                    // respondent.survey = respondent.survey_slug;
+                    // $scope.respondent = respondent;
+                }).error(function (err) {
+                    console.log(JSON.stringify(err));
+                    debugger;
+                }); 
+        };
+        
+        if ($scope.calledFrom === 'maps') {
+            $scope.working = true;
+            $scope.calledFromMaps = true;
+            $scope.retrieveTripFromServer($routeParams.uuid);
+        } else if ($routeParams.uuid && app.unSubmittedTrips && app.unSubmittedTrips[$routeParams.uuid]) {
+            $scope.trip = app.unSubmittedTrips[$routeParams.uuid];
+            $scope.calledFromUnsubmittedTripList = true;
+            $scope.constructTripSummary();
+        } else {
+            $scope.trip = app.currentTrip;    
+            $scope.calledFromUnsubmittedTripList = false;
+            $scope.constructTripSummary();
+        }
+        
+
 
 
         $scope.viewSpeciesSummary = function (speciesObj) {
@@ -229,7 +311,9 @@ angular.module('askApp')
         };
 
         $scope.back = function() {
-            if ($scope.calledFromUnsubmittedTripList) {
+            if ($scope.calledFromMaps) {
+                $location.path('/maps')
+            } else if ($scope.calledFromUnsubmittedTripList) {
                 $location.path('/unSubmittedTripList')
             } else {     
                 $location.path('/survey/'+app.currentRespondent.survey+'/complete/'+app.currentRespondent.uuid);

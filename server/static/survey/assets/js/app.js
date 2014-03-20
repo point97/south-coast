@@ -111,6 +111,10 @@ angular.module('askApp', ['ngRoute', 'ui', 'ui.bootstrap', 'ngGrid', 'shoppinpal
         templateUrl: app.viewPath + 'views/tripSummary.html',
         controller: 'tripSummaryCtrl'
     })
+        .when('/tripSummary/maps/:uuid', {
+        templateUrl: app.viewPath + 'views/tripSummary.html',
+        controller: 'tripSummaryCtrl'
+    })
         .when('/unSubmittedTripList', {
         templateUrl: app.viewPath + 'views/unSubmittedTripList.html',
         controller: 'unSubmittedTripListCtrl'

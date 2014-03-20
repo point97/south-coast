@@ -282,7 +282,8 @@ angular.module('askApp')
                 _.each(responses, function (response) {
                     // console.log(response.question);
                     if (response.question === 'date') {
-                        var date = new Date(getAnswer(response.question).answer).toISOString();
+                        // var date = new Date(getAnswer(response.question).answer).toISOString();
+                        var date = new Date(new Date(response.answer).getTime() + 12 * 60 * 60 * 1000).toISOString(); // adding 12 hours to prevent losing a day
                         if (!newTrip.start_date) {
                             newTrip.start_date = date;
                         } else if (date < newTrip.start_date) {

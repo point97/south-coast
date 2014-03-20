@@ -13,6 +13,8 @@ import uuid
 import simplejson
 import caching.base
 import ast
+import json
+
 def make_uuid():
     return str(uuid.uuid4())
 
@@ -31,6 +33,19 @@ class Trip(caching.base.CachingMixin, models.Model):
 
     # def __unicode__(self):
     #     return '%s - %s' %(user.username, start_date)
+
+    @property
+    def respondant_summary_list(self):
+        summary_list = []
+        for respondant in self.respondant_set.all():
+            try:
+                event_type = respondant.survey.slug 
+                # location = json.dumps(respondant.responses.get(question__slug='map-set-location').answer)
+                location = Location.objects.get(respondant=respondant)
+                summary_list.append({'type': event_type, 'location': {'lat': location.lat, 'lng': location.lng}, 'date': self.start_date, 'uuid': respondant.uuid, 'trip_uuid': self.uuid})
+            except:
+                pass
+        return summary_list
 
     def save(self, *args, **kwargs):        
         if not self.ts:
@@ -358,6 +373,10 @@ class Response(caching.base.CachingMixin, models.Model):
     class Meta:
         ordering = ['-ts']
 
+    @property
+    def question_slug(self):
+        return self.question.slug
+
     def save_related(self):
         if self.answer_raw:
             self.answer = simplejson.loads(self.answer_raw)
@@ -412,25 +431,39 @@ class Response(caching.base.CachingMixin, models.Model):
                 answers = []
                 self.location_set.all().delete()
                 for point in simplejson.loads(simplejson.loads(self.answer_raw)):
-                        answers.append("%s,%s: %s" % (point['lat'], point['lng'] , point['answers']))
-                        location = Location(lat=point['lat'], lng=point['lng'], response=self, respondant=self.respondant)
-                        location.save()
-                        for answer in point['answers']:
-                            answer = LocationAnswer(answer=answer['text'], label=answer['label'], location=location)
-                            answer.save()
-                        location.save()
+                    answers.append("%s,%s: %s" % (point['lat'], point['lng'] , point['answers']))
+                    location = Location(lat=point['lat'], lng=point['lng'], response=self, respondant=self.respondant)
+                    location.save()
+                    for answer in point['answers']:
+                        answer = LocationAnswer(answer=answer['text'], label=answer['label'], location=location)
+                        answer.save()
+                    location.save()
                 self.answer = ", ".join(answers)
+            if self.question.type in ['map-set-location'] and self.id:
+                self.location_set.all().delete()
+                point = simplejson.loads(self.answer_raw)
+                self.answer = "%s,%s" % (point['lat'], point['lng'])
+                location = Location(lat=point['lat'], lng=point['lng'], response=self, respondant=self.respondant)
+                location.save()
             if self.question.type == 'grid':
                 self.gridanswer_set.all().delete()
                 for answer in self.answer:
                     for grid_col in self.question.grid_cols.all():
                         if grid_col.type in ['currency', 'integer', 'number', 'single-select', 'text', 'yes-no']:
                             try:
-                                grid_answer = GridAnswer(response=self,
-                                    answer_text=answer[grid_col.label.replace('-', '')],
-                                    answer_number=answer[grid_col.label.replace('-', '')],
-                                    row_label=answer['label'].strip(), row_text=answer['text'].strip(),
-                                    col_label=grid_col.label, col_text=grid_col.text)
+                                answer_value = answer[grid_col.label.replace('-', '')]
+                                # if the answer is numeric
+                                if not isinstance(answer_value, unicode) or answer_value.isdigit():
+                                    grid_answer = GridAnswer(response=self,
+                                        answer_text=answer_value,
+                                        answer_number=answer_value,
+                                        row_label=answer['label'].strip(), row_text=answer['text'].strip(),
+                                        col_label=grid_col.label, col_text=grid_col.text)
+                                else: # the answer is not numeric
+                                    grid_answer = GridAnswer(response=self,
+                                        answer_text=answer_value,
+                                        row_label=answer['label'].strip(), row_text=answer['text'].strip(),
+                                        col_label=grid_col.label, col_text=grid_col.text)
                                 grid_answer.save()
                             except Exception as e:
                                 print "problem with ", grid_col.label

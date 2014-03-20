@@ -9,6 +9,7 @@ from django.db.models import Avg, Max, Min, Count
 
 from survey.models import Survey, Question, Option, Respondant, Response, Page, Block, Trip
 
+import json
 
 
 class SurveyModelResource(ModelResource):
@@ -94,8 +95,14 @@ class OfflineResponseResource(SurveyModelResource):
     def obj_create(self, bundle, **kwargs):
         return super(OfflineResponseResource, self).obj_create(bundle, user=bundle.request.user)
 
+class TripReportResponseResource(OfflineResponseResource):
+    question = fields.ToOneField('apps.survey.api.QuestionResource', 'question', full=False, null=True, blank=True)
+    question_slug = fields.CharField(attribute='question_slug', readonly=True)
+    def dehydrate_answer(self, bundle):
+        return json.loads(bundle.obj.answer_raw)
+
 class TripResource(SurveyModelResource):
-    respondants = fields.ToManyField('apps.survey.api.OfflineRespondantResource', 'respondant_set', null=True, blank=True)
+    respondants = fields.ToManyField('apps.survey.api.TripReportRespondantResource', 'respondant_set', null=True, blank=True)
     user = fields.ToOneField('apps.account.api.UserResource', 'user', null=True, blank=True)
 
     class Meta:
@@ -116,6 +123,23 @@ class TripResource(SurveyModelResource):
         for respondant in bundle.data.get('respondants'):
             respondant['trip'] = resource_uri
             respondant['user'] = user_uri
+
+
+class TripReportResource(SurveyModelResource):
+    respondants = fields.ListField(attribute='respondant_summary_list', null=True, blank=True)
+
+    class Meta:
+        queryset = Trip.objects.all().order_by('-start_date')
+        filtering = {
+            'user': ALL_WITH_RELATIONS,
+            'start_date': ['gte','lte']
+        }
+        authorization = StaffUserOnlyAuthorization()
+        authentication = MultiAuthentication(ApiKeyAuthentication(), SessionAuthentication())
+
+class TripReportDetailsResource(TripReportResource):
+    respondants = fields.ToManyField('apps.survey.api.TripReportRespondantResource', 'respondant_set', full=True, null=True, blank=True)
+    
 
 class OfflineRespondantResource(SurveyModelResource):
     responses = fields.ToManyField('apps.survey.api.OfflineResponseResource', 'responses', null=True, blank=True)
@@ -139,6 +163,10 @@ class OfflineRespondantResource(SurveyModelResource):
         for response in bundle.data.get('responses'):
             response['respondant'] = resource_uri
             response['user'] = user_uri
+
+class TripReportRespondantResource(OfflineRespondantResource):
+    responses = fields.ToManyField('apps.survey.api.TripReportResponseResource', 'responses', full=True, null=True, blank=True)
+    survey_slug = fields.CharField(attribute='survey_slug', readonly=True)
 
 class ReportRespondantResource(SurveyModelResource):
     responses = fields.ToManyField(ResponseResource, 'responses', full=False, null=True, blank=True)
@@ -165,7 +193,6 @@ class DashRespondantResource(ReportRespondantResource):
 class DashRespondantDetailsResource(ReportRespondantResource):
     responses = fields.ToManyField(ResponseResource, 'responses', full=True, null=True, blank=True)
     user = fields.ToOneField('apps.account.api.UserResource', 'user', null=True, blank=True, full=True, readonly=True)
-
 
 class ReportRespondantDetailsResource(ReportRespondantResource):
     responses = fields.ToManyField(ResponseResource, 'responses', full=True, null=True, blank=True)
