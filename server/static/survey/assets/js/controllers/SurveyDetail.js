@@ -134,7 +134,7 @@ angular.module('askApp')
             // set started to true
             app.currentRespondent.started = true;
             // set complete to false
-            app.curre
+            app.currentRespondent.complete = false;
 
             // if currentTrip is actually from Resume Trip (an unsubmitted trip), then populate app.currentTrip
             // PROBLEM: tif a later question is accessed through Resume Trip then 'ensure app.currentTrip exists' does not work as intended
@@ -178,9 +178,7 @@ angular.module('askApp')
                     app.currentTrip.events[$routeParams.surveySlug].respondents.push(app.currentRespondent);
                 }
             }
-        }
-        
-        
+        }                
 
         storage.saveState(app);
     };
@@ -843,11 +841,11 @@ angular.module('askApp')
         } else {
             // this is an old offline survey
             $scope.loadSurvey({
-                    survey: angular.copy(_.findWhere(app.surveys, {
-                        slug: $routeParams.surveySlug
-                    })),
-                    responses: app.respondents[$routeParams.uuidSlug].responses
-                });
+                survey: angular.copy(_.findWhere(app.surveys, {
+                    slug: $routeParams.surveySlug
+                })),
+                responses: app.respondents[$routeParams.uuidSlug].responses
+            });
         }
     } else {
         $http.get(app.server + '/api/v1/respondant/' + $routeParams.uuidSlug + '/?format=json').success(function(data) {
