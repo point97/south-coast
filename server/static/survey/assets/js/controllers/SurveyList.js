@@ -58,4 +58,11 @@ angular.module('askApp')
     } else {
         $scope.updateSurveys();
     }
+
+    if (app.currentTrip) {
+        delete app.currentTrip;
+    }
+    if (app.currentRespondent) {
+        delete app.currentRespondent;
+    }
 });

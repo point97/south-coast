@@ -306,7 +306,6 @@ angular.module('askApp')
                 }
                 delete app.currentRespondent;    
                 delete app.currentTrip;
-                delete app.currentRespondent;
                 app.message = "View Unsubmitted Trips at anytime to save your trip.";
                 $location.path('/main');
             }
