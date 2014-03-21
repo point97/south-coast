@@ -49,8 +49,8 @@
                                 <h4 class="question-title" style="color: #555; margin-top: 5px">{{event.siteName | uppercase}}</h4>
                                 <div class="well" style="padding: 5px">
                                     <span class="profile-question-header">Location</span>
-                                    <div><span>Lat: {{event.location.lat}}</span></div>
-                                    <div><span>Long: {{event.location.lng}}</span></div>
+                                    <div><span>Lat: {{event.location.latDMS[0]}} Deg {{event.location.latDMS[1]}} Min {{event.location.latDMS[2]}} Sec </span></div>
+                                    <div><span>Long: {{event.location.lngDMS[0]}} Deg {{event.location.lngDMS[1]}} Min {{event.location.lngDMS[2]}} Sec </span></div>
                                     <div><span>Block: {{event.location.block}}</span></div>
                                     <div><span>Landmark: {{event.location.landmark}}</span></div>
                                 </div>

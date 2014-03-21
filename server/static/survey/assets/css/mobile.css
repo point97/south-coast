@@ -302,7 +302,7 @@ input.datepicker {
     top: 0;
     left: 0;
     margin-top: 90px;
-    padding: 20px 50px 0;
+    padding: 20px 40px 0;
     opacity: 1 !important;
 }
 
@@ -317,7 +317,7 @@ input.datepicker {
     padding: 40px 40px 20px;
 }
 #wrap.menu-page > .container {
-    padding: 110px 40px 40px;
+    padding: 110px 30px 40px;
 }
 .container .credit {
     margin: 20px 0;

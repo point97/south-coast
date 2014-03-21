@@ -55,6 +55,9 @@ angular.module('askApp')
                                 landmark: landmark.answer
                             };
 
+                            event.location.latDMS = $scope.convertToDMS(event.location.lat);
+                            event.location.lngDMS = $scope.convertToDMS(event.location.lng);
+
                             var minDepth = _.findWhere(respondent.responses, {question: 'min-depth'}) || notFound,
                                 maxDepth = _.findWhere(respondent.responses, {question: 'max-depth'}) || notFound,
                                 hours = _.findWhere(respondent.responses, {question: 'hours-bottom'}) || notFound,
@@ -84,7 +87,15 @@ angular.module('askApp')
                     }
                 });
             });
-        };
+        };    
+
+        $scope.convertToDMS = function(position) {
+            var deg = position | 0; // truncate dd to get degrees
+            var frac = Math.abs(position - deg); // get fractional part
+            var min = (frac * 60) | 0; // multiply fraction by 60 and truncate
+            var sec = ((((frac * 3600 - min * 60) * 1000) | 0) / 1000);
+            return [deg, min, sec];
+        };    
 
         $scope.getAnswerFromRespondent = function(respondent, questionSlug) {
             var response = _.findWhere(respondent.responses, {question_slug: 'vessel-name'});
@@ -164,8 +175,6 @@ angular.module('askApp')
             $scope.constructTripSummary();
         }
         
-
-
 
         $scope.viewSpeciesSummary = function (speciesObj) {
 
