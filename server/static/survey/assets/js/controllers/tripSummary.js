@@ -168,11 +168,23 @@ angular.module('askApp')
         } else if ($routeParams.uuid && app.unSubmittedTrips && app.unSubmittedTrips[$routeParams.uuid]) {
             $scope.trip = app.unSubmittedTrips[$routeParams.uuid];
             $scope.calledFromUnsubmittedTripList = true;
-            $scope.constructTripSummary();
+            try {
+                $scope.constructTripSummary();
+            } catch (e) {
+                debugger;
+                app.message = "Hmmm... We've experienced a problem with your trip. It's possible data was lost. Please review your trip from the Unsubmitted Trips page."
+                $location.path('/main');
+            }
         } else {
             $scope.trip = app.currentTrip;    
             $scope.calledFromUnsubmittedTripList = false;
-            $scope.constructTripSummary();
+            try {
+                $scope.constructTripSummary();
+            } catch (e) {
+                debugger;
+                app.message = "Hmmm... We've experienced a problem with your trip. It's possible data was lost. Please review your trip from the Unsubmitted Trips page."
+                $location.path('/main');
+            }
         }
         
 
