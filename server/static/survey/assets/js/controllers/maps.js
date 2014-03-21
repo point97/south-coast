@@ -108,6 +108,7 @@ angular.module('askApp')
         $scope.getSubmittedTrips = function() {
             $scope.getSubmittedTripsFromServer()
                 .success(function (data) {
+                    // $scope.updateEnabled = false;
                     $scope.trips = data.objects;
                     $scope.respondentList = [];
                     _.each($scope.trips, function(trip, index) {
@@ -146,18 +147,27 @@ angular.module('askApp')
 
         $scope.submittedSpinner = true;
 
-        var date = new Date(),
+        if (app.maps && app.maps.tripFilter && (app.maps.tripFilter.start || app.maps.tripFilter.end)) {
+            $scope.tripFilter = app.maps.tripFilter;
+        } else {
+            var date = new Date(),
             firstDayOfCurrentMonth = new Date(date.getFullYear(), date.getMonth(), 1),
             today = date.toString('yyyy-MM-dd'),
             start_date = firstDayOfCurrentMonth.toString('yyyy-MM-dd'),
             end_date = today;
 
         $scope.tripFilter = {start: start_date, end: end_date};
+        }
+        
 
-        $scope.$watch('tripFilter', function(newValue) {
-            if (newValue) {
+        $scope.$watch('tripFilter', function(newValue, oldValue) {
+            if (newValue !== oldValue) {
                 // $scope.getSubmittedSurveysList(newValue);
-                $scope.updateEnabled = true;
+                // $scope.updateEnabled = true;
+                if (!app.maps) {
+                    app.maps = {};
+                }
+                app.maps.tripFilter = newValue;
             }
         }, true);
 
