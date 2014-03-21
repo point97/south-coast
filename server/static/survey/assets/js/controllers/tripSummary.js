@@ -316,8 +316,8 @@ angular.module('askApp')
                 }
                 delete app.currentRespondent;    
                 delete app.currentTrip;
-                app.message = "View Unsubmitted Trips at anytime to save your trip.";
-                $location.path('/main');
+                app.message = "View the Unsubmitted Trips page at anytime to complete your trip.";
+                $location.path('/unSubmittedTripList');
             }
 
             // app.respondents[$routeParams.uuidSlug].complete = true;

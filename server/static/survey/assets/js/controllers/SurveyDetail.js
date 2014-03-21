@@ -122,11 +122,14 @@ angular.module('askApp')
         //     survey.addLogbookAnswerToCurrentTrip($scope.survey.slug, answer);            
         // }
 
-        app.respondents[$routeParams.uuidSlug].resumePath = app.user.resumePath = window.location.hash;
+        // app.respondents[$routeParams.uuidSlug].resumePath = app.user.resumePath = window.location.hash;
         $scope.answers[answer.question.slug] = answer;
 
         // if this question is not a logbook or profile question, then ensure currenTrip exists (and has been added to unSubmittedTrips)
         if (!answer.question.logbook && !answer.question.attach_to_profile) {
+            //update resumePath if we've advanced far enough in the survey (beyond the logbook/profile questions)
+            app.respondents[$routeParams.uuidSlug].resumePath = app.user.resumePath = window.location.hash;
+
             if (!app.currentRespondent || (app.currentRespondent !== app.respondents[$routeParams.uuidSlug])) {
                 //set current respondent
                 app.currentRespondent = app.respondents[$routeParams.uuidSlug];

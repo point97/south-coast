@@ -23,7 +23,7 @@
             <div class="well" style="padding: 5px; margin-top: 20px">
                 <span class="profile-question-header">Trips In Progress</span>
                 <div ng-show="!unCompletedTrips.length" style="color: rgb(51, 51, 51);">This device has no trips in progress.</div>
-                <div class="form-control ng-pristine" style="cursor: pointer; padding-top: 10px; margin-bottom: 5px;" ng-repeat="trip in unCompletedTrips">
+                <div class="form-control ng-pristine" style="cursor: pointer; padding-top: 10px; margin-bottom: 5px;" ng-repeat="trip in unCompletedTrips" ng-click="resumeTrip(trip.uuid)">
                     <span style="width: 100%; color: #555;">
                         <span class="pull-left" style="font-weight: bold; text-transform: capitalize;">{{trip.events.dive.date | date : 'MM/dd/yyyy'}}</span>
                         <span class="pull-right icon-chevron-right" style="margin-top: 3px"></span>

@@ -50,9 +50,9 @@ angular.module('askApp')
     app.respondents[$routeParams.uuidSlug].resumePath = app.user.resumePath = window.location.hash;
 
     //ensure currentTrip and currentRespondent are populated (if arriving here directly from Resume Trip, they may not exist)
-    if (!app.currentRespondent || (app.currentRespondent !== app.respondents[$routeParams.uuidSlug])) {
+    if (!app.currentRespondent) {
         app.currentRespondent = app.respondents[$routeParams.uuidSlug];
-    }
+    } 
     if (!app.currentTrip && app.unSubmittedTrips) {
         _.each(_.keys(app.unSubmittedTrips), function(trip_uuid) {
             if ( _.findWhere(app.unSubmittedTrips[trip_uuid].events[app.currentRespondent.survey].respondents, {uuid: $routeParams.uuidSlug}) ) {
@@ -60,8 +60,32 @@ angular.module('askApp')
             }
         }); 
     } 
-    $scope.currentTrip = app.currentTrip;       
+    // make sure we're in sync...
+    // NOTE:  this may be addressing the symptom and not the cause...
+    if (app.currentRespondent !== app.respondents[$routeParams.uuidSlug]) {
+        app.currentRespondent = app.respondents[$routeParams.uuidSlug];
+        var currentTripRespondents = app.currentTrip.events[app.currentRespondent.survey].respondents;
+        for(var i=0; i < currentTripRespondents.length; i+=1) {
+            if (currentTripRespondents[i].uuid == $routeParams.uuidSlug) {
+                currentTripRespondents[i] = app.currentRespondent;
+            }
+        }
+    }
+    $scope.currentTrip = app.currentTrip;  
     
+    app.currentRespondent.complete = true;
+    app.currentRespondent.status = 'complete';
+
+    $scope.addCurrentTripToUnSubmittedTrips = function() {
+        if ( ! app.unSubmittedTrips ) { // should be created prior to here...
+            app.unSubmittedTrips = {};
+        }
+        app.unSubmittedTrips[$scope.currentTrip.uuid] = angular.copy($scope.currentTrip);
+        storage.saveState(app);
+
+        // delete app.respondents[$routeParams.uuidSlug]; // do this instead, after trip is completed
+    };
+    $scope.addCurrentTripToUnSubmittedTrips();     
     
 
     $scope.updateCurrentTripLogbook = function() {
@@ -119,19 +143,9 @@ angular.module('askApp')
         return history.trapTypeIncludes(type, $scope.respondent);
     };
     
-    // $scope.addCurrentTripToUnSubmittedTrips = function() {
-    //     if ( ! app.unSubmittedTrips ) { // should be created prior to here...
-    //         app.unSubmittedTrips = {};
-    //     }
-    //     app.unSubmittedTrips[$scope.currentTrip.uuid] = angular.copy($scope.currentTrip);
-    //     storage.saveState(app);
-
-    //     delete app.respondents[$routeParams.uuidSlug];
-    // };
-
     $scope.startNewEvent = function() {    
-        app.currentRespondent.complete = true;
-        app.currentRespondent.status = 'complete';
+        // app.currentRespondent.complete = true;
+        // app.currentRespondent.status = 'complete';
         delete app.user.resumePath;
         $location.path('/survey/' + 'dive' + '/1/offline');
     }

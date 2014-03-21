@@ -9,9 +9,9 @@ angular.module('askApp')
         if (!app.unSubmittedTrips) {
             app.unSubmittedTrips = {};
         }
-        $scope.completedTrips = _.values(app.unSubmittedTrips);
+        $scope.unCompletedTrips = _.values(app.unSubmittedTrips);
 
-        $scope.unCompletedTrips = []; // flesh out after app.unCompletedTrips has become functional...
+        $scope.completedTrips = []; // flesh out after app.unCompletedTrips has become functional...
 
         $scope.viewTripSummary = function(uuid) {
             $location.path('/tripSummary/unSubmitted/'+uuid);
@@ -25,6 +25,21 @@ angular.module('askApp')
         if (app.message) {
             $scope.message = app.message;
             delete app.message;
+        }
+
+        $scope.resumeTrip = function(uuid) {  
+            var trip = app.unSubmittedTrips[uuid],
+                resumePath = '';
+            _.each(trip.events, function(value, key) {
+                _.each(value.respondents, function(respondent) {
+                    if (respondent.complete) {
+                        resumePath = respondent.resumePath;    
+                    } else {
+                        $location.path(app.viewPath + respondent.resumePath.replace('#', ''));
+                    }
+                });
+            });   
+            $location.path(app.viewPath + resumePath.replace('#', ''));    
         }
 
 
