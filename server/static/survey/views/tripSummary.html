@@ -79,7 +79,7 @@
 
             <div ng-hide="calledFromMaps">
                 <a class="btn btn-main btn-default btn-lg btn-block btn-danger" ng-click="submitTripLog()">Submit Trip Log</a>
-                <a class="btn btn-main btn-default btn-lg btn-block" ng-click="saveTripToLocalStorage()">Save for later</a>
+                <a class="btn btn-main btn-default btn-lg btn-block" ng-hide="calledFromUnsubmittedTripList" ng-click="saveTripToLocalStorage()">Save for later</a>
             </div>
         </div>
     </div>

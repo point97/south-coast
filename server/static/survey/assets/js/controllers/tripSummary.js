@@ -171,9 +171,8 @@ angular.module('askApp')
             try {
                 $scope.constructTripSummary();
             } catch (e) {
-                debugger;
-                app.message = "Hmmm... We've experienced a problem with your trip. It's possible data was lost. Please review your trip from the Unsubmitted Trips page."
-                $location.path('/main');
+                app.message = "Hmmm... We've experienced a problem with your trip. It's possible data was lost. Please try again later."
+                $location.path('/unSubmittedTripList');
             }
         } else {
             $scope.trip = app.currentTrip;    
@@ -181,7 +180,6 @@ angular.module('askApp')
             try {
                 $scope.constructTripSummary();
             } catch (e) {
-                debugger;
                 app.message = "Hmmm... We've experienced a problem with your trip. It's possible data was lost. Please review your trip from the Unsubmitted Trips page."
                 $location.path('/main');
             }
