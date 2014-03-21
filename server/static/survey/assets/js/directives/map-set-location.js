@@ -1,5 +1,5 @@
 angular.module('askApp')
-    .directive('mapSetLocation', function($http) {
+    .directive('mapSetLocation', function($http, $timeout) {
         return {
             // template: '<div style="height: 100%; width: 100%; position: fixed; margin-left: -50px; margin-top: -60px"><div class="map"></div><div style="position: absolute;"><div>Lat</div><div>lng</div><input type="text"/></div></div>',
             templateUrl: 'views/mapSetLocation.html',
@@ -70,7 +70,8 @@ angular.module('askApp')
                 var setPositionFields = function(latlng) {
                     var convertedLat = convertToDMS(latlng.lat);
                     var convertedLng = convertToDMS(latlng.lng);
-                    scope.$apply(function () {
+                    // scope.$apply(function () {
+                    $timeout(function() {
                         scope.question.latDegrees = convertedLat[0];
                         scope.question.latMinutes = convertedLat[1];
                         scope.question.latSeconds = convertedLat[2];
@@ -103,7 +104,6 @@ angular.module('askApp')
                 };
 
                 /*** GeoLocating ***/
-                navigator.geolocation.getCurrentPosition(foundLocation, noLocation);
 
                 function foundLocation(position) {
                     var lat = position.coords.latitude,
@@ -120,19 +120,27 @@ angular.module('askApp')
                 }
                 /*** End GeoLocating ***/
 
-                scope.$watch('[question.latDegrees,question.latMinutes,question.latSeconds,question.lngDegrees,question.lngMinutes,question.lngSeconds]', function(values) {
-                    var numValues = _.map(values, function(num) { return parseFloat(num); });
-                    var nonNumbers = _.filter(numValues, function(num) { return _.isNaN(num); });
-                    if ( nonNumbers.length ) {
-                        map.removeLayer(marker);
-                        scope.question.answer = {};
-                    } else {
-                        var latlng = convertToLatLng(scope.question.latDegrees, scope.question.latMinutes, scope.question.latSeconds, scope.question.lngDegrees, scope.question.lngMinutes, scope.question.lngSeconds);
-                        if ( Math.abs(latlng.lat - marker._latlng.lat) > .0001 || Math.abs(latlng.lng - marker._latlng.lng) > .0001) {
-                            repositionMarker(latlng);
-                        }
-                    }                  
+                scope.$watch('[question.latDegrees,question.latMinutes,question.latSeconds,question.lngDegrees,question.lngMinutes,question.lngSeconds]', function(values, oldValues) {
+                    if (values !== oldValues) {                      
+                        var numValues = _.map(values, function(num) { return parseFloat(num); });
+                        var nonNumbers = _.filter(numValues, function(num) { return _.isNaN(num); });
+                        if ( nonNumbers.length ) {
+                            map.removeLayer(marker);
+                            scope.question.answer = {};
+                        } else {
+                            var latlng = convertToLatLng(scope.question.latDegrees, scope.question.latMinutes, scope.question.latSeconds, scope.question.lngDegrees, scope.question.lngMinutes, scope.question.lngSeconds);
+                            if ( Math.abs(latlng.lat - marker._latlng.lat) > .0001 || Math.abs(latlng.lng - marker._latlng.lng) > .0001) {
+                                repositionMarker(latlng);
+                            }
+                        }     
+                    }               
                 }, true);
+
+                if (scope.question.answer && !_.isEmpty(scope.question.answer)) {
+                    repositionMarker(scope.question.answer);
+                } else {
+                    navigator.geolocation.getCurrentPosition(foundLocation, noLocation);
+                }
 
             }
         }
