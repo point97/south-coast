@@ -405,7 +405,7 @@ angular.module('askApp')
 
     $scope.answerQuestion = function(answer, otherAnswer) {
         if ($scope.question.type === 'integer' || $scope.question.type === 'number') {
-            if ($scope.question.interger_max && $scope.question.integer_max < answer) {
+            if ($scope.question.integer_max && $scope.question.integer_max < answer) {
                 return false;
             }
             if ($scope.question.integer_min || $scope.question.integer_min > answer) {
