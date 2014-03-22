@@ -139,6 +139,14 @@ angular.module('askApp')
             // set complete to false
             app.currentRespondent.complete = false;
 
+            if(!app.currentRespondent.date) {
+                var date = survey.getAnswer('date');
+                if (date) {
+                    app.currentRespondent.date = date;
+                }
+            }
+
+
             // if currentTrip is actually from Resume Trip (an unsubmitted trip), then populate app.currentTrip
             // PROBLEM: tif a later question is accessed through Resume Trip then 'ensure app.currentTrip exists' does not work as intended
             // SOLUTION:  'ensure app.currentTrip exists' is only necessary if we're proceeding through the first survey in an event
@@ -177,8 +185,16 @@ angular.module('askApp')
                 
             } else { 
                 // if currentTrip[this event] does already exist, but this respondent has not yet been added, ensure respondent is still added
-                if ( ! _.findWhere(app.currentTrip.events[$scope.survey.slug].respondents, {uuid: $routeParams.uuidSlug}) )  {
+                var respondent = _.findWhere(app.currentTrip.events[$scope.survey.slug].respondents, {uuid: $routeParams.uuidSlug});
+                if ( ! respondent )  {
                     app.currentTrip.events[$routeParams.surveySlug].respondents.push(app.currentRespondent);
+                } else { // ensure currentTrip respondent is up to date
+                    var currentTripRespondents = app.currentTrip.events[app.currentRespondent.survey].respondents;
+                    for(var i=0; i < currentTripRespondents.length; i+=1) {
+                        if (currentTripRespondents[i].uuid == $routeParams.uuidSlug) {
+                            currentTripRespondents[i] = app.currentRespondent;
+                        }
+                    }
                 }
             }
         }                

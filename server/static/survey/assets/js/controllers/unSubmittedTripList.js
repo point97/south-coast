@@ -29,17 +29,25 @@ angular.module('askApp')
 
         $scope.resumeTrip = function(uuid) {  
             var trip = app.unSubmittedTrips[uuid],
-                resumePath = '';
+                completedResumePath = undefined,
+                resumePath = undefined;
             _.each(trip.events, function(value, key) {
-                _.each(value.respondents, function(respondent) {
+                _.each(value.respondents, function(respondent) {                    
                     if (respondent.complete) {
-                        resumePath = respondent.resumePath;    
+                        completedResumePath = respondent.resumePath;    
                     } else {
-                        $location.path(app.viewPath + respondent.resumePath.replace('#', ''));
+                        if (!resumePath) {
+                            resumePath = respondent.resumePath;
+                        } 
                     }
                 });
             });   
-            $location.path(app.viewPath + resumePath.replace('#', ''));    
+            if (resumePath) {
+                $location.path(app.viewPath + resumePath.replace('#', '')); 
+            } else {
+                $location.path(app.viewPath + completedResumePath.replace('#', '')); 
+            }
+               
         }
 
 
