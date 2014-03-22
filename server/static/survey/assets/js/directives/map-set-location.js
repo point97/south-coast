@@ -50,6 +50,25 @@ angular.module('askApp')
                 var options = { position: 'topright' };
                 L.control.layers(baseMaps, null, options).addTo(map);
 
+                var availableColors = [
+                    'red',
+                    'orange',
+                    'green',
+                    'darkgreen',
+                    'darkred',
+                    'blue',
+                    'darkblue',
+                    'purple',
+                    'darkpurple',
+                    'cadetblue'
+                ];
+
+                var color = 'blue';
+                if (app.currentRespondent && app.currentRespondent.date) {
+                    var date_obj = new Date(app.currentRespondent.date);
+                    var color = availableColors[date_obj.getUTCDate() % 10];
+                } 
+                    
                 var marker = L.marker();
                 map.on('click', function(e) {
                     repositionMarker(e.latlng);                                     
@@ -59,7 +78,10 @@ angular.module('askApp')
                 var repositionMarker = function (latlng) {
                     console.log(latlng);
                     map.removeLayer(marker);
-                    marker = new L.marker(latlng, {draggable: 'true'});
+
+                    marker = new L.marker(latlng, {icon: L.AwesomeMarkers.icon({icon: 'anchor', color: color}), draggable: 'true'});
+                    
+                    // marker = new L.marker(latlng, {draggable: 'true'});
                     marker.addTo(map);
                     setPositionFields(latlng);
                     marker.on('dragend', function(event) {
