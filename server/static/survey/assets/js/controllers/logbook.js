@@ -81,7 +81,8 @@ angular.module('askApp')
 
         var modalInstance = $modal.open({
             templateUrl: 'addVessel',
-            controller: AddVesselCtrl
+            controller: AddVesselCtrl,
+            windowClass: 'padding-top-20',
         });
 
         modalInstance.result.then(function (vessel) {
@@ -102,6 +103,7 @@ angular.module('askApp')
         var modalInstance = $modal.open({
             templateUrl: 'editVessels',
             controller: EditVesselCtrl,
+            windowClass: 'padding-top-20',
             resolve: {
                 vessels: function () {
                   return $scope.profile.vessels;

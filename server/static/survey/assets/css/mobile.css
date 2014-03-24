@@ -786,6 +786,9 @@ input.multi-select-other:-ms-input-placeholder {
     border-radius: 0px;
     background-color: rgb(77, 136, 153);
 }
+.padding-top-20 {
+    padding-top: 20px;
+}
 
 /*** END SOUTH COAST SPECIFIC ***/
 

@@ -52,7 +52,8 @@ angular.module('askApp')
 
         var modalInstance = $modal.open({
             templateUrl: 'noRemainingLogbooks',
-            controller: NoRemainingLogbooksCtrl
+            controller: NoRemainingLogbooksCtrl,
+            windowClass: 'padding-top-20',
         });
 
     };
@@ -61,7 +62,8 @@ angular.module('askApp')
 
         var modalInstance = $modal.open({
             templateUrl: 'addBuoy',
-            controller: AddBuoyCtrl
+            controller: AddBuoyCtrl,
+            windowClass: 'padding-top-20',
         });
 
         modalInstance.result.then(function (buoy) {
@@ -77,6 +79,7 @@ angular.module('askApp')
         var modalInstance = $modal.open({
             templateUrl: 'editBuoys',
             controller: EditBuoyCtrl,
+            windowClass: 'padding-top-20',
             resolve: {
                 buoys: function () {
                   return $scope.profile.buoys;
