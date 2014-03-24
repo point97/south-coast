@@ -68,3 +68,5 @@ objectDiagrams.txt
 server/static/survey/assets/lib/css/angular-motion.css
 
 server/static/survey/assets/lib/js/angular-animate.js
+
+*.log
