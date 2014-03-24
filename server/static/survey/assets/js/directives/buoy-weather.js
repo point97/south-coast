@@ -38,7 +38,7 @@ angular.module('askApp')
 
 
             var getWeather = function(buoyID) {
-                $http.get('/proxies/buoys/?station=' + buoyID)
+                $http.get(app.server + '/proxies/buoys/?station=' + buoyID)
                 .success(function(data) { 
                     var xml = data,
                         xmlDoc = $.parseXML(xml),
