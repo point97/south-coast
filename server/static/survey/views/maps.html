@@ -4,15 +4,15 @@
 <div id="maps-wrapper" style="height: 100%; width: 100%; position: fixed;" class="sp-page">	
 	<div mobilemenu></div>
 	<div class="well" style="position: absolute; z-index: 2; padding: 5px 20px; margin-top: 90px; width: 100%; padding-left: 10px; padding-right: 10px; border-radius: 0px;">
-        <div class="input-group">
-            <span>From: </span>
+        <div class="input-group" style="width: 100%;">
+            <span style="min-width: 41px; display: inline-block;">From: </span>
             <input class="form-control datepicker" style="max-width: 190px;" type="date" ng-model="tripFilter.start" />
             <!-- <span class="input-group-btn btn-lg"><span class="glyphicon glyphicon-calendar"></span></span> -->
         </div>
         
         <div class="input-group" style="width: 100%;">
             <span style="min-width: 41px; display: inline-block; margin-top: 20px;">To:</span>
-            <input class="form-control datepicker" style="max-width: 190px; padding-top: 0px" type="date" ng-model="tripFilter.end" />
+            <input class="form-control datepicker" style="max-width: 190px;" type="date" ng-model="tripFilter.end" />
             <!-- <span class="input-group-btn btn-lg"><span class="glyphicon glyphicon-calendar"></span></span> -->
             <button style="font-size: 14px; margin-bottom: 0px; margin-top: 15px;" class="pull-right btn btn-default btn-lg btn-main" ng-click="updateTripList()">GO</button>
         </div>
