@@ -773,7 +773,7 @@ angular.module('askApp')
         }
         
         if ($scope.page && $scope.page.questions && _.findWhere($scope.page.questions, {slug: 'block-number'})) {
-            $http.get("/static/survey/data/sc_blocks_transformed_clipped_simplified_001.json").success(function(data) {
+            $http.get("data/sc_blocks_transformed_clipped_simplified_001.json").success(function(data) {
                 var landingBlocks = L.geoJson(data),
                     latLng = survey.getAnswer('map-set-location'),
                     polygons = leafletPip.pointInLayer([latLng.lng, latLng.lat], landingBlocks),
