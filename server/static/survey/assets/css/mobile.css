@@ -380,7 +380,7 @@ img.center {
 }
 .navbar-brand {
     float: none;
-    margin-top: 10px;
+    margin-top: 7px;
 }
 .navbar-brand img {
     margin-top: -24px;
@@ -389,6 +389,7 @@ img.center {
 
 #topnav-menu-button {
     outline: none;
+    padding-top: 8px;
 }
 #topnav-menu-button:focus {
     background-color: inherit;
