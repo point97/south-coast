@@ -43,31 +43,38 @@ angular.module('askApp')
                     var xml = data,
                         xmlDoc = $.parseXML(xml),
                         $xml = $(xmlDoc);
-                    scope.buoyName = $xml.find("observation").attr("name");
-                    scope.buoyLat = $xml.find("observation").attr("lat");
-                    scope.buoyLon = $xml.find("observation").attr("lon");
-                    scope.datetime = $xml.find("datetime").text();
-                    scope.windDirection = $xml.find("winddir").text();
-                    scope.windDirectionUOM = $xml.find("winddir").attr("uom");
-                    scope.windSpeed = $xml.find("windspeed").text();
-                    scope.windSpeedUOM = $xml.find("windspeed").attr("uom");
-                    scope.windGust = $xml.find("windgust").text();
-                    scope.windGustUOM = $xml.find("windgust").attr("uom");
-                    scope.waveHeight = $xml.find("waveht").text();
-                    scope.waveHeightUOM = $xml.find("waveht").attr("uom");
-                    scope.domPeriod = $xml.find("domperiod").text();
-                    scope.domPeriodUOM = $xml.find("domperiod").attr("uom");
-                    scope.avgPeriod = $xml.find("avgperiod").text();
+                    scope.weather.buoyName = $xml.find("observation").attr("name");
+                    scope.weather.buoyLat = $xml.find("observation").attr("lat");
+                    scope.weather.buoyLon = $xml.find("observation").attr("lon");
+                    var datestring = $xml.find("datetime").text(),
+                        datetime = datestring.replace('UTC',''),
+                        dateobj = new Date(datetime);
+                        // offset = dateobj.getTimezoneOffset() / 60;
+                        // dateobj.setHours(dateobj.getHours()-offset);
+                    scope.weather.datetime = dateobj;
+                    scope.weather.windDirection = $xml.find("winddir").text();
+                    scope.weather.windDirectionUOM = $xml.find("winddir").attr("uom");
+                    scope.weather.windSpeed = $xml.find("windspeed").text();
+                    scope.weather.windSpeedUOM = $xml.find("windspeed").attr("uom");
+                    scope.weather.windGust = $xml.find("windgust").text();
+                    scope.weather.windGustUOM = $xml.find("windgust").attr("uom");
+                    scope.weather.waveHeight = $xml.find("waveht").text();
+                    scope.weather.waveHeightUOM = $xml.find("waveht").attr("uom");
+                    scope.weather.domPeriod = $xml.find("domperiod").text();
+                    scope.weather.domPeriodUOM = $xml.find("domperiod").attr("uom");
+                    scope.weather.avgPeriod = $xml.find("avgperiod").text();
                     scope.avgPeriodUOM = $xml.find("avgperiod").attr("uom");
-                    scope.meanWaveDirection = $xml.find("meanwavedir").text();
-                    scope.meanWaveDirectionUOM = $xml.find("meanwavedir").attr("uom");
-                    scope.pressure = $xml.find("pressure").text();
-                    scope.pressureUOM = $xml.find("pressure").attr("uom");
-                    scope.pressureTendency = $xml.find("pressure").attr("tendency");
-                    scope.airTemp = $xml.find("airtemp").text();
-                    scope.airTempUOM = $xml.find("airtemp").attr("uom");
-                    scope.waterTemp = $xml.find("watertemp").text();
-                    scope.waterTempUOM = $xml.find("watertemp").attr("uom");
+                    scope.weather.meanWaveDirection = $xml.find("meanwavedir").text();
+                    scope.weather.meanWaveDirectionUOM = $xml.find("meanwavedir").attr("uom");
+                    scope.weather.pressure = $xml.find("pressure").text();
+                    scope.weather.pressureUOM = $xml.find("pressure").attr("uom");
+                    scope.weather.pressureTendency = $xml.find("pressure").attr("tendency");
+                    scope.weather.airTemp = $xml.find("airtemp").text();
+                    scope.weather.airTempUOM = $xml.find("airtemp").attr("uom");
+                    scope.weather.waterTemp = $xml.find("watertemp").text();
+                    scope.weather.waterTempUOM = $xml.find("watertemp").attr("uom");
+
+                    scope.question.answer = scope.weather;
                 })
                 .error(function(data) {
                     debugger;
@@ -119,8 +126,13 @@ angular.module('askApp')
                 return deg * (Math.PI/180)
             };
 
-            scope.closestBuoy = getClosestBuoy();
-            scope.weather = getWeather(scope.closestBuoy);
+            scope.weather = {};
+            scope.weather.closestBuoy = getClosestBuoy();
+            if (scope.question.answer && scope.question.answer.length && (scope.question.answer[0].closestBuoy === scope.weather.closestBuoy)) {
+                scope.weather = scope.question.answer[0];
+            } else {
+                getWeather(scope.weather.closestBuoy);
+            }
             
         }
     }
