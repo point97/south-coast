@@ -402,7 +402,7 @@ angular.module('askApp').directive('multiquestion', function() {
                 if (scope.question.answer)  {
                     scope.question.answerSelected = true;
                 }
-            } else if (scope.question.type === 'multi-select') {
+            } else if (scope.question.type === 'multi-select' && scope.question.groupedOptions && scope.question.groupedOptions.length) {
                 scope.question.answerSelected = _.some(_.pluck(_.flatten(_.map(scope.question.groupedOptions, function(option) {
                     return option.options;
                 })), 'checked'));
