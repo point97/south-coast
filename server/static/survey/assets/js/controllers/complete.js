@@ -14,7 +14,7 @@ angular.module('askApp')
     $scope.path = false;
 
     $scope.profile = profileService.getProfile();
-    $scope.otherLogbooksExist = $scope.profile.logbooks.length > 1;
+    $scope.otherLogbooksExist = ($scope.profile.logbooks && $scope.profile.logbooks.length > 1);
 
     
     if ($routeParams.action === 'terminate' && $routeParams.questionSlug) {
