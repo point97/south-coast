@@ -45,7 +45,7 @@
                     <span class="left-align">Unsubmitted Trips</span>
                 </div>
             </a>
-            <a href="#/settings" ng-click="$spMenu.toggle()">
+            <a href="#/settings" ng-click="$spMenu.toggle()" ng-show="user.is_staff">
                 <div class="sp-nav-option">
                     <span class="icon-pencil"></span>
                     <span class="left-align">Settings</span>
