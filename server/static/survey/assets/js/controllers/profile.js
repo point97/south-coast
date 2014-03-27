@@ -9,6 +9,7 @@ angular.module('askApp')
     $scope.loading = false;
     $scope.width = 0;
     $scope.savePage = true;
+    $scope.message = false;
 
     profileService.purgeLogbookToEdit();
     
@@ -45,6 +46,21 @@ angular.module('askApp')
         profileService.saveToServer();
         $location.path('/main');
     };
+
+    $scope.updatePassword = function (passwords) {
+        var url = app.server + "/account/updatePassword";
+        $scope.showError = false;
+        $http.post(url, {username: app.user.username, passwords: passwords})
+            .success(function (data) {
+                $scope.passwords = null;
+                $scope.changingPassword = false;
+                $scope.message = "Your password has been changed.";
+            })
+            .error(function (data) {
+                $scope.showError = data;                
+            });
+    };
+    
 
     /*** Modals ***/
 

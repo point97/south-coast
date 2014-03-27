@@ -8,7 +8,7 @@
     <div class="container">
         <div ng-show="user" ng-hide="loading">
 
-            <div class="forms">
+            <div class="forms" ng-hide="changingPassword">
                 <div class="new-user-form">
                     <form ng-submit="updateProfile(profileQuestions)">
                         
@@ -228,6 +228,22 @@
                     </form>
                 </div>
             </div>
+
+            <div ng-hide="changingPassword">
+                <!-- <a class="btn btn-default btn-lg btn-block btn-main" ng-click="changingPassword=true">Change Password</a> -->
+                <button class="btn" style="background-color: white; width: 100%;" ng-click="changingPassword=true">Change Password</button>
+            </div>
+            <div ng-show="changingPassword" class="password-update">
+                <form ng-submit="updatePassword(passwords)">
+                    <password password-text="passwords.old" placeholder-text="'enter old password'"></password>
+                    <password password-text="passwords.new1" placeholder-text="'enter new password'"></password>
+                    <password password-text="passwords.new2" placeholder-text="'re-enter new password'"></password>
+                    <button class="btn btn-main btn-default btn-lg btn-block">ok</button>
+                    <a class="btn btn-main btn-default btn-lg btn-block" ng-tap="changingPassword = false">cancel</a>
+                </form>
+                <p class="error" ng-show="showError">{{ showError }}</p>
+            </div>
+
         </div>
 
         <div class="loading-indicator" ng-show="loading">
@@ -240,10 +256,10 @@
 
     </div>
 
-    <!-- <div class="alert-notice" ng-show="message">
+    <div class="alert-notice" ng-show="message">
         <div class="pull-left">{{ message }}</div>
         <button class="btn btn-default btn-outline-inverse pull-right" ng-tap="message = false">ok</button>
-    </div> -->
+    </div>
 
 </div>
 

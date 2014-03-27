@@ -15,7 +15,7 @@ angular.module('askApp')
     $scope.clearCache = function () {
         storage.clearCache();
         window.location.reload();
-    }
+    };
 
     $scope.updatePassword = function (passwords) {
         var url = app.server + "/account/updatePassword";
@@ -28,7 +28,7 @@ angular.module('askApp')
             .error(function (data) {
               $scope.showError = data;
             });
-    }
+    };
     
     $scope.updateUser = function (user) {
         var url = app.server + "/account/updateUser";
