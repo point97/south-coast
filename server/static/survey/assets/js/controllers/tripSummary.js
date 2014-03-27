@@ -43,25 +43,26 @@ angular.module('askApp')
                             var event = {};
                             event.siteName = _.findWhere(respondent.responses, {question: 'site-name'}).answer;
 
-                            var notFound = { answer: 'Question Not Found' };
+                            $scope.notFound = { answer: 'Not Reported' };
 
-                            var location = _.findWhere(respondent.responses, {question: 'map-set-location'}) || notFound,
-                                block = _.findWhere(respondent.responses, {question: 'block-number'}) || notFound,
-                                landmark = _.findWhere(respondent.responses, {question: 'landmark'}) || notFound;                        
+                            var location = _.findWhere(respondent.responses, {question: 'map-set-location'}) || $scope.notFound,
+                                block = _.findWhere(respondent.responses, {question: 'block-number'}) || $scope.notFound,
+                                landmark = _.findWhere(respondent.responses, {question: 'landmark'}) || $scope.notFound;      
+
                             event.location = {  
                                 lat: location.answer.lat || location.answer.split(',')[0],
                                 lng: location.answer.lng || location.answer.split(',')[1],
                                 block: block.answer,
-                                landmark: landmark.answer
+                                landmark: landmark.answer !== 'NA' ? landmark.answer : $scope.notFound.answer
                             };
 
                             event.location.latDMS = $scope.convertToDMS(event.location.lat);
                             event.location.lngDMS = $scope.convertToDMS(event.location.lng);
 
-                            var minDepth = _.findWhere(respondent.responses, {question: 'min-depth'}) || notFound,
-                                maxDepth = _.findWhere(respondent.responses, {question: 'max-depth'}) || notFound,
-                                hours = _.findWhere(respondent.responses, {question: 'hours-bottom'}) || notFound,
-                                harvest = _.findWhere(respondent.responses, {question: 'harvest-species'}) || notFound,
+                            var minDepth = _.findWhere(respondent.responses, {question: 'min-depth'}) || $scope.notFound,
+                                maxDepth = _.findWhere(respondent.responses, {question: 'max-depth'}) || $scope.notFound,
+                                hours = _.findWhere(respondent.responses, {question: 'hours'}) || $scope.notFound,
+                                harvest = _.findWhere(respondent.responses, {question: 'harvest-species'}) || $scope.notFound,
                                 weight = '',
                                 grade = '';
                             if (harvest.answer.length) {
@@ -70,19 +71,21 @@ angular.module('askApp')
                             }
                                 
                             event.harvest = {
-                                minDepth: minDepth.answer,
-                                maxDepth: maxDepth.answer,
+                                minDepth: minDepth !== $scope.notFound ? minDepth.answer : '?',
+                                maxDepth: maxDepth !== $scope.notFound ? maxDepth.answer : '?',
                                 hours: hours.answer,
                                 weight: weight,
                                 grade: grade
                             };
 
-                            event.incidentals = _.findWhere(respondent.responses, {question: 'incidental-species'}) || notFound;
+                            event.incidentals = _.findWhere(respondent.responses, {question: 'incidental-species'}) || { answer: [] };
                             // will need to loop through this list and output text (species name) and lbs (weight)
 
-                            event.notes = _.findWhere(respondent.responses, {question: 'notes'}) || notFound;
+                            event.notes = _.findWhere(respondent.responses, {question: 'notes'}) || $scope.notFound;
 
-                            speciesObj.events.push(event);                                    
+                            speciesObj.weather =  _.findWhere(respondent.responses, {question: 'weather'}) || $scope.notFound;   
+
+                            speciesObj.events.push(event);                                
                         });
                     }
                 });
@@ -98,7 +101,7 @@ angular.module('askApp')
         };    
 
         $scope.getAnswerFromRespondent = function(respondent, questionSlug) {
-            var response = _.findWhere(respondent.responses, {question_slug: 'vessel-name'});
+            var response = _.findWhere(respondent.responses, {question_slug: questionSlug});
             if (response && response.answer) {
                 return response.answer;
             } 
@@ -176,8 +179,8 @@ angular.module('askApp')
             }
         } else {
             $scope.trip = app.currentTrip;    
-            $scope.calledFromUnsubmittedTripList = false;
-            try {
+            $scope.calledFromUnsubmittedTripList = false; // at the moment it may actually have been called from Unsubmitted Trips (indirectly through complete.js) 
+            try {                
                 $scope.constructTripSummary();
             } catch (e) {
                 app.message = "Hmmm... We've experienced a problem with your trip. It's possible data was lost. Please review your trip from the Unsubmitted Trips page."
@@ -290,6 +293,8 @@ angular.module('askApp')
                 }).error (function(err) {
                     $scope.working = false;
                     $scope.hideHamburger = false;
+                    app.respondents[$scope.trip.uuid] = $scope.trip; // perhaps this will prevent the trip from being lost when there is a problem saving...
+                    // might need to save the state of app at this time too...
                     app.message = "A problem was experienced when saving your trip.  Click Unsubmitted Trips to try again now, or try again later.";
                     if ($scope.calledFromUnsubmittedTripList) {
                         $location.path('/unSubmittedTripList')
@@ -344,6 +349,7 @@ var SpeciesSummaryCtrl = function ($scope, $modalInstance, speciesObj) {
 
     $scope.title = speciesObj.name;
     $scope.speciesObj = speciesObj;
+    $scope.weather = speciesObj.weather.answer;
 
     $scope.ok = function () {
         $modalInstance.close();

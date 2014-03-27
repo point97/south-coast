@@ -45,8 +45,8 @@
                             </div>
                         </div>
                         <div class="modal-body">
-                            <div class="well" style="padding: 5px;" ng-repeat="event in speciesObj.events">
-                                <h4 class="question-title" style="color: #555; margin-top: 5px">{{event.siteName | uppercase}}</h4>
+                            <div class="well" style="padding: 10px;" ng-repeat="event in speciesObj.events">
+                                <h4 class="question-title" style="color: #555; margin-top: 5px; margin-bottom: 15px;">{{event.siteName | uppercase}}</h4>
                                 <div class="well" style="padding: 5px">
                                     <span class="profile-question-header">Location</span>
                                     <div><span>Lat: {{event.location.latDMS[0]}} Deg {{event.location.latDMS[1]}} Min {{event.location.latDMS[2]}} Sec </span></div>
@@ -59,11 +59,17 @@
                                     <div><span>Weight: {{event.harvest.weight}} lbs</span></div>
                                     <div><span>Grade: {{event.harvest.grade}} </span></div>
                                     <div><span>Hours: {{event.harvest.hours}}</span></div>
-                                    <div><span>Depth: {{event.harvest.minDepth}} - {{event.harvest.maxDepth}} ft</span></div>
+                                    <div ng-show="event.harvest.minDepth != '?' || event.harvest.maxDepth != '?'"><span>Depth: {{event.harvest.minDepth}} - {{event.harvest.maxDepth}} ft</span></div>
+                                    <div ng-show="event.harvest.minDepth == '?' && event.harvest.maxDepth == '?'"><span>Depth: Not Reported</span></div>
                                 </div>
                                 <div class="well" style="padding: 5px">
                                     <span class="profile-question-header">Incidental Species</span>
-                                    <div ng-repeat="species in event.incidentals.answer"><span>{{species.text}}: {{species.lbs}} lbs</span></div>
+                                    <div ng-show="!event.incidentals.answer.length"><span>None Reported</span></div>
+                                    <div ng-show="event.incidentals.answer.length" ng-repeat="species in event.incidentals.answer"><span>{{species.text}}</span></div>
+                                </div>
+                                <div class="well" style="padding: 5px">
+                                    <span class="profile-question-header">Weather</span>
+                                    <div ng-include src="'views/buoyWeatherDiv.html'"></div>
                                 </div>
                                 <div class="well" style="padding: 5px">
                                     <span class="profile-question-header">Notes</span>
