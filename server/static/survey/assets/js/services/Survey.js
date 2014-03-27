@@ -309,8 +309,9 @@ angular.module('askApp')
                     complete: respondent.complete,
                     survey: '/api/v1/survey/' + respondent.survey + '/'
                 };
-                newTrip.respondants.push(newRespondent);
+                newTrip.respondants.push(newRespondent); // for some reason, the fleshed out respondent needs to be saved at this level AND at the events level (see a couple lines below...)
             });
+            newTrip.events[key].respondents = newTrip.respondants; // for some reason, the fleshed out respondent needs to be saved at this level AND the higher level (see couple lines above...)
         });
         if (!newTrip.start_date) {
             newTrip.start_date = new Date().toISOString();
