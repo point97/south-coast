@@ -21,7 +21,7 @@ def create_user_api_key(sender, **kwargs):
     Auto-create ApiKey objects using Tastypie's create_api_key    
     """
     from tastypie.models import ApiKey
-    ApiKey.objects.get_or_create(user=kwargs.get['instance'])
+    ApiKey.objects.get_or_create(user=kwargs['instance'])
     # create_api_key(User, **kwargs)
 
 
