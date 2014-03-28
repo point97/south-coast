@@ -1,7 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 import datetime
-from tastypie.models import create_api_key
+from django.dispatch import receiver
+from django.db.models.signals import post_save
 
 
 class UserProfile(models.Model):
@@ -12,7 +13,15 @@ class UserProfile(models.Model):
         return "%s" % (self.user.username)
 
 User.profile = property(lambda u: UserProfile.objects.get_or_create(user=u)[0])
-models.signals.post_save.connect(create_api_key, sender=User)
+#models.signals.post_save.connect(create_api_key, sender=User)
+
+@receiver(post_save, sender=User)
+def create_user_api_key(sender, **kwargs):
+    """
+    Auto-create ApiKey objects using Tastypie's create_api_key    
+    """
+    from tastypie.models import create_api_key
+    create_api_key(User, **kwargs)
 
 
 class Feedback(models.Model):

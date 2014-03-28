@@ -127,6 +127,7 @@ INSTALLED_APPS = (
     'gunicorn',
     'discover_runner',
     'proxy',
+    'tastypie',
     # 'django.contrib.gis',
 
     # Uncomment the next line to enable admin documentation:
@@ -143,7 +144,6 @@ INSTALLED_APPS = (
     'apps.places',
     'apps.survey',
     'apps.reports',
-    'tastypie',
 )
 
 # A sample logging configuration. The only tangible logging
