@@ -49,7 +49,7 @@ angular.module('askApp')
         });
     
     $scope.updateApp = function () {
-        var ref = window.open(app.server + '/downloads/update.html', '_blank', 'location=yes');
+        var ref = window.open(app.server + '/static/install.html', '_blank', 'location=yes');
     }
 
     $scope.logout = function () {
