@@ -9,6 +9,7 @@ from django.contrib.auth.models import User, check_password
 from django.contrib.auth.forms import PasswordResetForm
 from account.models import UserProfile, Feedback
 from django.db import IntegrityError
+from tastypie.models import ApiKey
 
 from django.core.validators import email_re
 from django.core.exceptions import ValidationError, MultipleObjectsReturned
