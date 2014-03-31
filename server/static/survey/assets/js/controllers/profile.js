@@ -21,7 +21,7 @@ angular.module('askApp')
 
     $scope.addLogbook = function() {
         if (profileService.getRemainingLogbookTypes().length) {
-            profileService.saveState($scope.profile.fullName, $scope.profile.email, $scope.profile.license, $scope.profile.logbooks, $scope.profile.buoys, $scope.profile.crew);
+            profileService.saveState($scope.profile.firstName, $scope.profile.lastName, $scope.profile.email, $scope.profile.license, $scope.profile.logbooks, $scope.profile.buoys, $scope.profile.crew);
             $location.path('/profile/logbook'); 
         } else {   
             $scope.noRemainingLogbooks();
@@ -29,7 +29,7 @@ angular.module('askApp')
     };
 
     $scope.editLogbook = function(logbookType) {
-        profileService.saveState($scope.profile.fullName, $scope.profile.email, $scope.profile.license, $scope.profile.logbooks, $scope.profile.buoys, $scope.profile.crew);
+        profileService.saveState($scope.profile.firstName, $scope.profile.lastName, $scope.profile.email, $scope.profile.license, $scope.profile.logbooks, $scope.profile.buoys, $scope.profile.crew);
         profileService.prepLogbookToEdit(logbookType)
         $location.path('/profile/logbook');
     };
@@ -42,7 +42,7 @@ angular.module('askApp')
     };
 
     $scope.updateProfile = function (profileQuestions) {
-        profileService.saveState($scope.profile.fullName, $scope.profile.email, $scope.profile.license, $scope.profile.logbooks, $scope.profile.buoys, $scope.profile.crew);
+        profileService.saveState($scope.profile.firstName, $scope.profile.lastName, $scope.profile.email, $scope.profile.license, $scope.profile.logbooks, $scope.profile.buoys, $scope.profile.crew);
         profileService.saveToServer();
         $location.path('/main');
     };

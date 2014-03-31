@@ -92,10 +92,13 @@ angular.module('askApp')
         profile = null;
     };
 
-    var saveState = function(name, email, license, logbooks, buoys, crew) {
-        if (name) {
-            profile.fullName = name;
+    var saveState = function(firstName, lastName, email, license, logbooks, buoys, crew) {
+        if (firstName) {
+            profile.firstName = firstName;
         } 
+        if (lastName) {
+            profile.lastName = lastName;
+        }
         if (email) {
             profile.email = email;
         }
