@@ -9,18 +9,19 @@ angular.module('askApp')
         if (!app.unSubmittedTrips) {
             app.unSubmittedTrips = {};
         }
-        $scope.unCompletedTrips = _.values(app.unSubmittedTrips);
+        // $scope.unCompletedTrips = _.values(app.unSubmittedTrips);
+        $scope.unCompletedTrips = _.filter(_.values(app.unSubmittedTrips), function(trip) { return trip.user.username == app.user.username; })
 
         $scope.completedTrips = []; // flesh out after app.unCompletedTrips has become functional...
 
         $scope.viewTripSummary = function(uuid) {
             $location.path('/tripSummary/unSubmitted/'+uuid);
-        }
+        };
 
         $scope.dismissMessage = function () {
             $scope.message = false;
             storage.saveState(app);
-        }
+        };
         
         if (app.message) {
             $scope.message = app.message;
