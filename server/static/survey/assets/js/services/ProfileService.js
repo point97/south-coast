@@ -6,7 +6,9 @@ angular.module('askApp')
     var getEmptyProfile = function() {
         var profile = {};
         if (app.user) {
-            profile.email = app.user.email;
+            profile.email = app.user.email || "";
+            profile.firstName = app.user.firstName || "";
+            profile.lastName = app.user.lastName || "";
         }
         profile.logbooks = {};
         profile.vessels = [];
@@ -113,7 +115,7 @@ angular.module('askApp')
     var saveToServer = function() {
         var url = app.server + '/account/updateUser/';
         
-        $http.post(url, {username: app.user.username, registration: profile, email: profile.email})
+        $http.post(url, {username: app.user.username, firstname: profile.firstName, lastname: profile.lastName, registration: profile, email: profile.email})
             .success(function (data) {
                 app.user.registration = profile;
                 storage.saveState(app);
