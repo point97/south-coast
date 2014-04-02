@@ -70,3 +70,5 @@ server/static/survey/assets/lib/css/angular-motion.css
 server/static/survey/assets/lib/js/angular-animate.js
 
 *.log
+
+server/static/survey/assets/js/controllers/complete_20140401.js
