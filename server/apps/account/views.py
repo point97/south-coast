@@ -141,10 +141,18 @@ def updateUser(request):
             profile.registration = simplejson.dumps(param.get('registration'))
             profile.save()
             user.email = param.get('email', None)
+            first_name = param.get('firstname', None)
+            if first_name is not None:
+                user.first_name = first_name
+            last_name = param.get('lastname', None)
+            if last_name is not None:
+                user.last_name = last_name
             user.save()
             user_dict = {
                 'username': user.username,
                 'name': ' '.join([user.first_name, user.last_name]),
+                'firstName': user.first_name,
+                'lastName': user.last_name,
                 'is_staff': user.is_staff,
                 'registration': user.profile.registration
             }
