@@ -24,6 +24,15 @@ class SurveyModelResource(ModelResource):
         return bundle
 
 class StaffUserOnlyAuthorization(Authorization):
+    def read_list(self, object_list, bundle):
+        # Is the requested object owned by the user?
+        if bundle.request.user.is_staff:
+            return object_list
+        return object_list.filter(user=bundle.request.user)
+
+    def read_detail(self, object_list, bundle):
+        # Is the requested object owned by the user?
+        return bundle.obj.user == bundle.request.user
 
     def update_list(self, object_list, bundle):
         return bundle.request.user.is_staff
@@ -92,7 +101,7 @@ class OfflineResponseResource(SurveyModelResource):
         queryset = Response.objects.all()
         authorization = UserObjectsOnlyAuthorization()
         authentication = MultiAuthentication(ApiKeyAuthentication(), SessionAuthentication())
-    def obj_create(self, bundle, **kwargs):
+    def obj_create(self, bundle, **kwargs):       
         return super(OfflineResponseResource, self).obj_create(bundle, user=bundle.request.user)
 
 class TripReportResponseResource(OfflineResponseResource):
@@ -127,6 +136,7 @@ class TripResource(SurveyModelResource):
 
 class TripReportResource(SurveyModelResource):
     respondants = fields.ListField(attribute='respondant_summary_list', null=True, blank=True)
+    user = fields.ToOneField('apps.account.api.UserResource', 'user', null=True, blank=True)
 
     class Meta:
         queryset = Trip.objects.all().order_by('-start_date')
@@ -142,7 +152,7 @@ class TripReportDetailsResource(TripReportResource):
     
 
 class OfflineRespondantResource(SurveyModelResource):
-    responses = fields.ToManyField('apps.survey.api.OfflineResponseResource', 'responses', null=True, blank=True)
+    responses = fields.ToManyField('apps.survey.api.OfflineResponseResource', 'responses', related_name='respondant', null=True, blank=True)
     survey = fields.ToOneField('apps.survey.api.SurveyResource', 'survey', null=True, blank=True)
     user = fields.ToOneField('apps.account.api.UserResource', 'user', null=True, blank=True)
     class Meta:
@@ -165,7 +175,7 @@ class OfflineRespondantResource(SurveyModelResource):
             response['user'] = user_uri
 
 class TripReportRespondantResource(OfflineRespondantResource):
-    responses = fields.ToManyField('apps.survey.api.TripReportResponseResource', 'responses', full=True, null=True, blank=True)
+    responses = fields.ToManyField('apps.survey.api.TripReportResponseResource', 'responses', related_name='respondant', full=True, null=True, blank=True)
     survey_slug = fields.CharField(attribute='survey_slug', readonly=True)
 
 class ReportRespondantResource(SurveyModelResource):
@@ -229,7 +239,7 @@ class OptionResource(SurveyModelResource):
 class PageResource(SurveyModelResource):
     questions = fields.ToManyField('apps.survey.api.QuestionResource', 'questions', full=True, null=True, blank=True)
     blocks = fields.ToManyField('apps.survey.api.BlockResource', 'blocks', full=True, null=True, blank=True)
-    survey = fields.ForeignKey('apps.survey.api.SurveyResource', 'survey', related_name='survey', null=True, blank=True)
+    survey = fields.ToOneField('apps.survey.api.SurveyResource', 'survey', null=True, blank=True)
     class Meta:
         queryset = Page.objects.all().order_by('order')
         always_return_data = True
@@ -284,7 +294,7 @@ class QuestionResource(SurveyModelResource):
 class SurveyResource(SurveyModelResource):
     questions = fields.ToManyField(QuestionResource, 'questions', full=True, null=True, blank=True)
     #question = fields.ToOneField(QuestionResource, 'question', full=True, null=True, blank=True)
-    pages = fields.ToManyField(PageResource, 'page_set', full=True, null=True, blank=True)
+    pages = fields.ToManyField(PageResource, 'page_set', full=True, related_name='survey', null=True, blank=True)
     class Meta:
         detail_uri_name = 'slug'
         queryset = Survey.objects.all()
