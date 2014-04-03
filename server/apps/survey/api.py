@@ -146,7 +146,7 @@ class TripReportResource(SurveyModelResource):
             'user': ALL_WITH_RELATIONS,
             'start_date': ['gte','lte']
         }
-        authorization = StaffUserOnlyAuthorization()
+        authorization = UserObjectsOnlyAuthorization()
         authentication = MultiAuthentication(ApiKeyAuthentication(), SessionAuthentication())
 
 class TripReportDetailsResource(TripReportResource):
