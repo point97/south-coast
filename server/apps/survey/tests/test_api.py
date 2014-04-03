@@ -2,6 +2,8 @@ from tastypie.test import ResourceTestCase
 from django.contrib.auth.models import User
 from ..api import SurveyResource
 from ..models import Respondant, Response, Survey, Page
+from path import path
+import json
 
 class SurveyResourceTest(ResourceTestCase):
     # Use ``fixtures`` & ``urls`` as normal. See Django's ``TestCase``
@@ -31,6 +33,26 @@ class SurveyResourceTest(ResourceTestCase):
         result = self.api_client.client.login(username='fisher',
                                               password='secret')
         return result
+
+    def test_submit_trip(self):
+        result = self.api_client.client.login(username='fisher', password='secret')
+        user_id = self.user.id
+
+        file_path = path(__file__).abspath().dirname()/'trip.json'
+        with open(file_path,'r') as f:
+            output = json.loads(f.read())
+        
+        answer = output['events']['dive']['respondents'][0]['responses'][0]['answer']
+        output['events']['dive']['respondents'][0]['responses'][0]['answer_raw'] = json.dumps(answer)
+        output['respondants'][0]['responses'][0]['answer_raw'] = json.dumps(answer)
+        # print output
+
+        res = self.api_client.post('/api/v1/trip/?username=%s&api_key=%s' %(self.user.username, self.user.api_key.key),
+            format='json', 
+            data=output)
+
+        self.assertHttpCreated(res)
+
 
     def test_order_pages(self):
         result = self.api_client.client.login(username='fisher', password='secret')

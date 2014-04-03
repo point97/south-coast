@@ -1,0 +1,53 @@
+{
+    "end_date": "2014-04-03T12:00:00.000Z",
+    "events": {
+        "dive": {
+            "date": "2014-04-03",
+            "dealer": "Vig Kualski",
+            "landing-port": {
+                "checked": true,
+                "isGroupName": false,
+                "label": "fort-bragg",
+                "text": "Fort Bragg"
+            },
+            "license": "CA-098765",
+            "permit-number": "12345",
+            "respondents": [
+                {
+                    "complete": true,
+                    "responses": [
+                        {
+                            "answer": "Salty Sea Maiden",
+                            "question": "/api/v1/question/183/"
+                        }
+                    ],
+                    "status": "complete",
+                    "survey": "/api/v1/survey/dive/",
+                    "ts": "2014-04-03T17:19:26.734Z",
+                    "uuid": "offline_1396545566734"
+                }
+            ],
+            "vessel-name": "Salty Sea Maiden",
+            "vessel-number": "CF 4567"
+        }
+    },
+    "respondants": [
+        {
+            "complete": true,
+            "responses": [
+                {
+                    "answer": "Salty Sea Maiden",
+                    "question": "/api/v1/question/183/"
+                }
+            ],
+            "status": "complete",
+            "survey": "/api/v1/survey/dive/",
+            "ts": "2014-04-03T17:19:26.734Z",
+            "uuid": "offline_1396545566734"
+        }
+    ],
+    "startDate": "2014-04-03",
+    "start_date": "2014-04-03T12:00:00.000Z",
+    "user": "/api/v1/user/1/",
+    "uuid": 1396545576780
+}
