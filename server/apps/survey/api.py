@@ -32,6 +32,8 @@ class StaffUserOnlyAuthorization(Authorization):
 
     def read_detail(self, object_list, bundle):
         # Is the requested object owned by the user?
+        if bundle.request.user.is_staff:
+            return True
         return bundle.obj.user == bundle.request.user
 
     def update_list(self, object_list, bundle):
