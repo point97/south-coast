@@ -25,6 +25,20 @@ angular.module('askApp')
             type: "AerialWithLabels"
         });
 
+        $http.get("/static/survey/assets/data/MPA_CA_Simplified_0001.json").success(function(data) {
+            var mpas = L.geoJson(data, { 
+                style: function(feature) {
+                    return {
+                        "color": "#E6D845",
+                        "weight": 1,
+                        "opacity": 0.6,
+                        "fillOpacity": 0.2
+                    };
+                }
+            });
+            layerControl.addOverlay(mpas, "MPAs");
+        });
+
         // Map init
         var initPoint = new L.LatLng(33, -119);
         var initialZoom = 7;
@@ -39,7 +53,9 @@ angular.module('askApp')
         // Layer picker init
         var baseMaps = { "Satellite": bing, "Nautical Charts": nautical };
         var options = { position: 'topright' };
-        L.control.layers(baseMaps, null, options).addTo(map);
+        // L.control.layers(baseMaps, null, options).addTo(map);
+        var layerControl = L.control.layers(baseMaps, null, options);
+        layerControl.addTo(map);
 
         $scope.availableColors = [
             'red',
@@ -53,6 +69,7 @@ angular.module('askApp')
             'darkpurple',
             'cadetblue'
         ];
+        
 
         /**
          * @return {string} Returns the color to be applied to the next marker.
