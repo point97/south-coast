@@ -231,8 +231,10 @@ class OptionResource(SurveyModelResource):
     class Meta:
         always_return_data = True
         queryset = Option.objects.all().order_by('order');
-        authorization = StaffUserOnlyAuthorization()
-        authentication = MultiAuthentication(ApiKeyAuthentication(), SessionAuthentication())
+        authorization = DjangoAuthorization()
+        authentication = Authentication()
+        # authorization = StaffUserOnlyAuthorization()
+        # authentication = MultiAuthentication(ApiKeyAuthentication(), SessionAuthentication())
 
 
     # save_m2m = main_save_m2m
@@ -245,8 +247,10 @@ class PageResource(SurveyModelResource):
     class Meta:
         queryset = Page.objects.all().order_by('order')
         always_return_data = True
-        authorization = StaffUserOnlyAuthorization()
-        authentication = MultiAuthentication(ApiKeyAuthentication(), SessionAuthentication())
+        authorization = DjangoAuthorization()
+        authentication = Authentication()
+        # authorization = StaffUserOnlyAuthorization()
+        # authentication = MultiAuthentication(ApiKeyAuthentication(), SessionAuthentication())
         filtering = {
             'survey': ALL_WITH_RELATIONS
         }
@@ -261,9 +265,11 @@ class BlockResource(SurveyModelResource):
 
     class Meta:
         queryset = Block.objects.all()
-        always_return_data = True
-        authorization = StaffUserOnlyAuthorization()
-        authentication = MultiAuthentication(ApiKeyAuthentication(), SessionAuthentication())
+        always_return_data = True        
+        authorization = DjangoAuthorization()
+        authentication = Authentication()
+        # authorization = StaffUserOnlyAuthorization()
+        # authentication = MultiAuthentication(ApiKeyAuthentication(), SessionAuthentication())
 
 
 class QuestionResource(SurveyModelResource):
@@ -283,9 +289,11 @@ class QuestionResource(SurveyModelResource):
 
     class Meta:
         queryset = Question.objects.all()
-        always_return_data = True
-        authorization = StaffUserOnlyAuthorization()
-        authentication = MultiAuthentication(ApiKeyAuthentication(), SessionAuthentication())
+        always_return_data = True        
+        authorization = DjangoAuthorization()
+        authentication = Authentication()
+        # authorization = StaffUserOnlyAuthorization()
+        # authentication = MultiAuthentication(ApiKeyAuthentication(), SessionAuthentication())
         filtering = {
             'slug': ALL,
             'surveys': ALL_WITH_RELATIONS
@@ -301,8 +309,10 @@ class SurveyResource(SurveyModelResource):
         detail_uri_name = 'slug'
         queryset = Survey.objects.all()
         always_return_data = True
-        authorization = StaffUserOnlyAuthorization()
-        authentication = MultiAuthentication(ApiKeyAuthentication(), SessionAuthentication())
+        authorization = DjangoAuthorization()
+        authentication = Authentication()
+        # authorization = StaffUserOnlyAuthorization()
+        # authentication = MultiAuthentication(ApiKeyAuthentication(), SessionAuthentication())
         filtering = {
             'slug': ['exact']
         }
