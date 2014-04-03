@@ -212,11 +212,22 @@ angular.module('askApp')
 
         $scope.updateUserRegistration = function() {
             _.each($scope.trip.events, function(value, key) {
+                // not sure if this is still necessary...removing until the necessity arises again...
+                // if (!app.user.registration.logbooks) {
+                //     app.user.registration.logbooks = {};
+                // }
+                // if (!app.user.registration.logbooks[key]) {
+                //     app.user.registration.logbooks[key] = {};
+                // }
                 if (app.user.registration.logbooks[key]) {
                     app.user.registration.logbooks[key]['permit-number'] = value['permit-number'];
                     app.user.registration.logbooks[key]['vessel-number'] = value['vessel-number'];
                     app.user.registration.logbooks[key]['vessel-name'] = value['vessel-name'];
                     if ( ! _.findWhere(app.user.registration.vessels, {name: value['vessel-name']}) ) {
+                        // not sure if this is still necessary...removing until the necessity arises again...
+                        // if (!app.user.registration.vessels) {
+                        //     app.user.registration.vessels = [];
+                        // }
                         app.user.registration.vessels.push( { name: value['vessel-name'], number: value['vessel-number'] } );
                     }
                 }
@@ -226,7 +237,11 @@ angular.module('askApp')
         $scope.saveProfileToServer = function() {
             console.log(app.user.registration);
             var url = app.server + '/account/updateUser/';
-        
+
+            // not sure if this is still necessary...removing until the necessity arises again...
+            // if (!app.user.registration.email) {
+            //     app.user.registration.email = app.user.email;
+            // }
             $http.post(url, {username: app.user.username, registration: app.user.registration, email: app.user.registration.email})
                 .success(function (data) {
                     storage.saveState(app);
@@ -293,7 +308,16 @@ angular.module('askApp')
                 }).error (function(err) {
                     $scope.working = false;
                     $scope.hideHamburger = false;
-                    app.respondents[$scope.trip.uuid] = $scope.trip; // perhaps this will prevent the trip from being lost when there is a problem saving...
+
+                    // perhaps this will prevent the trip from being lost when there is a problem saving...
+                    // app.respondents[$scope.trip.uuid] = $scope.trip;
+                    // actually, app.respondents should not be a trip.uuid but a respondent uuid
+                    _.each($scope.trip.events, function(value, key) {
+                        _.each(value.respondents, function(respondent) {
+                            app.respondents[respondent.uuid] = respondent;
+                        });
+                    });
+                    
                     // might need to save the state of app at this time too...
                     app.message = "A problem was experienced when saving your trip.  Click Unsubmitted Trips to try again now, or try again later.";
                     if ($scope.calledFromUnsubmittedTripList) {
