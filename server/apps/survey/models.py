@@ -47,7 +47,10 @@ class Trip(caching.base.CachingMixin, models.Model):
                 pass
         return summary_list
 
-    def save(self, *args, **kwargs):        
+    def __unicode__(self):
+        return "%s" % self.uuid
+
+    def save(self, *args, **kwargs):    
         if not self.ts:
             self.ts = datetime.datetime.utcnow().replace(tzinfo=utc)
         super(Trip, self).save(*args, **kwargs)
