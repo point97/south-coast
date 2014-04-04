@@ -110,6 +110,18 @@ angular.module('askApp')
     $scope.answerOffline = function(answer) {
         $scope.deleteAnswer(answer.question.slug, $routeParams.uuidSlug);
 
+        // set current respondent (if applicable)
+        if (!app.currentRespondent || (app.currentRespondent !== app.respondents[$routeParams.uuidSlug])) {
+            app.currentRespondent = app.respondents[$routeParams.uuidSlug];
+        }
+        // set current respondent date (if applicable)
+        if(!app.currentRespondent.date) {
+            var date = survey.getAnswer('date');
+            if (date) {
+                app.currentRespondent.date = date;
+            }
+        }
+
         app.respondents[$routeParams.uuidSlug].responses.push({
             answer: answer.answer,
             question: answer.question.slug
