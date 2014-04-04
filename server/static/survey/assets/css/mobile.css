@@ -20,6 +20,10 @@ a {
     color: rgb(244,244,244);
     font-size: 18px;
 }
+a.survey-arrow:hover {
+    color: rgb(244,244,244);
+    cursor: pointer;
+}
 
 ::-webkit-input-placeholder {
    color: rgb(22, 59, 66) !important;
