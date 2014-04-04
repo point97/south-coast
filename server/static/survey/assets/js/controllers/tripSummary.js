@@ -213,12 +213,12 @@ angular.module('askApp')
         $scope.updateUserRegistration = function() {
             _.each($scope.trip.events, function(value, key) {
                 // not sure if this is still necessary...removing until the necessity arises again...
-                // if (!app.user.registration.logbooks) {
-                //     app.user.registration.logbooks = {};
-                // }
-                // if (!app.user.registration.logbooks[key]) {
-                //     app.user.registration.logbooks[key] = {};
-                // }
+                if (!app.user.registration.logbooks) {
+                    app.user.registration.logbooks = {};
+                }
+                if (!app.user.registration.logbooks[key]) {
+                    app.user.registration.logbooks[key] = {};
+                }
                 if (app.user.registration.logbooks[key]) {
                     app.user.registration.logbooks[key]['permit-number'] = value['permit-number'];
                     app.user.registration.logbooks[key]['vessel-number'] = value['vessel-number'];

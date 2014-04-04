@@ -72,6 +72,7 @@ angular.module('askApp')
 
     var prepLogbookToEdit = function(type) {
         logbookToEdit = profile.logbooks[type];
+        logbookToEdit.type = type;
     };
 
     var purgeLogbookToEdit = function(type) {
