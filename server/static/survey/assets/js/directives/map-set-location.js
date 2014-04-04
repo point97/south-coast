@@ -29,7 +29,7 @@ angular.module('askApp')
                     type: "AerialWithLabels"
                 });
 
-                $http.get("/static/survey/assets/data/MPA_CA_Simplified_0001.json").success(function(data) {
+                $http.get("assets/data/MPA_CA_Simplified_0001.json").success(function(data) {
                     var mpas = L.geoJson(data, { 
                         style: function(feature) {
                             return {
