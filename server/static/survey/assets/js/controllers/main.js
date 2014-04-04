@@ -87,7 +87,6 @@ angular.module('askApp')
             $http.post(url, user)
                 .success(function (data) {
                     app.user = data.user;
-                    app.user.registration = {};
                     storage.saveState(app);
                     // $location.path('/surveys');
                     $location.path('/profile');

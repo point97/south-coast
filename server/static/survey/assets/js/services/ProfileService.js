@@ -19,10 +19,10 @@ angular.module('askApp')
     };
     
     var getProfile = function() {
-        if (app.user && app.user.registration) {
+        if (app.user.registration && app.user.registration !== "{}") {
             profile = app.user.registration; 
         } else {
-            profile = getEmptyProfile();
+            profile = app.user.registration = getEmptyProfile();
         }
         return angular.copy(profile);
         
