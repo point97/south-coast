@@ -146,7 +146,10 @@ class Page(caching.base.CachingMixin, models.Model):
 
     def __unicode__(self):
         question_names = ', '.join([question.slug for question in self.questions.all()])
-        return "%s (%s)" % (self.survey.name, question_names)
+        if self.survey and self.survey.name:
+            return "%s (%s)" % (self.survey.name, question_names)
+        else:
+            return "unknown survey (%s)" %question_names   
 
 
 class Survey(caching.base.CachingMixin, models.Model):
