@@ -177,7 +177,12 @@ angular.module('askApp')
                 
                 _.each(app.currentRespondent.responses, function(response) {
                     if (response.question !== answer.question.slug) {
-                        survey.addLogbookAnswerToCurrentTrip($scope.survey.slug, response.question, response.answer); 
+                        if (response.question === 'vessel') {
+                            survey.addLogbookAnswerToCurrentTrip($scope.survey.slug, 'vessel-name', response.answer.name); 
+                            survey.addLogbookAnswerToCurrentTrip($scope.survey.slug, 'vessel-number', response.answer.number); 
+                        } else {
+                            survey.addLogbookAnswerToCurrentTrip($scope.survey.slug, response.question, response.answer); 
+                        }
                     }
                 }); 
                 
@@ -578,7 +583,6 @@ angular.module('askApp')
         }
     };
 
-
     // gets called whenever new page is loaded...?
     $scope.loadSurvey = function(data) {
         $scope.survey = data.survey;
@@ -602,6 +606,7 @@ angular.module('askApp')
                     $scope.answers[key] = val;
                 });
             }
+
         }
 
         _.each(data.responses, function(response) {
@@ -642,13 +647,24 @@ angular.module('askApp')
         }
         $scope.surveyProgress = ($scope.survey.pages.indexOf($scope.page)  /  $scope.survey.pages.length) * 100;
 
-
-
         _.each($scope.page.questions, function (question) {
             if (question.rows.length && ! question.options) {
                 question.options = [];
             }
         });
+
+        // account for vessel question -- options populated by logbook in profile
+        if (_.findWhere($scope.page.questions, { slug: 'vessel' }) && app.user && app.user.registration) {
+            var vesselQuestion = _.findWhere($scope.page.questions, { slug: 'vessel' }),
+                vesselNames = _.pluck(app.user.registration.vessels, 'name');
+            _.each(app.user.registration.vessels, function(vessel) {
+                vesselQuestion.options.push({
+                    name: vessel.name,
+                    number: vessel.number,
+                    checked: app.user.registration.logbooks[$scope.survey.slug]['vessel-name'] === vessel.name
+                });
+            });
+        }
 
         if ($scope.question && $scope.question.title) {
             $scope.question.displayTitle = $interpolate($scope.question.title)($scope);
@@ -666,7 +682,7 @@ angular.module('askApp')
         survey.initializeSurvey($scope.survey, $scope.page, $scope.answers);
 
 
-        // Fill options list.
+        // Fill options list from json
         if ($scope.question && $scope.question.options_json && $scope.question.options_json.length > 0 && !$scope.question.options_from_previous_answer) {
             // Using the provided json file to set options.
             
@@ -833,7 +849,7 @@ angular.module('askApp')
             }
             
         }, true);    
-    };
+    }; // end of loadSurvey
     $scope.viewPath = app.viewPath;
 
     if ($routeParams.uuidSlug && ! _.string.startsWith($routeParams.uuidSlug, 'offline') && app.offline) {

@@ -63,7 +63,7 @@
 
     <!-- show if groupedOptions are NOT present -->
     <div class="select mrm">
-        <div ng-show="question.groupedOptions.length == 0" ng-class="{'option-checked': $parent.question.answerSelected, 'option-unchecked': ! $parent.question.answerSelected }">
+        <div ng-show="!question.groupedOptions || question.groupedOptions.length == 0" ng-class="{'option-checked': $parent.question.answerSelected, 'option-unchecked': ! $parent.question.answerSelected }">
             <ul class="list-unstyled">
                 <li class="option" ng-click="$parent.onSingleSelectClicked(option, $parent.question)" ng-repeat="option in question.options" ng-class="{'select-checked': option.checked, 'select-unchecked': ! option.checked  }">
                     <div class="select-content">
@@ -83,11 +83,31 @@
                     </div>
                 </li> -->
             </ul>
-            <div ng-show="question.allow_other" ng-class="{'select-checked': question.otherAnswers[0], 'select-unchecked': ! question.otherAnswers[0] }" class="other-option">
+            <div ng-show="question.slug == 'vessel'" ng-class="{'select-checked': question.otherAnswers[0], 'select-unchecked': ! question.otherAnswers[0] }" class="other-option">
+                <input class="select-content single-select-other" style="height: 30px; background-color: white; padding-top: 8px;" ng-click="onSingleSelectClicked(null, question)" placeholder="Add New Vessel"/>
+            </div>
+            <div ng-show="question.allow_other && question.slug != 'vessel'" ng-class="{'select-checked': question.otherAnswers[0], 'select-unchecked': ! question.otherAnswers[0] }" class="other-option">
                 <div class="other-checkbox"></div>
                 <input class="select-content single-select-other" type="text" ng-class="{'with-text': question.otherAnswers[0]}" placeholder="Other" ng-model="question.otherAnswers[0]" />
             </div>
         </div>
+
+
+        <script id="addVesselFromSurvey" type="text/ng-template">                                
+            <div class="modal-body">
+                <div class="well" style="padding: 5px; margin-bottom: 0px;">            
+                    <div class="question profile-question">
+                        <h4 class="question-title" style="color: #555; margin-top: 5px">Add New Vessel</h4> 
+                        <input class="form-control" type="text" placeholder="Vessel Name" ng-model="vessel.name" />
+                        <input class="form-control" type="text" placeholder="Vessel Number" ng-model="vessel.number" />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="margin-top: 0px">
+                <button class="btn btn-primary" ng-click="ok()">OK</button>
+                <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+            </div>
+        </script>
     </div>
 
     <!-- <input class="form-control" type="text" placeholder="Other Option" ng-show="question.otherOption.checked" ng-model="question.otherAnswer" /> -->

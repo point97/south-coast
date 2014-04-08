@@ -1,4 +1,4 @@
-angular.module('askApp').directive('multiquestion', function() {
+angular.module('askApp').directive('multiquestion', function($modal) {
     return {
         templateUrl: app.viewPath + 'views/multiQuestionTypes.html',
         restrict: 'EA',
@@ -177,6 +177,11 @@ angular.module('askApp').directive('multiquestion', function() {
 
             // handle single select clicks
             scope.onSingleSelectClicked = function(option, question) {
+                // if vessel question -- produce modal 
+                if (!option) { 
+                    scope.previouslyCheckedOption = _.findWhere(question.options, { checked: true });
+                    scope.addVessel();
+                }
                 // turn off all other options
                 if (question.groupedOptions && question.groupedOptions.length) {
                     var groupedOptions = _.flatten(_.map(question.groupedOptions, function(option) {
@@ -199,25 +204,46 @@ angular.module('askApp').directive('multiquestion', function() {
                     }
                 }
 
-                option.checked = !option.checked;
+                if (option) {
+                    option.checked = !option.checked;
 
-                if (option.checked && option.label) { // if option is checked but it's not an other option, then clear out other option
-                    question.otherAnswers = [];
-                }
+                    if (option.checked && option.label) { // if option is checked but it's not an other option, then clear out other option
+                        question.otherAnswers = [];
+                    }
 
-                // if (question.otherAnswers.length) {
-                //     option.checked = true;
-                // }
-                question.answerSelected = option.checked;
+                    question.answerSelected = option.checked;
+                } 
+                
 
+            };
 
-                // enable continue
-                // if (!question.required || (option.checked && option !== question.otherOption)) {
-                //     $scope.isAnswerValid = true;
-                // } else {
-                //     $scope.isAnswerValid = false;
-                // }
+            /*** MODAL for Vessel Question ***/
+            scope.addVessel = function () {
 
+                var modalInstance = $modal.open({
+                    templateUrl: 'addVesselFromSurvey',
+                    controller: AddVesselCtrl,
+                    windowClass: 'padding-top-20',
+                });
+
+                modalInstance.result.then(function (vessel) {
+                    vessel.checked = true;
+                    scope.question.options.push(vessel);
+                });
+            };
+
+            var AddVesselCtrl = function ($scope, $modalInstance) {
+
+                $scope.vessel = {};
+
+                $scope.ok = function () {
+                    $modalInstance.close($scope.vessel);
+                };
+
+                $scope.cancel = function () {
+                    $modalInstance.dismiss('cancel');
+                    scope.previouslyCheckedOption.checked = true;
+                }; 
             };
 
             scope.openOption = function(option) {
