@@ -79,9 +79,11 @@ angular.module('askApp')
                 ];
 
                 var color = 'blue';
-                if (app.currentRespondent && app.currentRespondent.date) {
-                    var date_obj = new Date(app.currentRespondent.date);
-                    var color = availableColors[date_obj.getUTCDate() % 10];
+                // if (app.currentRespondent && app.currentRespondent.date) {
+                if (app.currentTrip.uuid) {
+                    // var date_obj = new Date(app.currentRespondent.date);
+                    // var color = availableColors[date_obj.getUTCDate() % 10];
+                    var color = availableColors[app.currentTrip.uuid % 10];
                 } 
                     
                 var marker = L.marker();

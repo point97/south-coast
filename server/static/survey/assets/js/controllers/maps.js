@@ -138,7 +138,8 @@ angular.module('askApp')
                                 popupContent = event + ' -- ' + date,
                                 popuplink = app.viewPath + '#/tripSummary/maps/' + trip.uuid,
                                 popupContentWithLink = '<a href="' + popuplink + '">' + popupContent + '</a>',
-                                color = $scope.availableColors[date_obj.getUTCDate() % 10],
+                                // color = $scope.availableColors[date_obj.getUTCDate() % 10],
+                                color = $scope.availableColors[trip.uuid % 10],
                                 marker = new L.marker(respondent.location, {icon: L.AwesomeMarkers.icon({icon: 'anchor', color: color}) });
                             marker.bindPopup(popupContentWithLink);
                             // marker.options.color = color;
