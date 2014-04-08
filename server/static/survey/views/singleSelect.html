@@ -84,7 +84,9 @@
                 </li> -->
             </ul>
             <div ng-show="question.slug == 'vessel'" ng-class="{'select-checked': question.otherAnswers[0], 'select-unchecked': ! question.otherAnswers[0] }" class="other-option">
-                <input class="select-content single-select-other" style="height: 30px; background-color: white; padding-top: 8px;" ng-click="onSingleSelectClicked(null, question)" placeholder="Add New Vessel"/>
+                <div class="select-content single-select-other" style="height: 30px; background-color: white; padding-top: 3px;" ng-click="onSingleSelectClicked(null, question)">
+                    Add New Vessel
+                </div>
             </div>
             <div ng-show="question.allow_other && question.slug != 'vessel'" ng-class="{'select-checked': question.otherAnswers[0], 'select-unchecked': ! question.otherAnswers[0] }" class="other-option">
                 <div class="other-checkbox"></div>
