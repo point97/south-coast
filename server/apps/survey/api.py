@@ -56,6 +56,8 @@ class UserObjectsOnlyAuthorization(Authorization):
 
     def read_detail(self, object_list, bundle):
         # Is the requested object owned by the user?
+        if bundle.request.user.is_staff:
+            return True
         return bundle.obj.user == bundle.request.user
 
     def create_list(self, object_list, bundle):
@@ -74,6 +76,8 @@ class UserObjectsOnlyAuthorization(Authorization):
         return allowed
 
     def update_detail(self, object_list, bundle):
+        if bundle.request.user.is_staff:
+            return True
         return bundle.obj.user == bundle.request.user
 
     def delete_list(self, object_list, bundle):
@@ -230,10 +234,9 @@ class RespondantResource(SurveyModelResource):
 class OptionResource(SurveyModelResource):
     class Meta:
         always_return_data = True
-        queryset = Option.objects.all().order_by('order');
+        queryset = Option.objects.all().order_by('order')
         authorization = DjangoAuthorization()
         authentication = Authentication()
-        # authorization = StaffUserOnlyAuthorization()
         # authentication = MultiAuthentication(ApiKeyAuthentication(), SessionAuthentication())
 
 
@@ -243,21 +246,18 @@ class OptionResource(SurveyModelResource):
 class PageResource(SurveyModelResource):
     questions = fields.ToManyField('apps.survey.api.QuestionResource', 'questions', full=True, null=True, blank=True)
     blocks = fields.ToManyField('apps.survey.api.BlockResource', 'blocks', full=True, null=True, blank=True)
-    survey = fields.ToOneField('apps.survey.api.SurveyResource', 'survey', null=True, blank=True)
+    survey = fields.ForeignKey('apps.survey.api.SurveyResource', attribute='survey', null=True, blank=True)
     class Meta:
         queryset = Page.objects.all().order_by('order')
         always_return_data = True
         authorization = DjangoAuthorization()
         authentication = Authentication()
-        # authorization = StaffUserOnlyAuthorization()
         # authentication = MultiAuthentication(ApiKeyAuthentication(), SessionAuthentication())
         filtering = {
             'survey': ALL_WITH_RELATIONS
         }
 
     # save_m2m = main_save_m2m
-
-
 
 
 class BlockResource(SurveyModelResource):
@@ -268,7 +268,6 @@ class BlockResource(SurveyModelResource):
         always_return_data = True        
         authorization = DjangoAuthorization()
         authentication = Authentication()
-        # authorization = StaffUserOnlyAuthorization()
         # authentication = MultiAuthentication(ApiKeyAuthentication(), SessionAuthentication())
 
 
@@ -292,7 +291,6 @@ class QuestionResource(SurveyModelResource):
         always_return_data = True        
         authorization = DjangoAuthorization()
         authentication = Authentication()
-        # authorization = StaffUserOnlyAuthorization()
         # authentication = MultiAuthentication(ApiKeyAuthentication(), SessionAuthentication())
         filtering = {
             'slug': ALL,
@@ -304,7 +302,7 @@ class QuestionResource(SurveyModelResource):
 class SurveyResource(SurveyModelResource):
     questions = fields.ToManyField(QuestionResource, 'questions', full=True, null=True, blank=True)
     #question = fields.ToOneField(QuestionResource, 'question', full=True, null=True, blank=True)
-    pages = fields.ToManyField(PageResource, 'page_set', full=True, related_name='survey', null=True, blank=True)
+    pages = fields.ToManyField(PageResource, 'page_set', full=True, null=True, blank=True)
     class Meta:
         detail_uri_name = 'slug'
         queryset = Survey.objects.all()
@@ -316,7 +314,6 @@ class SurveyResource(SurveyModelResource):
         filtering = {
             'slug': ['exact']
         }
-
 
     # def save_m2m(self, bundle):
     #     pass
