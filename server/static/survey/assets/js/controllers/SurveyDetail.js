@@ -567,6 +567,7 @@ angular.module('askApp')
         
         var lastPage = survey.getLastPage();
         if (lastPage) {
+            app.skippingBack = true;
             $location.path(['survey', $routeParams.surveySlug, lastPage.order, $routeParams.uuidSlug].join('/'));    
         } else {
             $location.path('/surveys');
@@ -629,11 +630,25 @@ angular.module('askApp')
         
         if ($routeParams.pageID) {
             var pageID = parseInt($routeParams.pageID, 10);
-            // skip over profile questions if this is a subsequent event in the same logbook (SPECIFIC TO SOUTH COAST)
-            if (app.currentTrip && app.currentTrip.events[$scope.survey.slug]) {
+            // skip over profile questions if this is a subsequent event in the same logbook (same trip) (SPECIFIC TO SOUTH COAST)
+            if (app.currentTrip && app.currentTrip.events[$scope.survey.slug] && (app.currentTrip.events[$scope.survey.slug].respondents[0].uuid !== $routeParams.uuidSlug) ) {
                 var nonProfilePageID = $scope.getFirstNonProfilePage();
                 if (nonProfilePageID > pageID) {
-                    pageID = nonProfilePageID;
+                    // if back arrow from first non profile question in subsequent respondents (not first respondent), then return to complete page
+                    if ( app.skippingBack ) {
+                        delete app.skippingBack;
+                        // return to complete page of previous respondent
+                        var respondentsList = app.currentTrip.events[$scope.survey.slug].respondents,
+                            previousRespondent = app.currentTrip.events[$scope.survey.slug].respondents[0];
+                        for (var i=1; i<respondentsList.length; i+=1) {
+                            if (respondentsList[i].uuid === $routeParams.uuidSlug) {
+                                previousRespondent = respondentsList[i-1];
+                            }
+                        }
+                        $location.path(['survey', $scope.survey.slug, 'complete', previousRespondent.uuid].join('/'))
+                    } else {
+                        pageID = nonProfilePageID;    
+                    }                    
                 }
             } 
             $scope.page = _.findWhere($scope.survey.pages, { order: pageID });

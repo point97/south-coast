@@ -24,8 +24,10 @@ angular.module('askApp')
 
         $scope.constructTripSummary = function() {
             _.each($scope.trip.events, function(value, key) {
-                _.each(value.respondents, function(respondent) {
-                    if (respondent) {
+                // _.each(value.respondents, function(respondent) {
+                for (var i=0; i<value.respondents.length; i+=1) {
+                    var respondent = value.respondents[i];
+                    if (respondent && _.findWhere(respondent.responses, {question: 'harvest-species'})) {
                         var eventSpecies = _.findWhere(respondent.responses, {question: 'harvest-species'}).answer;
                         if ( !(eventSpecies instanceof Array) ) {
                             eventSpecies = [{text: eventSpecies}];
@@ -86,9 +88,14 @@ angular.module('askApp')
                             speciesObj.weather =  _.findWhere(respondent.responses, {question: 'weather'}) || $scope.notFound;   
 
                             speciesObj.events.push(event);                                
-                        });
+                        });  
+                    } else {
+                        // problem with this respondent (probably missing harvest-species)
+                        // remove respondent from $scope.trip
+                        value.respondents.splice(i,1);
+                        i-=1;
                     }
-                });
+                }
             });
         };    
 
