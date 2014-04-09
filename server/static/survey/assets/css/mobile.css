@@ -24,6 +24,9 @@ a.survey-arrow:hover {
     color: rgb(244,244,244);
     cursor: pointer;
 }
+a.survey-arrow.valid-arrow:hover {
+    color: yellow;
+}
 
 ::-webkit-input-placeholder {
    color: rgb(22, 59, 66) !important;
