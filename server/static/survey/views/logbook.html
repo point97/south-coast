@@ -69,14 +69,14 @@
                                     <div class="well" style="padding: 5px; margin-bottom: 0px;">            
                                         <div class="question profile-question">
                                             <h4 class="question-title" style="color: #555; margin-top: 5px">Add New Vessel</h4> 
-                                            <input class="form-control" type="text" placeholder="Vessel Name" ng-model="vessel.name" />
-                                            <input class="form-control" type="text" placeholder="Vessel Number" ng-model="vessel.number" />
+                                            <input class="form-control" ng-focus="editingVessel=true" ng-blur="editingVessel=false" type="text" placeholder="Vessel Name" ng-model="vessel.name" />
+                                            <input class="form-control" ng-focus="editingVessel=true" ng-blur="editingVessel=false" type="text" placeholder="Vessel Number" ng-model="vessel.number" />
                                         </div>
                                     </div>
                                 </div>
                                 <div class="modal-footer" style="margin-top: 0px">
-                                    <button class="btn btn-primary" ng-click="ok()">OK</button>
-                                    <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+                                    <button class="btn btn-primary" ng-disabled="editingVessel" ng-click="ok()">OK</button>
+                                    <button class="btn btn-warning" ng-disabled="editingVessel" ng-click="cancel()">Cancel</button>
                                 </div>
                             </script>
 
