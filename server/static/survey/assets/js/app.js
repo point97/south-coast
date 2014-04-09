@@ -168,34 +168,39 @@ angular.module('askApp', ['ngRoute', 'ui', 'ui.bootstrap', 'ngGrid', 'shoppinpal
     });
 });
 
-
-$(document).ready(function () {
-    $(document).on('focusin touchstart', '.question input, .question select', function (e) { 
-        var $this = $(this),
-            $wrapper = $this.closest('.question-wrapper');
-            // && ! $wrapper.hasClass('grid-question')
-        if ($this.closest('.menu-page').hasClass('profile')) {
-            return true;
-        }
-        if ($wrapper.length) {
-            if (! $wrapper.hasClass('non-focus-question')) {
-                $('body').addClass("keyboard-open");    
-                $wrapper.addClass('active');
-                if (e.type === 'touchstart') {
-                    $this.focus();    
-                }    
-            } else {
-                $('body').addClass("grid-keyboard-open");    
-            }
-            
-            
-        }
-    });
-    
-    $(document).on('blur', '.question input, .question select', function (e) { 
-        var $this = $(this);
-        $('body').removeClass("keyboard-open");
-        $('body').removeClass("grid-keyboard-open");
-        $this.closest('.question-wrapper').removeClass('active');
-    });        
+$(document).on('blur', 'input, textarea', function() {
+    setTimeout(function() {
+        window.scrollTo(document.body.scrollLeft, document.body.scrollTop);
+    }, 0);
 });
+
+// $(document).ready(function () {
+//     $(document).on('focusin touchstart', '.question input, .question select', function (e) { 
+//         var $this = $(this),
+//             $wrapper = $this.closest('.question-wrapper');
+//             // && ! $wrapper.hasClass('grid-question')
+//         if ($this.closest('.menu-page').hasClass('profile')) {
+//             return true;
+//         }
+//         if ($wrapper.length) {
+//             if (! $wrapper.hasClass('non-focus-question')) {
+//                 $('body').addClass("keyboard-open");    
+//                 $wrapper.addClass('active');
+//                 if (e.type === 'touchstart') {
+//                     $this.focus();    
+//                 }    
+//             } else {
+//                 $('body').addClass("grid-keyboard-open");    
+//             }
+            
+            
+//         }
+//     });
+    
+//     $(document).on('blur', '.question input, .question select', function (e) { 
+//         var $this = $(this);
+//         $('body').removeClass("keyboard-open");
+//         $('body').removeClass("grid-keyboard-open");
+//         $this.closest('.question-wrapper').removeClass('active');
+//     });        
+// });
