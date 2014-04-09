@@ -824,6 +824,7 @@ angular.module('askApp')
                 if (polygon) {
                     blockNumberQuestion = _.findWhere($scope.page.questions, {slug: 'block-number'});
                     blockNumberQuestion.answer = polygon.feature.properties['BLOCK10_ID'];
+                    blockNumberQuestion.readonly = true;
                 }
             }).error(function(data) {
                 debugger;

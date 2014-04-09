@@ -41,7 +41,7 @@
     </div>
     <div ng-switch-when="text">
         <div class="question">
-            <input class="form-control" type="text" placeholder="{{ question.label }}" ng-model="question.answer" />
+            <input class="form-control" type="text" placeholder="{{ question.label }}" ng-model="question.answer" ng-readonly="question.readonly" />
         </div>
     </div>
     <div ng-switch-when="currency">
