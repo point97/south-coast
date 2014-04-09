@@ -86,15 +86,17 @@ angular.module('askApp')
         });
 
         modalInstance.result.then(function (vessel) {
-            if (!$scope.profile.vessels) {
-                $scope.profile.vessels = [];
-            }
-            $scope.profile.vessels.push(vessel);
-            if ($scope.logbookToEdit) {
-                $scope.logbookToEdit.vessel = vessel;
-            } else {
-                $scope.logbook.vessel = vessel;
-            }
+            if (vessel.name && vessel.number) {
+                if (!$scope.profile.vessels) {
+                    $scope.profile.vessels = [];
+                }
+                $scope.profile.vessels.push(vessel);
+                if ($scope.logbookToEdit) {
+                    $scope.logbookToEdit.vessel = vessel;
+                } else {
+                    $scope.logbook.vessel = vessel;
+                }
+            }            
         });
     };
 

@@ -227,8 +227,12 @@ angular.module('askApp').directive('multiquestion', function($modal) {
                 });
 
                 modalInstance.result.then(function (vessel) {
-                    vessel.checked = true;
-                    scope.question.options.push(vessel);
+                    if (vessel.name && vessel.number) {
+                        vessel.checked = true;
+                        scope.question.options.push(vessel);
+                    } else {
+                        scope.previouslyCheckedOption.checked = true;
+                    }
                 });
             };
 
@@ -245,6 +249,7 @@ angular.module('askApp').directive('multiquestion', function($modal) {
                     scope.previouslyCheckedOption.checked = true;
                 }; 
             };
+            /*** End Vessel Question code ***/
 
             scope.openOption = function(option) {
                 _.each(scope.question.groupedOptions, function(groupedOption) {
