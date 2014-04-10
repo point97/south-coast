@@ -247,7 +247,12 @@ angular.module('askApp').directive('multiquestion', function($modal) {
                 $scope.cancel = function () {
                     $modalInstance.dismiss('cancel');
                     scope.previouslyCheckedOption.checked = true;
-                }; 
+                };
+
+                $scope.redraw = function() {
+                    $scope.editingVessel = false;
+                    
+                };
             };
             /*** End Vessel Question code ***/
 
