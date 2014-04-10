@@ -21,9 +21,11 @@ angular.module('askApp')
             attribution: "NOAA Nautical Charts"
         });
 
-        var bing = new L.BingLayer("Av8HukehDaAvlflJLwOefJIyuZsNEtjCOnUB_NtSTCwKYfxzEMrxlKfL1IN7kAJF", {
-            type: "AerialWithLabels"
-        });
+        // var bing = new L.BingLayer("Av8HukehDaAvlflJLwOefJIyuZsNEtjCOnUB_NtSTCwKYfxzEMrxlKfL1IN7kAJF", {
+        //     type: "AerialWithLabels"
+        // });
+
+        var esriOcean = L.esri.basemapLayer("Oceans");
 
         $http.get("assets/data/MPA_CA_Simplified_0001.json").success(function(data) {
             var mpas = L.geoJson(data, { 
@@ -44,14 +46,15 @@ angular.module('askApp')
         var initialZoom = 7;
         
         var map = new L.Map($el, {
-            inertia: false
-        }).addLayer(bing).setView(initPoint, initialZoom);
+            inertia: false,
+            maxZoom: 13, 
+        }).addLayer(esriOcean).setView(initPoint, initialZoom);
 
         map.attributionControl.setPrefix('');
         map.zoomControl.options.position = 'bottomleft';
 
         // Layer picker init
-        var baseMaps = { "Satellite": bing, "Nautical Charts": nautical };
+        var baseMaps = { "ESRI Ocean": esriOcean, "Nautical Charts": nautical };
         var options = { position: 'topright' };
         // L.control.layers(baseMaps, null, options).addTo(map);
         var layerControl = L.control.layers(baseMaps, null, options);

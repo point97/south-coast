@@ -25,15 +25,18 @@ angular.module('askApp')
                     attribution: "NOAA Nautical Charts"
                 });
 
-                var bing = new L.BingLayer("Av8HukehDaAvlflJLwOefJIyuZsNEtjCOnUB_NtSTCwKYfxzEMrxlKfL1IN7kAJF", {
-                    type: "AerialWithLabels"
-                });
+                var esriOcean = L.esri.basemapLayer("Oceans");
+
+                // var bing = new L.BingLayer("Av8HukehDaAvlflJLwOefJIyuZsNEtjCOnUB_NtSTCwKYfxzEMrxlKfL1IN7kAJF", {
+                //     type: "AerialWithLabels"
+                // });
 
                 $http.get("assets/data/MPA_CA_Simplified_0001.json").success(function(data) {
                     var mpas = L.geoJson(data, { 
                         style: function(feature) {
                             return {
-                                "color": "#E6D845",
+                                // "color": "#E6D845",
+                                "color": "#005AE7",
                                 "weight": 1,
                                 "opacity": 0.6,
                                 "fillOpacity": 0.2
@@ -53,14 +56,15 @@ angular.module('askApp')
                     initialZoom = scope.question.zoom;
                 }
                 var map = new L.Map($el, {
-                    inertia: false
-                }).addLayer(bing).setView(initPoint, initialZoom);
+                    inertia: false,
+                    maxZoom: 13, 
+                }).addLayer(esriOcean).setView(initPoint, initialZoom);
 
                 map.attributionControl.setPrefix('');
                 map.zoomControl.options.position = 'bottomleft';
 
                 // Layer picker init
-                var baseMaps = { "Satellite": bing, "Nautical Charts": nautical };
+                var baseMaps = { "ESRI Ocean": esriOcean, "Nautical Charts": nautical }; // "Satellite": bing, 
                 var options = { position: 'topright' };
                 var layerControl = L.control.layers(baseMaps, null, options);
                 layerControl.addTo(map);
