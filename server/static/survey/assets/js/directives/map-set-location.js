@@ -15,6 +15,19 @@ angular.module('askApp')
                 } else {
                     scope.question.answer = {};
                 }
+
+                if (!app.mapQuestion) {
+                    app.mapQuestion = {};
+                }
+                var previousState = undefined;
+                if (app.mapQuestion.previousState) {
+                    previousState = {
+                        'zoom': app.mapQuestion.previousState.zoom,
+                        'center': app.mapQuestion.previousState.center,
+                        'basemap': app.mapQuestion.previousState.basemap,
+                        'overlays': app.mapQuestion.previousState.overlays
+                    };
+                }
                 var $el = "set-location-map";
 
                 // Layer init
@@ -44,30 +57,64 @@ angular.module('askApp')
                         }
                     });
                     layerControl.addOverlay(mpas, "MPAs");
+                    
+                    if (previousState && previousState.overlays.length) {
+                        if (_.indexOf(previousState.overlays, "MPAs") !== -1) {
+                            map.addLayer(mpas);
+                            // some trickery to force activeOverlayLayers to recognize the adding of this layer
+                            // would have been handled automatically had the add taking place via the layer switcher control...
+                            // layerControl._activeOverlayLayers = {
+                            //     1098: {
+                            //         layer: mpas,
+                            //         name: "MPAs",
+                            //         overlay: true
+                            //     }
+                            // }
+                        }
+                    }
                 });
 
                 // Map init
-                var initPoint = new L.LatLng(45.52847, -122.68067);
+                var initialPoint = new L.LatLng(45.52847, -122.68067);
                 if (scope.question.lat && scope.question.lng) {
-                    initPoint = new L.LatLng(scope.question.lat, scope.question.lng);
+                    initialPoint = new L.LatLng(scope.question.lat, scope.question.lng);
                 }
                 var initialZoom = 11;
                 if (scope.question.zoom) {
                     initialZoom = scope.question.zoom;
                 }
-                var map = new L.Map($el, {
-                    inertia: false,
-                    maxZoom: 13, 
-                }).addLayer(esriOcean).setView(initPoint, initialZoom);
-
-                map.attributionControl.setPrefix('');
-                map.zoomControl.options.position = 'bottomleft';
+                var initialBasemap = esriOcean;
 
                 // Layer picker init
                 var baseMaps = { "ESRI Ocean": esriOcean, "Nautical Charts": nautical }; // "Satellite": bing, 
                 var options = { position: 'topright' };
-                var layerControl = L.control.layers(baseMaps, null, options);
+
+                // inits from previously saved state
+                if (previousState) {
+                    initialPoint = previousState.center;
+                    initialZoom = previousState.zoom;
+                    initialBasemap = baseMaps[previousState.basemap];
+                }
+
+                var map = new L.Map($el, {
+                    inertia: false,
+                    maxZoom: 13, 
+                }).addLayer(initialBasemap).setView(initialPoint, initialZoom);
+
+                map.attributionControl.setPrefix('');
+                map.zoomControl.options.position = 'bottomleft';
+
+                var layerControl = L.control.activeLayers(baseMaps, null, options);
                 layerControl.addTo(map);
+
+                map.on("blur", function(e) {
+                    app.mapQuestion.previousState = { 
+                        "center": map.getCenter(),
+                        "zoom": map.getZoom(),
+                        "basemap": layerControl.getActiveBaseLayer().name,
+                        "overlays": _.pluck(layerControl.getActiveOverlayLayers(), 'name'),
+                    };
+                });
 
                 var availableColors = [
                     'red',

@@ -2,7 +2,7 @@
 
 
 angular.module('askApp')
-    .controller('MapsCtrl', function($scope, $routeParams, $http, $location, $interpolate, $timeout) {
+    .controller('MapsCtrl', function($scope, $routeParams, $http, $location, $interpolate, $timeout, storage) {
         var $el = "maps-page";
         $scope.title = "Maps";
         $scope.markers = [];
@@ -11,6 +11,17 @@ angular.module('askApp')
             $scope.user = app.user;
         } else {
             $scope.user = false;
+        }
+        if (!app.maps) {
+            app.maps = {};
+        }
+        if (app.maps.previousState) {
+            $scope.previousState = {
+                'zoom': app.maps.previousState.zoom,
+                'center': app.maps.previousState.center,
+                'basemap': app.maps.previousState.basemap,
+                'overlays': app.maps.previousState.overlays
+            };
         }
 
         // Layer init
@@ -27,11 +38,14 @@ angular.module('askApp')
 
         var esriOcean = L.esri.basemapLayer("Oceans");
 
+        var mpas = L.geoJson();
+
         $http.get("assets/data/MPA_CA_Simplified_0001.json").success(function(data) {
-            var mpas = L.geoJson(data, { 
+            layerControl.removeLayer(mpas);
+            mpas = L.geoJson(data, { 
                 style: function(feature) {
                     return {
-                        "color": "#E6D845",
+                        "color": "#005AE7",
                         "weight": 1,
                         "opacity": 0.6,
                         "fillOpacity": 0.2
@@ -39,25 +53,62 @@ angular.module('askApp')
                 }
             });
             layerControl.addOverlay(mpas, "MPAs");
+            // mpas.addTo(map);
+
+            if ($scope.previousState && $scope.previousState.overlays.length) {
+                if (_.indexOf($scope.previousState.overlays, "MPAs") !== -1) {
+                    map.addLayer(mpas);
+                    // some trickery to force activeOverlayLayers to recognize the adding of this layer
+                    // would have been handled automatically had the add taking place via the layer switcher control...
+                    // unfortunately we would also need to remove this layer from activeOverlayLayers whenever the layer is deactivated...
+                    // bailing on this for now...
+                    // layerControl._activeOverlayLayers = {
+                    //     1098: {
+                    //         layer: mpas,
+                    //         name: "MPAs",
+                    //         overlay: true
+                    //     }
+                    // }
+                }
+            }
         });
 
         // Map init
-        var initPoint = new L.LatLng(33, -119);
+        var initialPoint = new L.LatLng(33, -119);
         var initialZoom = 7;
+        var initialBasemap = esriOcean;
+
+        // Layer picker init
+        var baseMaps = { "ESRI Ocean": esriOcean, "Nautical Charts": nautical };        
+        var overlays = { "MPAs": mpas };
+        var options = { position: 'topright' };
+
+        // inits from previously saved state
+        if ($scope.previousState) {
+            initialPoint = $scope.previousState.center;
+            initialZoom = $scope.previousState.zoom;
+            initialBasemap = baseMaps[$scope.previousState.basemap];
+        }
         
         var map = new L.Map($el, {
             inertia: false,
             maxZoom: 13, 
-        }).addLayer(esriOcean).setView(initPoint, initialZoom);
+        }).addLayer(initialBasemap).setView(initialPoint, initialZoom);
 
         map.attributionControl.setPrefix('');
         map.zoomControl.options.position = 'bottomleft';
 
-        // Layer picker init
-        var baseMaps = { "ESRI Ocean": esriOcean, "Nautical Charts": nautical };
-        var options = { position: 'topright' };
+        map.on("blur", function(e) {
+            app.maps.previousState = { 
+                "center": map.getCenter(),
+                "zoom": map.getZoom(),
+                "basemap": layerControl.getActiveBaseLayer().name,
+                "overlays": _.pluck(layerControl.getActiveOverlayLayers(), 'name'),
+            };
+        });
+
         // L.control.layers(baseMaps, null, options).addTo(map);
-        var layerControl = L.control.layers(baseMaps, null, options);
+        var layerControl = L.control.activeLayers(baseMaps, overlays, options);
         layerControl.addTo(map);
 
         $scope.availableColors = [
@@ -72,38 +123,6 @@ angular.module('askApp')
             'darkpurple',
             'cadetblue'
         ];
-        
-
-        /**
-         * @return {string} Returns the color to be applied to the next marker.
-         */
-        // $scope.getNextColor = function() {
-        //     var availableColors = [],
-        //         colorPalette = [
-        //                 'red',
-        //                 'orange',
-        //                 'green',
-        //                 'darkgreen',
-        //                 'darkred',
-        //                 'blue',
-        //                 'darkblue',
-        //                 'purple',
-        //                 'darkpurple',
-        //                 'cadetblue'
-        //         ];
-
-        //     availableColors = angular.copy(colorPalette);
-        //     _.each($scope.locations, function(marker) {
-        //         if (_.has(marker, 'color')) {
-        //             availableColors = _.without(availableColors, marker.color);
-        //         }
-        //         if (availableColors.length == 0) {
-        //             // Recyle the colors if we run out.
-        //             availableColors = angular.copy(colorPalette);
-        //         }
-        //     });
-        //     return _.first(availableColors);
-        // };
 
         $scope.getSubmittedTripsFromServer = function() {
             var url = app.server 
