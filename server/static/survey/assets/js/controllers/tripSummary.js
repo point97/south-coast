@@ -21,7 +21,7 @@ angular.module('askApp')
         $scope.calledFrom = $location.path().split('/')[2];
 
         $scope.speciesCaught = [];
-
+  
         $scope.constructTripSummary = function() {
             _.each($scope.trip.events, function(value, key) {
                 // _.each(value.respondents, function(respondent) {
@@ -61,6 +61,9 @@ angular.module('askApp')
                             event.location.latDMS = $scope.convertToDMS(event.location.lat);
                             event.location.lngDMS = $scope.convertToDMS(event.location.lng);
 
+                            if (species.text === 'No Catch') {
+                                event.noCatch = true;
+                            }
                             var minDepth = _.findWhere(respondent.responses, {question: 'min-depth'}) || $scope.notFound,
                                 maxDepth = _.findWhere(respondent.responses, {question: 'max-depth'}) || $scope.notFound,
                                 hours = _.findWhere(respondent.responses, {question: 'hours'}) || $scope.notFound,

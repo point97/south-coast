@@ -55,9 +55,14 @@
                                     <div><span>Landmark: {{event.location.landmark}}</span></div>
                                 </div>
                                 <div class="well" style="padding: 5px">
-                                    <span class="profile-question-header">Harvest</span>
-                                    <div><span>Weight: {{event.harvest.weight}} lbs</span></div>
-                                    <div><span>Grade: {{event.harvest.grade}} </span></div>
+                                    <div ng-show="event.noCatch">
+                                        <span class="profile-question-header">(Non) Harvest</span>
+                                    </div>
+                                    <div ng-hide="event.noCatch">
+                                        <span class="profile-question-header">Harvest</span>
+                                        <div><span>Weight: {{event.harvest.weight}} lbs</span></div>
+                                        <div><span>Grade: {{event.harvest.grade}} </span></div>
+                                    </div>
                                     <div><span>Hours: {{event.harvest.hours}}</span></div>
                                     <div ng-show="event.harvest.minDepth != '?' || event.harvest.maxDepth != '?'"><span>Depth: {{event.harvest.minDepth}} - {{event.harvest.maxDepth}} ft</span></div>
                                     <div ng-show="event.harvest.minDepth == '?' && event.harvest.maxDepth == '?'"><span>Depth: Not Reported</span></div>

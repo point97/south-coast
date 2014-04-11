@@ -192,6 +192,13 @@ angular.module('askApp')
             var blocks = []; //(return false)
         }
 
+        if (!survey.questions.length) {
+            survey.questions = _.flatten(_.map(survey.pages, function(page) {
+                return page.questions;
+            }));
+        }
+        
+
         _.each(blocks, function(block) {
             //console.log(block);
             var questionSlug = _.findWhere(survey.questions, {resource_uri: block.skip_question}).slug,
