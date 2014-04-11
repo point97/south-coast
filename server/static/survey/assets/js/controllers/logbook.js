@@ -77,91 +77,91 @@ angular.module('askApp')
 
     /*** Modals ***/
 
-    $scope.addVessel = function () {
+    // $scope.addVessel = function () {
 
-        var modalInstance = $modal.open({
-            templateUrl: 'addVessel',
-            controller: AddVesselCtrl,
-            windowClass: 'padding-top-20',
-        });
+    //     var modalInstance = $modal.open({
+    //         templateUrl: 'addVessel',
+    //         controller: AddVesselCtrl,
+    //         windowClass: 'padding-top-20',
+    //     });
 
-        modalInstance.result.then(function (vessel) {
-            if (vessel.name && vessel.number) {
-                if (!$scope.profile.vessels) {
-                    $scope.profile.vessels = [];
-                }
-                $scope.profile.vessels.push(vessel);
-                if ($scope.logbookToEdit) {
-                    $scope.logbookToEdit.vessel = vessel;
-                } else {
-                    $scope.logbook.vessel = vessel;
-                }
-            }            
-        });
-    };
+    //     modalInstance.result.then(function (vessel) {
+    //         if (vessel.name && vessel.number) {
+    //             if (!$scope.profile.vessels) {
+    //                 $scope.profile.vessels = [];
+    //             }
+    //             $scope.profile.vessels.push(vessel);
+    //             if ($scope.logbookToEdit) {
+    //                 $scope.logbookToEdit.vessel = vessel;
+    //             } else {
+    //                 $scope.logbook.vessel = vessel;
+    //             }
+    //         }            
+    //     });
+    // };
 
-    $scope.editVessels = function () {
+    // $scope.editVessels = function () {
 
-        var modalInstance = $modal.open({
-            templateUrl: 'editVessels',
-            controller: EditVesselCtrl,
-            windowClass: 'padding-top-20',
-            resolve: {
-                vessels: function () {
-                  return $scope.profile.vessels;
-                }
-            }
-        });
+    //     var modalInstance = $modal.open({
+    //         templateUrl: 'editVessels',
+    //         controller: EditVesselCtrl,
+    //         windowClass: 'padding-top-20',
+    //         resolve: {
+    //             vessels: function () {
+    //               return $scope.profile.vessels;
+    //             }
+    //         }
+    //     });
 
-        modalInstance.result.then(function (vessels) {
-            $scope.profile.vessels = vessels;
-            if ($scope.logbookToEdit && !_.findWhere(vessels, {number: $scope.logbookToEdit.vessel.number})) {
-                if (vessels.length) {
-                    $scope.logbookToEdit.vessel = vessels[0];    
-                } else {
-                    $scope.logbookToEdit.vessel = {};
-                }           
-            } else if (!$scope.logbookToEdit) {
-                if ($scope.logbook.vessel && !_.findWhere(vessels, {number: $scope.logbook.vessel.number})) {
-                    if (vessels.length) {
-                        $scope.logbook.vessel = vessels[0];    
-                    } else {
-                        $scope.logbook.vessel = {};
-                    }
-                }
-            }
-        });
-    };
+    //     modalInstance.result.then(function (vessels) {
+    //         $scope.profile.vessels = vessels;
+    //         if ($scope.logbookToEdit && !_.findWhere(vessels, {number: $scope.logbookToEdit.vessel.number})) {
+    //             if (vessels.length) {
+    //                 $scope.logbookToEdit.vessel = vessels[0];    
+    //             } else {
+    //                 $scope.logbookToEdit.vessel = {};
+    //             }           
+    //         } else if (!$scope.logbookToEdit) {
+    //             if ($scope.logbook.vessel && !_.findWhere(vessels, {number: $scope.logbook.vessel.number})) {
+    //                 if (vessels.length) {
+    //                     $scope.logbook.vessel = vessels[0];    
+    //                 } else {
+    //                     $scope.logbook.vessel = {};
+    //                 }
+    //             }
+    //         }
+    //     });
+    // };
     
 });
 
-var AddVesselCtrl = function ($scope, $modalInstance) {
+// var AddVesselCtrl = function ($scope, $modalInstance) {
 
-    $scope.vessel = {};
+//     $scope.vessel = {};
 
-    $scope.ok = function () {
-        $modalInstance.close($scope.vessel);
-    };
+//     $scope.ok = function () {
+//         $modalInstance.close($scope.vessel);
+//     };
 
-    $scope.cancel = function () {
-        $modalInstance.dismiss('cancel');
-    }; 
-};
+//     $scope.cancel = function () {
+//         $modalInstance.dismiss('cancel');
+//     }; 
+// };
 
-var EditVesselCtrl = function ($scope, $modalInstance, vessels) {
+// var EditVesselCtrl = function ($scope, $modalInstance, vessels) {
 
-    $scope.editVessels = angular.copy(vessels);
+//     $scope.editVessels = angular.copy(vessels);
 
-    $scope.removeVessel = function(index) {
-        $scope.editVessels.splice(index, 1);
-    }
+//     $scope.removeVessel = function(index) {
+//         $scope.editVessels.splice(index, 1);
+//     }
 
-    $scope.ok = function () {
-        $modalInstance.close($scope.editVessels);
-    };
+//     $scope.ok = function () {
+//         $modalInstance.close($scope.editVessels);
+//     };
 
-    $scope.cancel = function () {
-        $modalInstance.dismiss('cancel');
-    }; 
-};
+//     $scope.cancel = function () {
+//         $modalInstance.dismiss('cancel');
+//     }; 
+// };
 

@@ -54,8 +54,8 @@
                         <!-- VESSELS -->
                         <div class="well" style="padding: 5px">
                             <span style="font-size: 18px; font-weight: bold; text-transform: uppercase; color: #555;">Vessel</span>
-                            <span class="pull-right icon-plus" ng-click="addVessel()" style="font-size: 18px; margin-top: 3px; text-decoration: none; color: #555; cursor: pointer;"></span>
-                            <span class="pull-right icon-pencil" ng-show="profile.vessels.length" ng-click="editVessels()" style="font-size: 18px; margin-top: 3px; margin-right: 10px; text-decoration: none; color: #555; cursor: pointer;"></span>
+                            <!-- <span class="pull-right icon-plus" ng-click="addVessel()" style="font-size: 18px; margin-top: 3px; text-decoration: none; color: #555; cursor: pointer;"></span>
+                            <span class="pull-right icon-pencil" ng-show="profile.vessels.length" ng-click="editVessels()" style="font-size: 18px; margin-top: 3px; margin-right: 10px; text-decoration: none; color: #555; cursor: pointer;"></span> -->
                             
                             <div class="question profile-question" ng-show="profile.vessels.length && !logbookToEdit">
                                 <select class="logbook-dropdown" ng-model="logbook.vessel" ng-options="vessel.name for vessel in profile.vessels"></select>
@@ -64,7 +64,7 @@
                                 <select class="logbook-dropdown" ng-model="logbookToEdit.vessel" ng-options="vessel.name for vessel in profile.vessels"></select>
                             </div>
 
-                            <script id="addVessel" type="text/ng-template">                                
+                            <!-- <script id="addVessel" type="text/ng-template">                                
                                 <div class="modal-body">
                                     <div class="well" style="padding: 5px; margin-bottom: 0px;">            
                                         <div class="question profile-question">
@@ -101,7 +101,7 @@
                                     <button class="btn btn-primary" ng-click="ok()">OK</button>
                                     <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
                                 </div>
-                            </script>
+                            </script> -->
                             
                         </div>
 

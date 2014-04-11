@@ -13,8 +13,8 @@ angular.module('askApp')
         profile.logbooks = {};
         profile.vessels = [];
         profile.ports = [];
-        profile.buoys = [];
-        profile.crew = [];        
+        // profile.buoys = [];
+        // profile.crew = [];        
         return profile;
     };
     
@@ -95,7 +95,7 @@ angular.module('askApp')
         profile = null;
     };
 
-    var saveState = function(firstName, lastName, email, license, logbooks, buoys, crew) {
+    var saveState = function(firstName, lastName, email, license, logbooks, vessels) {
         if (firstName) {
             profile.firstName = firstName;
         } 
@@ -109,8 +109,9 @@ angular.module('askApp')
             profile.license = license;
         }
         profile.logbooks = logbooks;
-        profile.buoys = buoys;
-        profile.crew = crew;
+        profile.vessels = vessels;
+        // profile.buoys = buoys;
+        // profile.crew = crew;
     };
 
     var saveToServer = function() {

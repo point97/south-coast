@@ -36,8 +36,8 @@
                             <!-- <span class="pull-right icon-pencil" ng-click="editLogbooks()" style="font-size: 18px; margin-top: 3px; margin-right: 10px;  ext-decoration: none; color: #555; cursor: pointer;"></span> -->
                             
                             <div ng-style="{ 'margin-top: 10px': !logbookToEdit }">
-                                <div class="form-control ng-pristine" style="padding-top: 10px; margin-bottom: 5px;" ng-repeat="(type, logbook) in profile.logbooks">
-                                    <span ng-click="editLogbook(type)" style="width: 100%; cursor: pointer; color: #555;">
+                                <div class="form-control ng-pristine" style="padding-top: 10px; margin-bottom: 5px; cursor: pointer;" ng-repeat="(type, logbook) in profile.logbooks" ng-click="editLogbook(type)">
+                                    <span style="width: 100%; color: #555;">
                                         <span class="pull-left" style="font-weight: bold; text-transform: capitalize;">{{type}}</span>
                                         <span class="pull-right icon-pencil" style="margin-top: 3px;"></span>
                                     </span>
@@ -61,6 +61,61 @@
                             </script>
 
                         </div>
+
+
+                        <!-- VESSELS -->
+                        <div class="well" style="padding: 5px">
+                            <span class="profile-question-header">My Vessels</span>
+                            <span class="pull-right icon-plus" ng-click="addVessel()" style="font-size: 18px; margin-top: 3px; text-decoration: none; color: #555; cursor: pointer;"></span>
+                            <!-- <span class="pull-right icon-pencil" ng-click="editLogbooks()" style="font-size: 18px; margin-top: 3px; margin-right: 10px;  ext-decoration: none; color: #555; cursor: pointer;"></span> -->
+                            
+                            <div>
+                                <div class="form-control ng-pristine" style="padding-top: 10px; cursor: pointer; margin-bottom: 5px;" ng-click="editVessel(vessel)" ng-repeat="vessel in profile.vessels">
+                                    <span style="width: 100%; color: #555;">
+                                        <span class="pull-left" style="font-weight: bold; text-transform: capitalize;">{{vessel.name}}</span>
+                                        <span class="pull-right icon-pencil" style="margin-top: 3px;"></span>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <script id="addVessel" type="text/ng-template">                                
+                                <div class="modal-body">
+                                    <div class="well" style="padding: 5px; margin-bottom: 0px;">            
+                                        <div class="question profile-question">
+                                            <h4 class="question-title" style="color: #555; margin-top: 5px">Add New Vessel</h4> 
+                                            <input class="form-control" ng-focus="editingVessel=true" ng-blur="editingVessel=false" type="text" placeholder="Vessel Name" ng-model="vessel.name" />
+                                            <input class="form-control" ng-focus="editingVessel=true" ng-blur="editingVessel=false" type="text" placeholder="Vessel Number" ng-model="vessel.number" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer" style="margin-top: 0px">
+                                    <button class="btn btn-primary" ng-disabled="editingVessel" ng-click="ok()">OK</button>
+                                    <button class="btn btn-warning" ng-disabled="editingVessel" ng-click="cancel()">Cancel</button>
+                                </div>
+                            </script>
+
+                            <script id="editVessel" type="text/ng-template">                                
+                                <div class="modal-body" style="padding-bottom: 5px">
+                                    <div class="well" style="padding: 5px; margin-bottom: 0px; padding-top: 10px;"> 
+                                        <button class="btn btn-primary pull-right" ng-disabled="editingVessel" ng-click="ok()">Update</button>
+                                        <span style="text-transform: uppercase; font-size: 18px; margin-bottom: 5px; font-weight: bold; text-align: left; position: relative; top: 10px">Edit Vessel</span>           
+                                        <div class="question profile-question" style="margin-top: -5px">
+                                            <div style="margin-top: 20px;">
+                                                
+                                                <input class="form-control" ng-focus="editingVessel=true" ng-blur="editingVessel=false" type="text" placeholder="Vessel Name" ng-model="vessel.name" />
+                                                <input class="form-control" ng-focus="editingVessel=true" ng-blur="editingVessel=false" type="text" placeholder="Vessel Number" ng-model="vessel.number" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer" style="margin-top: 0px; padding: 10px 20px; border-top: 0px">
+                                    <button class="btn btn-danger pull-left" ng-disabled="editingVessel" ng-click="removeVessel($index)">Delete</button>
+                                    <button class="btn btn-warning" ng-disabled="editingVessel" ng-click="cancel()">Cancel</button>
+                                </div>
+                            </script>
+
+                        </div>
+
 
                         <!-- PORTS -->
                         <!-- <div class="well" style="padding: 5px">
