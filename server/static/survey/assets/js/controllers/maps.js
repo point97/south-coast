@@ -147,34 +147,35 @@ angular.module('askApp')
         $scope.getSubmittedTrips = function() {
             $scope.getSubmittedTripsFromServer()
                 .success(function (data) {
-                    // $scope.updateEnabled = false;
-                    $scope.trips = data.objects;
-                    $scope.respondentList = [];
-                    _.each($scope.trips, function(trip, index) {
-                        // var color = $scope.availableColors[index % 10];
-                        _.each(trip.respondants, function(respondent, index) {
-                            $scope.respondentList.push(respondent);
-                            var event = respondent.type.charAt(0).toUpperCase() + respondent.type.slice(1),
-                                date_obj = new Date(respondent.date),
-                                date = (date_obj.getUTCMonth()+1) +"/"+ date_obj.getUTCDate() + "/" + date_obj.getUTCFullYear(),
-                                popupContent = event + ' -- ' + date,
-                                popuplink = app.viewPath + '#/tripSummary/maps/' + trip.uuid,
-                                popupContentWithLink = '<a href="' + popuplink + '">' + popupContent + '</a>',
-                                // color = $scope.availableColors[date_obj.getUTCDate() % 10],
-                                color = $scope.availableColors[trip.uuid % 10],
-                                marker = new L.marker(respondent.location, {icon: L.AwesomeMarkers.icon({icon: 'anchor', color: color}) });
-                            marker.bindPopup(popupContentWithLink);
-                            // marker.options.color = color;
-                            marker.addTo(map);
-                            $scope.markers.push(marker);
-                        });
-                    });
+                    $scope.addTripsToMap(data.objects);
                     $scope.submittedSpinner = false;
                     // console.log($scope.respondentList);
                 }).error(function (data) {
                     $scope.error = true;
                     // $location.path('/signin?error=not-logged-in');
                 }); 
+        };
+
+        $scope.addTripsToMap = function(trips) {
+            $scope.trips = trips;
+            // $scope.respondentList = [];
+            _.each($scope.trips, function(trip, index) {
+                _.each(trip.respondants, function(respondent, index) {
+                    // $scope.respondentList.push(respondent);
+                    var event = respondent.type.charAt(0).toUpperCase() + respondent.type.slice(1),
+                        date_obj = new Date(respondent.date),
+                        date = (date_obj.getUTCMonth()+1) +"/"+ date_obj.getUTCDate() + "/" + date_obj.getUTCFullYear(),
+                        popupContent = event + ' -- ' + date,
+                        popuplink = app.viewPath + '#/tripSummary/maps/' + trip.uuid,
+                        popupContentWithLink = '<a href="' + popuplink + '">' + popupContent + '</a>',
+                        color = $scope.availableColors[trip.uuid % 10],
+                        marker = new L.marker(respondent.location, {icon: L.AwesomeMarkers.icon({icon: 'anchor', color: color}) });
+                    marker.bindPopup(popupContentWithLink);
+                    // marker.options.color = color;
+                    marker.addTo(map);
+                    $scope.markers.push(marker);
+                });
+            });
         };
 
         $scope.updateTripList = function() {

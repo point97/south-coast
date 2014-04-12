@@ -160,7 +160,7 @@ angular.module('askApp')
 
 
             // if currentTrip is actually from Resume Trip (an unsubmitted trip), then populate app.currentTrip
-            // PROBLEM: tif a later question is accessed through Resume Trip then 'ensure app.currentTrip exists' does not work as intended
+            // PROBLEM: if a later question is accessed through Resume Trip then 'ensure app.currentTrip exists' does not work as intended
             // SOLUTION:  'ensure app.currentTrip exists' is only necessary if we're proceeding through the first survey in an event
             // if we are here due to a Resume request, then the logbook answers are already populated 
             // in this case we need to make sure that app.currentTrip is populated correctly...
