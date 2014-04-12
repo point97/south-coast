@@ -146,6 +146,7 @@ angular.module('askApp')
     $scope.startNewEvent = function() {    
         // app.currentRespondent.complete = true;
         // app.currentRespondent.status = 'complete';
+        delete app.currentRespondent;
         delete app.user.resumePath;
         $location.path('/survey/' + 'dive' + '/1/offline');
     }

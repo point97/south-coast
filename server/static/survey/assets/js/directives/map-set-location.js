@@ -16,6 +16,19 @@ angular.module('askApp')
                     scope.question.answer = {};
                 }
 
+                var previousPoints = [];
+                // acquire any points from previous events on this trip
+                if (app.currentTrip && app.currentTrip.events) {
+                    _.each(app.currentTrip.events, function(value, key) {
+                        _.each(value.respondents, function(respondent) {
+                            if (!app.currentRespondent || (app.currentRespondent.uuid !== respondent.uuid)) {
+                                var previousPoint = _.findWhere(respondent.responses, { 'question': 'map-set-location'}).answer;
+                                previousPoints.push(previousPoint);
+                            }
+                        });
+                    });
+                }
+
                 if (!app.mapQuestion) {
                     app.mapQuestion = {};
                 }
@@ -129,13 +142,17 @@ angular.module('askApp')
                     'cadetblue'
                 ];
 
-                var color = 'blue';
+                var color = 'orange';
                 // if (app.currentRespondent && app.currentRespondent.date) {
-                if (app.currentTrip && app.currentTrip.uuid) {
-                    // var date_obj = new Date(app.currentRespondent.date);
-                    // var color = availableColors[date_obj.getUTCDate() % 10];
-                    var color = availableColors[app.currentTrip.uuid % 10];
-                } 
+                // if (app.currentTrip && app.currentTrip.uuid) {
+                //     // var date_obj = new Date(app.currentRespondent.date);
+                //     // var color = availableColors[date_obj.getUTCDate() % 10];
+                //     var color = availableColors[app.currentTrip.uuid % 10];
+                // } 
+
+                _.each(previousPoints, function(point) {
+                    L.marker(point, {icon: L.AwesomeMarkers.icon({icon: 'anchor', color: 'blue'})}).addTo(map);
+                });
                     
                 var marker = L.marker();
                 map.on('click', function(e) {
@@ -144,7 +161,6 @@ angular.module('askApp')
                     // marker.setLatLng([position],{draggable:'true'}).bindPopup(position).update();
                 });
                 var repositionMarker = function (latlng) {
-                    console.log(latlng);
                     map.removeLayer(marker);
 
                     marker = new L.marker(latlng, {icon: L.AwesomeMarkers.icon({icon: 'anchor', color: color}), draggable: 'true'});
