@@ -124,7 +124,8 @@ angular.module('askApp')
                     
                 })
                 .error(function (err) {
-                    debugger;
+                    // debugger;
+                    console.log('ERROR: ' + err);
                 });
             }
             
@@ -155,7 +156,8 @@ angular.module('askApp')
                     $scope.deleteRespondent(respondent);
                     $scope.showSurveyList = true;
                 }).error( function(err) {
-                    debugger;
+                    // debugger;
+                    console.log('ERROR: ' + err);
                 });
             
         };

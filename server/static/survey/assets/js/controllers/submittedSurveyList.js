@@ -129,7 +129,8 @@ angular.module('askApp')
                     $scope.respondent = respondent;
                 }).error(function (err) {
                     console.log(JSON.stringify(err));
-                    debugger;
+                    // debugger;
+                    console.log('ERROR: ' + err);
                 }); 
         };
 
@@ -149,7 +150,8 @@ angular.module('askApp')
 
             return $http.get(url).error(function (err) {
                 console.log(JSON.stringify(err));
-                debugger;
+                // debugger;
+                console.log('ERROR: ' + err);
             }).success(function (callback) { $scope.next20 = callback.meta.next; $scope.updateEnabled = false;  });  
         };
 
@@ -164,13 +166,15 @@ angular.module('askApp')
                             $scope.respondentList.push(respondent);
                         }
                         catch(e) {
-                            debugger;
+                            // debugger;
+                            console.log('ERROR: ' + e);
                         }
                     });
                     $scope.gettingNext20 = true;
                     // console.log($scope.respondentList);
                 }).error(function (data) {
-                    debugger;
+                    // debugger;
+                    console.log('ERROR: ' + data);
                 }); 
         };
 
@@ -188,13 +192,15 @@ angular.module('askApp')
                             $scope.respondentList.push(respondent);
                         }
                         catch(e) {
-                            debugger;
+                            // debugger;
+                            console.log('ERROR: ' + e);
                         }
                     });
                     $scope.showSurveyList = true;
                     // console.log($scope.respondentList);
                 }).error(function (data) {
-                    debugger;
+                    // debugger;
+                    console.log('ERROR: ' + data);
                 }); 
 
         };
@@ -209,7 +215,8 @@ angular.module('askApp')
 
             return $http.get(url).error(function (err) {
                 console.log(JSON.stringify(err));
-                debugger;
+                // debugger;
+                console.log('ERROR: ' + err);
             });
             
         };       
@@ -242,7 +249,8 @@ angular.module('askApp')
                             $scope.respondentList.push(respondent);
                         }
                         catch(e) {
-                            debugger;
+                            // debugger;
+                            console.log('ERROR: ' + e);
                         }
                     });
 
@@ -251,7 +259,8 @@ angular.module('askApp')
                     //$scope.respondent = respondent;
                     $scope.showingSubmittedSurveys = true;
                 }).error(function (data) {
-                    debugger;
+                    // debugger;
+                    console.log('ERROR: ' + data);
                 });    
         };
 

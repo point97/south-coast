@@ -77,7 +77,8 @@ angular.module('askApp')
                     scope.question.answer = scope.weather;
                 })
                 .error(function(data) {
-                    debugger;
+                    // debugger;
+                    console.log('ERROR: ' + data);
                 });
                 
             };

@@ -41,7 +41,7 @@ angular.module('askApp')
                             point: {
                                 events: {
                                     click: function(e) {
-                                        debugger;
+                                        // debugger;
                                         scope.$apply(function(s) {
                                             s.filter.category = e.point.category;
                                             s.filter.name = e.point.series.name;

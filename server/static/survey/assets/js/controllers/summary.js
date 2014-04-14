@@ -11,6 +11,7 @@ angular.module('askApp')
     			}).total;
     		})
     		.error(function (err) {
-    			debugger;
+    			// debugger;
+                console.log('ERROR: ' + err);
     		});
     });

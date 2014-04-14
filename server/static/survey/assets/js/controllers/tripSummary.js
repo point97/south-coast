@@ -170,7 +170,8 @@ angular.module('askApp')
                     // $scope.respondent = respondent;
                 }).error(function (err) {
                     console.log(JSON.stringify(err));
-                    debugger;
+                    // debugger;
+                    console.log('ERROR: ' + err);
                 }); 
         };
         
@@ -261,9 +262,10 @@ angular.module('askApp')
                         storage.saveState(app);  
                         console.log('Unable to save state of profile to server');
                     } else {
-                        // $scope.showError = "There was a problem saving your information.  Please try again later."
-                        debugger;
-                    }            
+                        $scope.showError = "There was a problem saving your information.  Please try again later."
+                        // debugger;
+                    } 
+                    console.log('ERROR: ' + data);           
                 });
         };
 

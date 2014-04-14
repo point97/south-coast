@@ -827,7 +827,8 @@ angular.module('askApp')
                     blockNumberQuestion.disabled = true;
                 }
             }).error(function(data) {
-                debugger;
+                // debugger;
+                console.log('ERROR: ' + data);
             });
         }
 

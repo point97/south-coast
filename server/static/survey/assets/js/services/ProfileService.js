@@ -131,10 +131,12 @@ angular.module('askApp')
                 }
                 else if (data) {
                     // $scope.showError = data;  
-                    debugger;  
+                    // debugger;
+                    console.log('ERROR: ' + data);
                 } else {
                     // $scope.showError = "There was a problem saving your information.  Please try again later."
-                    debugger;
+                    // debugger;
+                    console.log('ERROR: ');
                 }            
             });
     };

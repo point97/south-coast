@@ -23,7 +23,8 @@ angular.module('askApp')
             
             return $http.get(url).error(function (err) {
                 console.log(JSON.stringify(err));
-                debugger;
+                // debugger;
+                console.log('ERROR: ' + err);
             });            
         };
 
@@ -37,7 +38,8 @@ angular.module('askApp')
                     });
                     // console.log($scope.respondentList);
                 }).error(function (data) {
-                    debugger;
+                    // debugger;
+                    console.log('ERROR: ' + data);
                 }); 
         };
 

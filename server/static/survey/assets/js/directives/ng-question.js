@@ -239,6 +239,7 @@ angular.module('askApp').directive('multiquestion', function($modal) {
             var AddVesselCtrl = function ($scope, $modalInstance) {
 
                 $scope.vessel = {};
+                // $scope.editingVessel = false;
 
                 $scope.ok = function () {
                     $modalInstance.close($scope.vessel);
@@ -250,7 +251,7 @@ angular.module('askApp').directive('multiquestion', function($modal) {
                 };
 
                 $scope.redraw = function() {
-                    $scope.editingVessel = false;
+                    // $scope.editingVessel = false; // this is not working/binding from within this controller (not sure why...), moving it back to the html...
                     
                 };
             };

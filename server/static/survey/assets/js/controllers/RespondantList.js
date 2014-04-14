@@ -85,7 +85,8 @@ angular.module('askApp')
                 $scope.respondent = respondent;
             }).error(function (err) {
                 console.log(JSON.stringify(err));
-                debugger;
+                // debugger;
+                console.log('ERROR: ' + err);
             }); 
     };
 

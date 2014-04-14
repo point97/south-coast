@@ -162,7 +162,8 @@ angular.module('askApp')
                 url: page.resource_uri,
                 data: page
             }).success(function (data) {
-                debugger;
+                // debugger;
+                console.log('ERROR: ' + data);
             });
         };
 

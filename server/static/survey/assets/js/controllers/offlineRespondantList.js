@@ -149,7 +149,6 @@ angular.module('askApp')
             if (completed.length) {
                 $scope.busy = true;
                 survey.submitSurvey(first, _.findWhere(app.surveys, { slug: first.survey})).success(function (data) {
-                    debugger;
                     $scope.synchronized.push(data);
                     if (rest.length) {
                         $scope.syncronize(rest);
@@ -165,7 +164,8 @@ angular.module('askApp')
                     }
                 })
                 .error(function (err) {
-                    debugger;
+                    // debugger;
+                    console.log('ERROR: ' + err);
                 });    
             }
             
@@ -226,7 +226,8 @@ angular.module('askApp')
 
             return $http.get(url).error(function (err) {
                 console.log(JSON.stringify(err));
-                debugger;
+                // debugger;
+                console.log('ERROR: ' + err);
             });
             
         };       
@@ -259,7 +260,8 @@ angular.module('askApp')
                             $scope.respondentList.push(respondent);
                         }
                         catch(e) {
-                            debugger;
+                            // debugger;
+                            console.log('ERROR: ' + e);
                         }
                     });
 
@@ -268,7 +270,8 @@ angular.module('askApp')
                     //$scope.respondent = respondent;
                     $scope.showingSubmittedSurveys = true;
                 }).error(function (data) {
-                    debugger;
+                    // debugger;
+                    console.log('ERROR: ' + data);
                 });    
 
         };
