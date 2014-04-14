@@ -10,7 +10,7 @@ DATABASES = {
     }
 }
 
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 # settings/local.py is ignored to allow for easy settings
