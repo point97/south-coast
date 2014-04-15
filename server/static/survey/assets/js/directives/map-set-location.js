@@ -1,5 +1,5 @@
 angular.module('askApp')
-    .directive('mapSetLocation', function($http, $timeout) {
+    .directive('mapSetLocation', function($http, $timeout, storage) {
         return {
             // template: '<div style="height: 100%; width: 100%; position: fixed; margin-left: -50px; margin-top: -60px"><div class="map"></div><div style="position: absolute;"><div>Lat</div><div>lng</div><input type="text"/></div></div>',
             templateUrl: 'views/mapSetLocation.html',
@@ -53,9 +53,9 @@ angular.module('askApp')
 
                 var esriOcean = L.esri.basemapLayer("Oceans");
 
-                // var bing = new L.BingLayer("Av8HukehDaAvlflJLwOefJIyuZsNEtjCOnUB_NtSTCwKYfxzEMrxlKfL1IN7kAJF", {
-                //     type: "AerialWithLabels"
-                // });
+                var bing = new L.BingLayer("Av8HukehDaAvlflJLwOefJIyuZsNEtjCOnUB_NtSTCwKYfxzEMrxlKfL1IN7kAJF", {
+                    type: "AerialWithLabels"
+                });
 
                 $http.get("assets/data/MPA_CA_Simplified_0001.json").success(function(data) {
                     var mpas = L.geoJson(data, { 
@@ -99,7 +99,7 @@ angular.module('askApp')
                 var initialBasemap = esriOcean;
 
                 // Layer picker init
-                var baseMaps = { "ESRI Ocean": esriOcean, "Nautical Charts": nautical }; // "Satellite": bing, 
+                var baseMaps = { "ESRI Ocean": esriOcean, "Satellite": bing, "Nautical Charts": nautical }; // "Satellite": bing, 
                 var options = { position: 'topright' };
 
                 // inits from previously saved state
@@ -121,14 +121,23 @@ angular.module('askApp')
                 layerControl.addTo(map);
 
                 map.on("blur", function(e) {
-                    app.mapQuestion.previousState = { 
-                        "center": map.getCenter(),
-                        "zoom": map.getZoom(),
-                        "basemap": layerControl.getActiveBaseLayer().name,
-                        "overlays": _.pluck(layerControl.getActiveOverlayLayers(), 'name'),
-                    };
+                    scope.updateMapState();
                 });
 
+                scope.updateMapState = function() {
+                    // adding timeout in hopes of catching the basemap switch
+                    $timeout(function() {
+                            app.mapQuestion.previousState = { 
+                            "center": map.getCenter(),
+                            "zoom": map.getZoom(),
+                            "basemap": layerControl.getActiveBaseLayer().name,
+                            "overlays": _.pluck(layerControl.getActiveOverlayLayers(), 'name'),
+                        };
+                        console.log(app.mapQuestion.previousState);
+                        storage.saveState(app);
+                    }, 100);
+                };
+        
                 var availableColors = [
                     'red',
                     'orange',

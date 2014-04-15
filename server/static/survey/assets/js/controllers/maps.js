@@ -32,9 +32,9 @@ angular.module('askApp')
             attribution: "NOAA Nautical Charts"
         });
 
-        // var bing = new L.BingLayer("Av8HukehDaAvlflJLwOefJIyuZsNEtjCOnUB_NtSTCwKYfxzEMrxlKfL1IN7kAJF", {
-        //     type: "AerialWithLabels"
-        // });
+        var bing = new L.BingLayer("Av8HukehDaAvlflJLwOefJIyuZsNEtjCOnUB_NtSTCwKYfxzEMrxlKfL1IN7kAJF", {
+            type: "AerialWithLabels"
+        });
 
         var esriOcean = L.esri.basemapLayer("Oceans");
 
@@ -79,7 +79,7 @@ angular.module('askApp')
         var initialBasemap = esriOcean;
 
         // Layer picker init
-        var baseMaps = { "ESRI Ocean": esriOcean, "Nautical Charts": nautical };        
+        var baseMaps = { "ESRI Ocean": esriOcean, "Satellite": bing, "Nautical Charts": nautical };        
         var overlays = { "MPAs": mpas };
         var options = { position: 'topright' };
 
@@ -99,17 +99,26 @@ angular.module('askApp')
         map.zoomControl.options.position = 'bottomleft';
 
         map.on("blur", function(e) {
-            app.maps.previousState = { 
-                "center": map.getCenter(),
-                "zoom": map.getZoom(),
-                "basemap": layerControl.getActiveBaseLayer().name,
-                "overlays": _.pluck(layerControl.getActiveOverlayLayers(), 'name'),
-            };
+            $scope.updateMapState();
         });
 
+        $scope.updateMapState = function() {
+            // adding timeout in hopes of catching the basemap switch
+            $timeout(function() {
+                    app.maps.previousState = { 
+                    "center": map.getCenter(),
+                    "zoom": map.getZoom(),
+                    "basemap": layerControl.getActiveBaseLayer().name,
+                    "overlays": _.pluck(layerControl.getActiveOverlayLayers(), 'name'),
+                };
+                storage.saveState(app);
+            }, 100);
+        };
+        
         // L.control.layers(baseMaps, null, options).addTo(map);
         var layerControl = L.control.activeLayers(baseMaps, overlays, options);
         layerControl.addTo(map);
+
 
         $scope.availableColors = [
             'red',

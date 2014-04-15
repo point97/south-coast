@@ -17,7 +17,7 @@
             <button style="font-size: 14px; margin-bottom: 0px; margin-top: 15px;" class="pull-right btn btn-default btn-lg btn-main" ng-click="updateTripList()">GO</button>
         </div>
 	</div>
-	<div id="maps-page" class="map" style="position: absolute; top: 193px; height: 100%; width: 100%;"></div>
+	<div id="maps-page" ng-blur="updateMapState()" class="map" style="position: absolute; top: 193px; height: 100%; width: 100%;"></div>
 </div>
 
 <style>
