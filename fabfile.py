@@ -346,7 +346,7 @@ def package_ios():
 
 @task
 def package_ios_dev():
-        run("cd %s && %s/bin/python manage.py package http://usvi-dev.pointnineseven.com '../mobile/www' --stage=dev --id='com.pointnineseven.digitaldeck-dev'" % (env.app_dir, env.venv))
+        run("cd %s && %s/bin/python manage.py package http://south-coast.apps.pointnineseven.com '../mobile/www' --stage=dev --id='com.pointnineseven.apps.south-coast'" % (env.app_dir, env.venv))
         local("cd mobile && /usr/local/share/npm/bin/phonegap build -V ios")
 
 
