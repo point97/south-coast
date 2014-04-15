@@ -62,6 +62,7 @@ urlpatterns = patterns('',
     url(r'fisher/(?P<uuid>[\w\d-]+)', 'apps.survey.views.fisher', name="fisher-dash-detail"),
     url(r'^fisher', 'apps.survey.views.fisher', name="fisher-dash"),
 
+    url(r'^tracekit/', include('tracekit.urls')),
 
     url(r'^dash', 'apps.survey.views.dash'),
     url(r'^dash/', 'apps.survey.views.dash'),

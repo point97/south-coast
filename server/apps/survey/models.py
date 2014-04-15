@@ -15,6 +15,10 @@ import caching.base
 import ast
 import json
 
+import logging
+logger = logging.getLogger(__name__)
+
+
 def make_uuid():
     return str(uuid.uuid4())
 
@@ -44,7 +48,9 @@ class Trip(caching.base.CachingMixin, models.Model):
                 location = Location.objects.get(respondant=respondant)
                 summary_list.append({'type': event_type, 'location': {'lat': location.lat, 'lng': location.lng}, 'date': self.start_date, 'uuid': respondant.uuid, 'trip_uuid': self.uuid})
             except:
-                pass
+                logger.warning("Location.objects.get request failed in respondant_summary_list")
+                logger.debug("Above Warning resulting from TRIP - %s and USER - %s and RESPONDANT - %s" %(self, self.user, respondant))
+
         return summary_list
 
     def __unicode__(self):
@@ -96,6 +102,8 @@ class Respondant(caching.base.CachingMixin, models.Model):
                 date = '%s/%s' %(dateItems[0], dateItems[1])
         except:
             date = 'unknown'
+            logger.warning("Exception in survey_title, attempting to set survey date...")
+            logger.debug("Above Warning resulting from TRIP - %s and USER - %s and RESPONDANT - %s" %(self.trip, self.user, self))
 
         return '%s -- %s' %(self.survey.name, date)
     
@@ -398,6 +406,8 @@ class Response(caching.base.CachingMixin, models.Model):
                     self.answer= "%s/%s" % (date.month, date.year)
                 except Exception as e:
                     self.answer = self.answer_raw
+                    logger.warning("Exception in save_related - monthpicker condition...")
+                    logger.debug("Above Warning resulting from USER - %s and RESPONSE - %s" %(self.user, self))
             if self.question.type in ['number-with-unit']:
                 try: 
                     answer = simplejson.loads(self.answer_raw)
@@ -405,6 +415,8 @@ class Response(caching.base.CachingMixin, models.Model):
                     self.unit = answer.get('unit', 'Unknown')
                 except Exception as e:
                     self.answer = self.answer_raw
+                    logger.warning("Exception in save_related - number-with-unit condition...")
+                    logger.debug("Above Warning resulting from USER - %s and RESPONSE - %s" %(self.user, self))
             if self.question.type in ['auto-multi-select', 'multi-select']:
                 answers = []
                 self.multianswer_set.all().delete()
@@ -421,8 +433,9 @@ class Response(caching.base.CachingMixin, models.Model):
                         answer_label = answer.get('label', None)
                         multi_answer = MultiAnswer(response=self, answer_text=answer_text, answer_label=answer_label)
                         multi_answer.save()
-                    except Exception as e:
-                        pass
+                    except Exception as e:                        
+                        logger.warning("Exception in save_related - multi-select condition...")
+                        logger.debug("Above Warning resulting from USER - %s and RESPONSE - %s" %(self.user, self))
                 self.answer = ", ".join(answers)
             if self.question.type in ['map-multipolygon']:
                 answers = []
@@ -472,9 +485,10 @@ class Response(caching.base.CachingMixin, models.Model):
                                         col_label=grid_col.label, col_text=grid_col.text)
                                 grid_answer.save()
                             except Exception as e:
-                                print "problem with ", grid_col.label
-                                print "not found in", self.answer_raw
-                                print e
+                                logger.warning("Exception in save_related - grid condition...")
+                                logger.exception("Exception - %s" %e)
+                                logger.debug("Problem with grid_col.label - %s and self.answer_raw - %s" %(grid_col.label, self.answer_raw))
+                                logger.debug("Above Warning, Exception, and Debug statements resulting from USER - %s and RESPONSE - %s" %(self.user, self))
                             
                         elif grid_col.type == 'multi-select':
                             try:
@@ -486,8 +500,10 @@ class Response(caching.base.CachingMixin, models.Model):
                                         col_label=grid_col.label, col_text=grid_col.text)
                                     grid_answer.save()
                             except:
-                                print "problem with ", answer
-                                print e
+                                logger.warning("Exception in save_related - grid_col.type multi-select condition...")
+                                logger.exception("Exception - %s" %e)
+                                logger.debug("Problem with answer - %s" %(answer))
+                                logger.debug("Above Warning, Exception, and Debug statements resulting from USER - %s and RESPONSE - %s" %(self.user, self))
                         else:
                             print grid_col.type
                             print answer

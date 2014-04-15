@@ -1,0 +1,18 @@
+{% if is_authenticated %}
+{% load url from future %}
+<script type="text/javascript" src="{{ JSON3_JS_URL }}"></script>
+<script type="text/javascript" src="{{ REQWEST_JS_URL }}"></script>
+<script type="text/javascript" src="{{ TRACEKIT_JS_URL }}"></script>
+<script type="text/javascript">
+    TraceKit.report.subscribe(function(stackInfo) {
+        reqwest({
+            url: '{% url 'tracekit_error' %}'
+            , method: 'post'
+            , type: 'html'
+            , data: { csrfmiddlewaretoken: '{{ CSRF_TOKEN }}', stackinfo: JSON.stringify(stackInfo) }
+            , success: function (resp) { console.log('Error reported.', stackInfo); }
+            , error: function (err) { console.log('Error when reporting:', err); }
+        });
+    });
+</script>
+{% endif %}

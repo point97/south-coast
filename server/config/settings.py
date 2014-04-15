@@ -144,6 +144,7 @@ INSTALLED_APPS = (
     'apps.places',
     'apps.survey',
     'apps.reports',
+    'tracekit',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -216,6 +217,10 @@ LOGGING = {
             'handlers': ['null', ],
         },
         'apps': {
+            'handlers': ['console', 'production_file', 'debug_file'],
+            'level': "DEBUG",
+        },
+        'tracekit': {
             'handlers': ['console', 'production_file', 'debug_file'],
             'level': "DEBUG",
         },

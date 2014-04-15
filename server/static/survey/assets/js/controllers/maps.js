@@ -142,6 +142,7 @@ angular.module('askApp')
                 console.log(JSON.stringify(err));
                 // debugger;
                 console.log('ERROR: ' + err);
+                TraceKit.report({message: 'ERROR: ' + err});
             }) 
         };
 
@@ -151,8 +152,10 @@ angular.module('askApp')
                     $scope.addTripsToMap(data.objects);
                     $scope.submittedSpinner = false;
                     // console.log($scope.respondentList);
+                    // TraceKit.report({message: 'SUCCESS: ' + data});
                 }).error(function (data) {
                     $scope.error = true;
+                    TraceKit.report({message: 'ERROR: ' + data});
                     // $location.path('/signin?error=not-logged-in');
                 }); 
         };

@@ -1,0 +1,21 @@
+#result_list td.stack-info {
+
+}
+
+#result_list td.stack-info .toggle:after {
+    content: ' \2192';
+    font-weight: bold;
+}
+
+#result_list td.stack-info.expanded .toggle:after {
+    content: ' \2193';
+    font-weight: bold;
+}
+
+#result_list td.stack-info pre {
+    display: none;
+}
+
+#result_list td.stack-info.expanded pre {
+    display: block;
+}

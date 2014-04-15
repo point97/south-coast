@@ -20,6 +20,8 @@
   "trailing": true,
   "smarttabs": true,
   "globals": {
+    "$", false,
+    "TraceKit": false,
     "angular": false,
     "jasmine": false,
     "spyOn": false,
