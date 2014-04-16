@@ -13,7 +13,7 @@ PROJECT_ROOT = path(__file__).abspath().dirname().dirname()
 sys.path.insert(0, PROJECT_ROOT / 'libs')
 sys.path.insert(0, PROJECT_ROOT / 'apps')
 
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
@@ -22,7 +22,11 @@ ADMINS = (
     ('Edwin', 'edwin@pointnineseven.com')
 )
 
+SERVER_ADMIN = 'edwin@pointnineseven.com'
+DEFAULT_FROM_EMAIL = 'South Coast <developers@pointnineseven.com>'
+SERVER_EMAIL = DEFAULT_FROM_EMAIL
 MANAGERS = ADMINS
+EMAIL_SUBJECT_PREFIX = 'South Coast Dev'
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
