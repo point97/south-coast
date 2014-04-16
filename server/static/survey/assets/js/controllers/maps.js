@@ -2,7 +2,7 @@
 
 
 angular.module('askApp')
-    .controller('MapsCtrl', function($scope, $routeParams, $http, $location, $interpolate, $timeout, storage) {
+    .controller('MapsCtrl', function($scope, $routeParams, $http, $location, $interpolate, $timeout, storage, loggingService) {
         var $el = "maps-page";
         $scope.title = "Maps";
         $scope.markers = [];
@@ -14,6 +14,12 @@ angular.module('askApp')
         }
         if (!app.maps) {
             app.maps = {};
+        }
+        loggingService.log({message: 'testing', user: app.user});
+        if (app && app.maps && app.maps.previousState) {
+            loggingService.log(app.maps.previousState); 
+        } else {
+            loggingService.log("no previous state in map Question")
         }
         if (app.maps.previousState) {
             $scope.previousState = {

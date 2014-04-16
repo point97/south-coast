@@ -1,7 +1,7 @@
 //'use strict';
 
 angular.module('askApp')
-    .controller('tripSummaryCtrl', function($scope, $http, $routeParams, $location, $modal, survey, history, storage) {
+    .controller('tripSummaryCtrl', function($scope, $http, $routeParams, $location, $modal, survey, history, storage, loggingService) {
         $http.defaults.headers.post['Content-Type'] = 'application/json';
 
         
@@ -222,27 +222,32 @@ angular.module('askApp')
         };
 
         $scope.updateUserRegistration = function() {
-            _.each($scope.trip.events, function(value, key) {
-                // not sure if this is still necessary...removing until the necessity arises again...
-                if (!app.user.registration.logbooks) {
-                    app.user.registration.logbooks = {};
-                }
-                if (!app.user.registration.logbooks[key]) {
-                    app.user.registration.logbooks[key] = {};
-                }
-                if (app.user.registration.logbooks[key]) {
-                    app.user.registration.logbooks[key]['permit-number'] = value['permit-number'];
-                    app.user.registration.logbooks[key]['vessel-number'] = value['vessel-number'];
-                    app.user.registration.logbooks[key]['vessel-name'] = value['vessel-name'];
-                    if ( ! _.findWhere(app.user.registration.vessels, {name: value['vessel-name']}) ) {
-                        // not sure if this is still necessary...removing until the necessity arises again...
-                        // if (!app.user.registration.vessels) {
-                        //     app.user.registration.vessels = [];
-                        // }
-                        app.user.registration.vessels.push( { name: value['vessel-name'], number: value['vessel-number'] } );
+            try {
+                _.each($scope.trip.events, function(value, key) {
+                    // not sure if this is still necessary...removing until the necessity arises again...
+                    if (!app.user.registration.logbooks) {
+                        app.user.registration.logbooks = {};
                     }
-                }
-            });
+                    if (!app.user.registration.logbooks[key]) {
+                        app.user.registration.logbooks[key] = {};
+                    }
+                    if (app.user.registration.logbooks[key]) {
+                        app.user.registration.logbooks[key]['permit-number'] = value['permit-number'];
+                        app.user.registration.logbooks[key]['vessel-number'] = value['vessel-number'];
+                        app.user.registration.logbooks[key]['vessel-name'] = value['vessel-name'];
+                        if ( ! _.findWhere(app.user.registration.vessels, {name: value['vessel-name']}) ) {
+                            // not sure if this is still necessary...removing until the necessity arises again...
+                            // if (!app.user.registration.vessels) {
+                            //     app.user.registration.vessels = [];
+                            // }
+                            app.user.registration.vessels.push( { name: value['vessel-name'], number: value['vessel-number'] } );
+                        }
+                    }
+                });
+            } catch (err) {
+                loggingService.log({message: "failed in updateUserRegistration", tripEvents: $scope.trip.events, error: err});
+            }
+            
         };
 
         $scope.saveProfileToServer = function() {
@@ -258,6 +263,7 @@ angular.module('askApp')
                     storage.saveState(app);
                 })
                 .error(function (data, status) {
+                    loggingService.log({message: "error in saveProfileToServer", appUser: app.user, data: data, status: status});
                     if (status === 0) {
                         storage.saveState(app);  
                         console.log('Unable to save state of profile to server');
@@ -318,6 +324,7 @@ angular.module('askApp')
                         $location.path('/main');
                     }
                 }).error (function(err) {
+                    loggingService.log({message: "error in submitTripLog from saveTripToServer call", error: err, trip: $scope.trip});
                     $scope.working = false;
                     $scope.hideHamburger = false;
 

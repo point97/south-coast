@@ -34,7 +34,11 @@ angular.module('askApp')
                 }
                 var previousState = undefined;
                 
-                loggingService.log(app.mapQuestion.previousState); 
+                if (app && app.mapQuestion && app.mapQuestion.previousState) {
+                    loggingService.log(app.mapQuestion.previousState); 
+                } else {
+                    loggingService.log("no previous state in map Question")
+                }
 
                 if (app.mapQuestion.previousState) {
                     previousState = {
