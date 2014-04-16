@@ -1,5 +1,5 @@
 angular.module('askApp')
-    .directive('mapSetLocation', function($http, $timeout, storage) {
+    .directive('mapSetLocation', function($http, $timeout, storage, loggingService) {
         return {
             // template: '<div style="height: 100%; width: 100%; position: fixed; margin-left: -50px; margin-top: -60px"><div class="map"></div><div style="position: absolute;"><div>Lat</div><div>lng</div><input type="text"/></div></div>',
             templateUrl: 'views/mapSetLocation.html',
@@ -33,6 +33,9 @@ angular.module('askApp')
                     app.mapQuestion = {};
                 }
                 var previousState = undefined;
+                
+                loggingService.log(app.mapQuestion.previousState); 
+
                 if (app.mapQuestion.previousState) {
                     previousState = {
                         'zoom': app.mapQuestion.previousState.zoom,
