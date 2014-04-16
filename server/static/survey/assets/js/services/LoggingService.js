@@ -12,7 +12,6 @@ angular.module('askApp')
         	message['version'] = app.version;
 		}  
 		message['logEntry'] = logEntry;    
-        console.log(JSON.stringify(message));
         console.log(JSON.stringify({'message': message}));
         return $.post(app.server + '/tracekit/error/', {
             stackinfo: JSON.stringify({'message': message})
