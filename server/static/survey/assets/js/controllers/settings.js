@@ -17,6 +17,12 @@ angular.module('askApp')
         window.location.reload();
     };
 
+    $scope.logout = function () {
+        app.user = false;
+        storage.saveState(app);
+        $location.path('/');
+    };
+
     $scope.updatePassword = function (passwords) {
         var url = app.server + "/account/updatePassword";
         $scope.showError = false;
