@@ -1,7 +1,7 @@
 //'use strict';
 
 angular.module('askApp')
-  .factory('survey', function ($http, $location) {
+  .factory('survey', function ($http, $location, profileService) {
     // Service logic
     // ...
 
@@ -404,7 +404,21 @@ angular.module('askApp')
         if ( !app.user.registration ) {
             app.user.registration = {};
         }
-        app.user.registration[questionSlug] = answer;
+        if (questionSlug === 'vessel') {
+            app.user.registration = profileService.getProfile();
+            if (!_.findWhere(app.user.registration.vessels, {'name': answer.name, 'number': answer.number})) {
+                app.user.registration.vessels.push(answer);
+            }
+            if (!app.user.registration.logbooks[survey.slug]) {
+                app.user.registration.logbooks[survey.slug] = {
+                    'type': survey.slug
+                };
+            }
+            app.user.registration.logbooks[survey.slug]['vessel-name'] = answer.name;
+            app.user.registration.logbooks[survey.slug]['vessel-number'] = answer.number;
+        } else {
+            app.user.registration[questionSlug] = answer;
+        }
     };
 
     // Public API here

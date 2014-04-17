@@ -12,22 +12,43 @@ angular.module('askApp')
         }
         profile.logbooks = {};
         profile.vessels = [];
-        profile.ports = [];
+        // profile.ports = [];
         // profile.buoys = [];
         // profile.crew = [];        
         return profile;
     };
+
+    var ensureProfileComponentsExist = function(profile) {
+        if (app.user) {
+            if (!profile.email) {
+                profile.email = app.user.email || "";
+            }
+            if (!profile.firstName) {
+                profile.firstName = app.user.firstName || "";
+            }
+            if (profile.lastName) {
+                profile.lastName = app.user.lastName || "";
+            }            
+        }
+        if (!profile.logbooks) {
+            profile.logbooks = {};
+        }
+        if (!profile.vessels) {
+            profile.vessels = [];
+        }
+        return profile;       
+    };
     
     var getProfile = function() {
         if (app.user.registration && app.user.registration !== "{}") {
-            profile = app.user.registration; 
+            profile = ensureProfileComponentsExist(app.user.registration); 
         } else {
             profile = app.user.registration = getEmptyProfile();
         }
-        return angular.copy(profile);
-        
+        return angular.copy(profile);        
     };
     var profile = getProfile();
+    
     var logbookToEdit = undefined;
 
     var addLogbook = function(type, permit, vessel, vessels) {

@@ -229,6 +229,7 @@ angular.module('askApp').directive('multiquestion', function($modal) {
                 modalInstance.result.then(function (vessel) {
                     if (vessel.name && vessel.number) {
                         vessel.checked = true;
+                        scope.question.answerSelected = true;
                         scope.question.options.push(vessel);
                     } else {
                         scope.previouslyCheckedOption.checked = true;

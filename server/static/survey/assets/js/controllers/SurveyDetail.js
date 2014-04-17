@@ -1,5 +1,5 @@
 angular.module('askApp')
-    .controller('SurveyDetailCtrl', function($scope, $routeParams, $http, $location, $interpolate, $timeout, survey, storage) {
+    .controller('SurveyDetailCtrl', function($scope, $routeParams, $http, $location, $interpolate, $timeout, survey, storage, profileService) {
     // $('#wrap').css({ 'min-height': initialHeight -80});
     // $('#wrap').css({ 'min-height': initialHeight -80});
     // $(window).on('resize', function () {
@@ -95,14 +95,15 @@ angular.module('askApp')
             // });
             for (var i = 0; i < app.respondents[uuidSlug].responses.length; i+=1) {
                 if (app.respondents[uuidSlug].responses[i].question === questionSlug) {
-                    index = i;
-                    //debugger;
-                    break;
+                    // index = i;
+                    // break;
+                    app.respondents[uuidSlug].responses.splice(index, 1);
+                    i -= 1;
                 }
             }
-            if (index) {
-                app.respondents[uuidSlug].responses.splice(index, 1);
-            }
+            // if (index) {
+            //     app.respondents[uuidSlug].responses.splice(index, 1);
+            // }
             storage.saveState(app);
         }
     };
@@ -669,14 +670,17 @@ angular.module('askApp')
         });
 
         // account for vessel question -- options populated by logbook in profile
-        if (_.findWhere($scope.page.questions, { slug: 'vessel' }) && app.user && app.user.registration) {
+        //  && app.user.registration.logbooks && app.user.registration.logbooks[$scope.survey.slug] && app.user.registration.logbooks[$scope.survey.slug]['vessel-name']
+        if (_.findWhere($scope.page.questions, { slug: 'vessel' }) && app.user) {
             var vesselQuestion = _.findWhere($scope.page.questions, { slug: 'vessel' }),
                 vesselNames = _.pluck(app.user.registration.vessels, 'name');
+            app.user.registration = profileService.getProfile();
             _.each(app.user.registration.vessels, function(vessel) {
+                var checked = app.user.registration.logbooks[$scope.survey.slug] && app.user.registration.logbooks[$scope.survey.slug]['vessel-name'] && (app.user.registration.logbooks[$scope.survey.slug]['vessel-name'] === vessel.name)
                 vesselQuestion.options.push({
                     name: vessel.name,
                     number: vessel.number,
-                    checked: app.user.registration.logbooks[$scope.survey.slug]['vessel-name'] === vessel.name
+                    checked: checked
                 });
             });
         }
