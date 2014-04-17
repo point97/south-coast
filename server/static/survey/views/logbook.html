@@ -20,9 +20,7 @@
                                     <!-- <select style="font-size: 18px; border-color:#999;">
                                         <option ng-repeat="logbook in remainingLogbooks" value={{logbook.slugname}}>{{logbook.slugname | uppercase}}</option>
                                     </select> -->
-                                    <select class="logbook-dropdown" ng-model="logbook.type">
-                                        <option value={{type}} ng-repeat="type in remainingLogbookTypes">{{type | uppercase}}</option>
-                                    </select>
+                                    <select class="logbook-dropdown" ng-model="logbook.type" ng-options="toUppercase(type) for (index, type) in remainingLogbookTypes"></select>
                                 </div>
                                 <div ng-show="logbookToEdit">
                                     <h4 class="question-title" style="color: #555; margin-top: 5px">{{logbookToEdit.type}} Logbook</h4>                                    

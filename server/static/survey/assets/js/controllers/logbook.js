@@ -31,9 +31,13 @@ angular.module('askApp')
         $scope.logbook = {};
         $scope.logbook.type = $scope.remainingLogbookTypes[0];
         if ($scope.profile.vessels && $scope.profile.vessels.length) {
-            $scope.logbook = { vessel: $scope.profile.vessels[0] };
+            $scope.logbook.vessel = $scope.profile.vessels[0];
         }
     }
+
+    $scope.toUppercase = function(str) {
+        return str.toUpperCase();
+    };
 
     $scope.cancel = function() {
         $location.path('/profile');

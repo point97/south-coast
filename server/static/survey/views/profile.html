@@ -29,40 +29,6 @@
                             </div>
                         </div>
 
-                        <!-- LOGBOOKS -->
-                        <div class="well" style="padding: 5px">
-                            <span class="profile-question-header">My Logbooks</span>
-                            <span class="pull-right icon-plus" ng-click="addLogbook()" style="font-size: 18px; margin-top: 3px; text-decoration: none; color: #555; cursor: pointer;"></span>
-                            <!-- <span class="pull-right icon-pencil" ng-click="editLogbooks()" style="font-size: 18px; margin-top: 3px; margin-right: 10px;  ext-decoration: none; color: #555; cursor: pointer;"></span> -->
-                            
-                            <div ng-style="{ 'margin-top: 10px': !logbookToEdit }">
-                                <div class="form-control ng-pristine" style="padding-top: 10px; margin-bottom: 5px; cursor: pointer;" ng-repeat="(type, logbook) in profile.logbooks" ng-click="editLogbook(type)">
-                                    <span style="width: 100%; color: #555;">
-                                        <span class="pull-left" style="font-weight: bold; text-transform: capitalize;">{{type}}</span>
-                                        <span class="pull-right icon-pencil" style="margin-top: 3px;"></span>
-                                    </span>
-                                </div>
-                            </div>
-
-                            <script id="noRemainingLogbooks" type="text/ng-template">                                
-                                <div class="modal-body">
-                                    <div class="well" style="padding: 5px; margin-bottom: 0px;"> 
-                                        <div>
-                                            <span>There are no more logbook types available.  (You have already created a logbook for each available logbook type.)</span>
-                                        </div>
-                                        <div style="margin-top: 10px">
-                                            <span>Click the Edit Icon <span class="icon-pencil" style="margin-top: 3px;"></span> to edit an existing Logbook.</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="modal-footer" style="margin-top: 0px">
-                                    <button class="btn btn-primary" ng-click="ok()">OK</button>
-                                </div>
-                            </script>
-
-                        </div>
-
-
                         <!-- VESSELS -->
                         <div class="well" style="padding: 5px">
                             <span class="profile-question-header">My Vessels</span>
@@ -115,6 +81,42 @@
                             </script>
 
                         </div>
+                        <!-- END VESSELS -->
+
+
+                        <!-- LOGBOOKS -->
+                        <div ng-hide="!profile.vessels.length" class="well" style="padding: 5px">
+                            <span class="profile-question-header">My Logbooks</span>
+                            <span class="pull-right icon-plus" ng-click="addLogbook()" style="font-size: 18px; margin-top: 3px; text-decoration: none; color: #555; cursor: pointer;"></span>
+                            <!-- <span class="pull-right icon-pencil" ng-click="editLogbooks()" style="font-size: 18px; margin-top: 3px; margin-right: 10px;  ext-decoration: none; color: #555; cursor: pointer;"></span> -->
+                            
+                            <div ng-style="{ 'margin-top: 10px': !logbookToEdit }">
+                                <div class="form-control ng-pristine" style="padding-top: 10px; margin-bottom: 5px; cursor: pointer;" ng-repeat="(type, logbook) in profile.logbooks" ng-click="editLogbook(type)">
+                                    <span style="width: 100%; color: #555;">
+                                        <span class="pull-left" style="font-weight: bold; text-transform: capitalize;">{{type}}</span>
+                                        <span class="pull-right icon-pencil" style="margin-top: 3px;"></span>
+                                    </span>
+                                </div>
+                            </div>
+
+                            <script id="noRemainingLogbooks" type="text/ng-template">                                
+                                <div class="modal-body">
+                                    <div class="well" style="padding: 5px; margin-bottom: 0px;"> 
+                                        <div>
+                                            <span>There are no more logbook types available.  (You have already created a logbook for each available logbook type.)</span>
+                                        </div>
+                                        <div style="margin-top: 10px">
+                                            <span>Click the Edit Icon <span class="icon-pencil" style="margin-top: 3px;"></span> to edit an existing Logbook.</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer" style="margin-top: 0px">
+                                    <button class="btn btn-primary" ng-click="ok()">OK</button>
+                                </div>
+                            </script>
+
+                        </div>
+                        <!-- END LOGBOOKS -->
 
 
                         <!-- PORTS -->
