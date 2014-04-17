@@ -12,3 +12,6 @@ def getVersion(request):
         content = f.read()
         version = re.search('version="(\d+\.\d+\.\d+)"', content).group(1)
     return HttpResponse(simplejson.dumps({'success': True, 'version': version }))
+
+def error(request):
+    dkdkdk
