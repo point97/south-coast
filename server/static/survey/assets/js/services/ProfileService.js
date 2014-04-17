@@ -23,11 +23,11 @@ angular.module('askApp')
             if (!profile.email) {
                 profile.email = app.user.email || "";
             }
-            if (!profile.firstName) {
-                profile.firstName = app.user.firstName || "";
+            if (!profile.firstName && app.user.registration) {
+                profile.firstName = app.user.registration.firstName || "";
             }
-            if (profile.lastName) {
-                profile.lastName = app.user.lastName || "";
+            if (!profile.lastName && app.user.registration) {
+                profile.lastName = app.user.registration.lastName || "";
             }            
         }
         if (!profile.logbooks) {
@@ -51,9 +51,10 @@ angular.module('askApp')
     
     var logbookToEdit = undefined;
 
-    var addLogbook = function(type, permit, vessel, vessels) {
+    var addLogbook = function(type, urchinPermit, cucumberPermit, vessel, vessels) {
         var logbook = { 'type': type,
-                        'permit-number': permit,
+                        'urchin-permit-number': urchinPermit,
+                        'sea-cucumber-permit-number': cucumberPermit,
                         'vessel-name': vessel.name,
                         'vessel-number': vessel.number };
         if (!profile.logbooks) {
@@ -63,9 +64,10 @@ angular.module('askApp')
         profile.vessels = vessels;             
     };
 
-    var updateLogbook = function(type, permit, vessel, vessels) {
+    var updateLogbook = function(type, urchinPermit, cucumberPermit, vessel, vessels) {
         var newLogbook = {  'type': type,
-                            'permit-number': permit,
+                            'urchin-permit-number': urchinPermit,
+                            'sea-cucumber-permit-number': cucumberPermit,
                             'vessel-name': vessel.name,
                             'vessel-number': vessel.number };
         // var oldLogbook = profile.logbooks[type];

@@ -46,20 +46,20 @@ angular.module('askApp')
     $scope.updateProfile = function(form) {
         if (!$scope.logbookToEdit) {
             // validate
-            if (!form.logbook['permit-number']) {
+            if (!form.logbook['urchin-permit-number'] && !form.logbook['sea-cucumber-permit-number']) {
                 $scope.missingPermit = true;
             } else {
                 // add logbook in profile
-                profileService.addLogbook(form.logbook.type, form.logbook['permit-number'], form.logbook.vessel, $scope.profile.vessels);
+                profileService.addLogbook(form.logbook.type, form.logbook['urchin-permit-number'], form.logbook['sea-cucumber-permit-number'], form.logbook.vessel, $scope.profile.vessels);
                 // return to profile view
                 $location.path('/profile'); 
             }
         } else { // if $scope.logbookToEdit
-            if (!$scope.logbookToEdit['permit-number']) {
+            if (!$scope.logbookToEdit['urchin-permit-number'] && !$scope.logbookToEdit['sea-cucumber-permit-number']) {
                 $scope.missingPermit = true;
             } else {
                 // update logbook to profile
-                profileService.updateLogbook($scope.logbookToEdit.type, $scope.logbookToEdit['permit-number'], $scope.logbookToEdit.vessel, $scope.profile.vessels);
+                profileService.updateLogbook($scope.logbookToEdit.type, $scope.logbookToEdit['urchin-permit-number'], $scope.logbookToEdit['sea-cucumber-permit-number'], $scope.logbookToEdit.vessel, $scope.profile.vessels);
                 // return to profile view
                 $location.path('/profile'); 
             }

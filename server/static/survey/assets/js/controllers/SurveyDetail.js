@@ -373,14 +373,18 @@ angular.module('askApp')
         if (answer === 'other' && question.otherAnswers.length) {
             answer = question.otherAnswers[0];
         }
-        if (question.required && (answer === undefined || answer === null)) {
+        if (question.slug === 'sea-cucumber-permit-number' && !answer) {
+            answer = '';
+        } else if (question.slug === 'urchin-permit-number' && !answer) { 
+            answer = '';
+        } else if (question.required && (answer === undefined || answer === null)) {
             return false;
         } else if (!question.required && (answer === undefined || answer === null)) {
             answer = '';
         }
 
         if ( answer !== 0 && !answer) {
-            answer = "NA";
+            answer = "";
         }
 
         return { question: question, answer: answer };
@@ -867,6 +871,9 @@ angular.module('askApp')
             // }
             if (newValidity) {
                 $scope.pageIsValid = _.every(_.values($scope.validity));
+                if (!$scope.pageIsValid && ($scope.validity['license'] && ($scope.validity['urchin-permit-number'] || $scope.validity['sea-cucumber-permit-number']))) {
+                    $scope.pageIsValid = true;
+                }
             }
             
         }, true);    

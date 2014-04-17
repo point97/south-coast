@@ -28,11 +28,11 @@
                             </div>
                         </div>
 
-                        <!-- PERMIT NUMBER -->
+                        <!-- PERMIT NUMBERs -->
+                        <div class="alert alert-danger" ng-show="missingPermit" style="margin-bottom: 5px; padding: 5px 15px;">
+                            <span style="font-size: 18px; font-weight: bold; text-transform: uppercase; color: #555;">Enter a Permit Number</span>
+                        </div>     
                         <div class="well" style="padding: 5px">  
-                            <div class="alert alert-danger" ng-show="missingPermit">
-                                <span style="font-size: 18px; font-weight: bold; text-transform: uppercase; color: #555;">{{logbookToEdit.type }} Permit #</span>
-                            </div>     
                             <div ng-show="logbookToEdit"> 
                                 <div ng-hide="missingPermit">
                                     <span style="font-size: 18px; font-weight: bold; text-transform: uppercase; color: #555;">{{logbookToEdit.type }} Permit #</span>
@@ -41,10 +41,16 @@
                                 
                             <div class="question profile-question">
                                 <div ng-hide="logbookToEdit">
-                                    <input class="form-control" style="margin-bottom: 0px;" type="text" placeholder="Enter Permit #" ng-model="logbook['permit-number']">
+                                    <input class="form-control" style="margin-bottom: 0px;" type="text" placeholder="Enter Urchin Permit #" ng-model="logbook['urchin-permit-number']">
                                 </div>
                                 <div ng-show="logbookToEdit">
-                                    <input class="form-control" style="margin-bottom: 0px;" type="text" ng-bind="logbookToEdit['permit-number']" ng-model="logbookToEdit['permit-number']">
+                                    <input class="form-control" style="margin-bottom: 0px;" type="text" placeholder="Urchin Permit #" ng-bind="logbookToEdit['urchin-permit-number']" ng-model="logbookToEdit['urchin-permit-number']">
+                                </div>
+                                <div ng-hide="logbookToEdit">
+                                    <input class="form-control" style="margin-bottom: 0px;" type="text" placeholder="Enter Sea Cucumber Permit #" ng-model="logbook['sea-cucumber-permit-number']">
+                                </div>
+                                <div ng-show="logbookToEdit">
+                                    <input class="form-control" style="margin-bottom: 0px;" type="text" placeholder="Sea Cucumber Permit #" ng-bind="logbookToEdit['sea-cucumber-permit-number']" ng-model="logbookToEdit['sea-cucumber-permit-number']">
                                 </div>
                             </div>
                         </div>

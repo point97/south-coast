@@ -45,7 +45,7 @@ angular.module('askApp')
                             var event = {};
                             event.siteName = _.findWhere(respondent.responses, {question: 'site-name'}).answer;
 
-                            $scope.notFound = { answer: 'Not Reported' };
+                            $scope.notFound = { answer: '' };
 
                             var location = _.findWhere(respondent.responses, {question: 'map-set-location'}) || $scope.notFound,
                                 block = _.findWhere(respondent.responses, {question: 'block-number'}) || $scope.notFound,
@@ -55,7 +55,7 @@ angular.module('askApp')
                                 lat: location.answer.lat || location.answer.split(',')[0],
                                 lng: location.answer.lng || location.answer.split(',')[1],
                                 block: block.answer,
-                                landmark: landmark.answer !== 'NA' ? landmark.answer : $scope.notFound.answer
+                                landmark: landmark.answer !== '' ? landmark.answer : $scope.notFound.answer
                             };
 
                             event.location.latDMS = $scope.convertToDMS(event.location.lat);
@@ -87,6 +87,9 @@ angular.module('askApp')
                             // will need to loop through this list and output text (species name) and lbs (weight)
 
                             event.notes = _.findWhere(respondent.responses, {question: 'notes'}) || $scope.notFound;
+                            if (!event.notes.answer) {
+                                event.notes = $scope.notFound;
+                            }
 
                             speciesObj.weather =  _.findWhere(respondent.responses, {question: 'weather'}) || $scope.notFound;   
 
@@ -142,7 +145,8 @@ angular.module('askApp')
                         } 
                         $scope.trip.events[event_type].respondents.push(respondent); 
                         $scope.trip.events[event_type]['vessel-name'] = $scope.getAnswerFromRespondent(respondent, 'vessel-name');
-                        $scope.trip.events[event_type]['permit-number'] = $scope.getAnswerFromRespondent(respondent, 'permit-number');
+                        $scope.trip.events[event_type]['urchin-permit-number'] = $scope.getAnswerFromRespondent(respondent, 'urchin-permit-number');
+                        $scope.trip.events[event_type]['sea-cucumber-permit-number'] = $scope.getAnswerFromRespondent(respondent, 'sea-cucumber-permit-number');
                         $scope.trip.events[event_type]['landing-port'] = $scope.getAnswerFromRespondent(respondent, 'landing-port');
                         $scope.trip.events[event_type]['dealer'] = $scope.getAnswerFromRespondent(respondent, 'dealer');
                         _.each(respondent.responses, function(response) {
@@ -232,7 +236,8 @@ angular.module('askApp')
                         app.user.registration.logbooks[key] = {};
                     }
                     if (app.user.registration.logbooks[key]) {
-                        app.user.registration.logbooks[key]['permit-number'] = value['permit-number'];
+                        app.user.registration.logbooks[key]['urchin-permit-number'] = value['urchin-permit-number'];
+                        app.user.registration.logbooks[key]['sea-cucumber-permit-number'] = value['sea-cucumber-permit-number'];
                         app.user.registration.logbooks[key]['vessel-number'] = value['vessel-number'];
                         app.user.registration.logbooks[key]['vessel-name'] = value['vessel-name'];
                         if ( ! _.findWhere(app.user.registration.vessels, {name: value['vessel-name']}) ) {

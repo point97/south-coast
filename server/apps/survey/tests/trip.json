@@ -12,6 +12,8 @@
             },
             "license": "CA-098765",
             "permit-number": "12345",
+            "urchin-permit-number": "2345",
+            "sea-cucumber-permit-number": "3456",
             "respondents": [
                 {
                     "complete": true,
