@@ -95,9 +95,9 @@ border-color: rgb(250, 189, 18);
 }
     .splash .branding {
         position: absolute;
-        top: 40%;
-        left: 50%;
-        width: 250px;
+        top: 15%;
+        left: 44%;
+        width: 287px;
         margin-left: -125px;
     }
         .splash .branding img {
