@@ -74,3 +74,5 @@ server/static/survey/assets/lib/js/angular-animate.js
 server/static/survey/assets/js/controllers/complete_20140401.js
 
 server/apps/survey/fixtures/surveys_orig.json.gz
+
+server/static/survey/assets/img/splash_usvi.png
