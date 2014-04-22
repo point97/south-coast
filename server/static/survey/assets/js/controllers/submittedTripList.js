@@ -49,10 +49,12 @@ angular.module('askApp')
                 .success(function (data) {
                     $scope.addTripsToList(data.objects);
                     $scope.submittedSpinner = false;
+                    $scope.busy = false;
                     // console.log($scope.respondentList);
                     // TraceKit.report({message: 'SUCCESS: ' + data});
                 }).error(function (data) {
                     $scope.error = true;
+                    $scope.busy = false;
                     TraceKit.report({message: 'ERROR: ' + data});
                     // $location.path('/signin?error=not-logged-in');
                 }); 
@@ -78,6 +80,7 @@ angular.module('askApp')
         };
 
         $scope.tripList = [];
+        $scope.busy = true;
         $scope.getSubmittedTrips();
         
 
