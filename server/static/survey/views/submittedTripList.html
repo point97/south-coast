@@ -1,0 +1,58 @@
+<!-- Sliding Left Nav for mobile -->
+<div mobile-left-nav></div>
+
+<div id="history-wrap" class="menu-page sp-page">
+    <div mobilemenu></div>
+    <!-- Begin page content -->
+    
+    <div class="container">
+        <div ng-show="showErrorMessage">
+            <div class="error">Problem</div>
+            <div>There was a problem loading your surveys.</div>
+            <div>Please sign in again.</div>
+            <a class="btn btn-mairn btn-default btn-lg btn-block btn-primary" href="#/signin">Sign In</a>
+        </div>
+
+        <div class="well" style="padding: 5px; margin-top: 20px">
+            <span class="profile-question-header">Submitted Trips</span>
+            <div ng-show="!tripList.length" style="color: rgb(51, 51, 51);">This device has no submitted trips.</div>
+            <div class="form-control ng-pristine" style="cursor: pointer; padding-top: 10px; margin-bottom: 5px;" ng-repeat="trip in tripList" ng-click="viewTripSummary(trip)">
+                <span style="width: 100%; color: #555;">
+                    <span class="pull-left" style="font-weight: bold; text-transform: capitalize;">{{trip.title}}</span>
+                    <span class="pull-right icon-chevron-right" style="margin-top: 3px"></span>
+                </span>
+            </div>
+        </div>
+
+        <a ng-show="next20" class="btn btn-main btn-default btn-lg btn-block btn-danger" ng-click="showNext20()">Show More...<i class="icon-spinner icon-spin" ng-show="gettingNext20"></i></a>
+        <!-- <div ng-show="showTripList">
+            <div style="margin-top: 20px">
+                <div class="report-list panel panel-default" ng-repeat="trip in tripList | orderBy: 'start_date':true">
+                    <div class="panel-heading" ng-click="viewTripSummary(trip)">
+                        <h4 class="panel-title">
+                            {{trip.title}}
+                        </h4>
+                    </div>
+                </div>
+
+                <a ng-show="next20" class="btn btn-default btn-lg btn-block panel-heading" ng-click="showNext20()">Show More...<i class="icon-spinner icon-spin" ng-show="gettingNext20"></i></a>
+            </div>
+
+        </div>   -->
+
+        
+    </div>
+
+    <div class="alert-notice" ng-show="message">
+        <div class="pull-left" style="width: 85%">{{ message }}</div>
+        <button class="btn btn-default btn-outline-inverse pull-right" ng-tap="dismissMessage()">ok</button>
+    </div>
+    
+    <div ng-show="busy" ng-include="viewPath + 'views/spinner.html'"></div>
+
+</div>
+
+
+<!-- <div id="history-footer">
+    <a class="btn pull-left" href="#/history"><span class="glyphicon glyphicon-chevron-left"></span></a>
+</div> -->

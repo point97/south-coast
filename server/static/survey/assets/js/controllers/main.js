@@ -243,8 +243,9 @@ angular.module('askApp')
         $scope.resizeMap();
     }
 
-    
-    
+    if (app.submittedTrips && app.submittedTrips.numberOfTrips) {
+        delete app.submittedTrips.numberOfTrips;
+    }
     
 
   }]);

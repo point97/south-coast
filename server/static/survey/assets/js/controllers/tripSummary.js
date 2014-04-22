@@ -18,7 +18,8 @@ angular.module('askApp')
 
         $scope.path = $location.path().slice(1,5);
 
-        $scope.calledFrom = $location.path().split('/')[2];
+        // $scope.calledFrom = $location.path().split('/')[2];
+        $scope.calledFrom = $routeParams.calledFrom;
 
         $scope.speciesCaught = [];
   
@@ -120,7 +121,7 @@ angular.module('askApp')
             } 
             return undefined;
         };
-
+        
         $scope.retrieveTripFromServer = function(trip_uuid) {
             var url = app.server 
                   + '/api/v1/tripreportdetails/'
@@ -180,18 +181,22 @@ angular.module('askApp')
         };
         
         if ($scope.calledFrom === 'maps') {
-            $scope.working = true;
             $scope.calledFromMaps = true;
+            $scope.working = true;
             $scope.retrieveTripFromServer($routeParams.uuid);
-        } else if ($routeParams.uuid && app.unSubmittedTrips && app.unSubmittedTrips[$routeParams.uuid]) {
-            $scope.trip = app.unSubmittedTrips[$routeParams.uuid];
+        } else if ($routeParams.calledFrom === 'unSubmittedTrips') {
             $scope.calledFromUnsubmittedTripList = true;
+            $scope.trip = app.unSubmittedTrips[$routeParams.uuid];
             try {
                 $scope.constructTripSummary();
             } catch (e) {
                 app.message = "Hmmm... We've experienced a problem with your trip. It's possible data was lost. Please try again later."
                 $location.path('/unSubmittedTripList');
             }
+        } else if ($routeParams.calledFrom === 'submittedTrips') {
+            $scope.calledFromSubmittedTripList = true;
+            $scope.working = true;
+            $scope.retrieveTripFromServer($routeParams.uuid);
         } else {
             $scope.trip = app.currentTrip;    
             $scope.calledFromUnsubmittedTripList = false; // at the moment it may actually have been called from Unsubmitted Trips (indirectly through complete.js) 
@@ -386,6 +391,8 @@ angular.module('askApp')
                 $location.path('/maps')
             } else if ($scope.calledFromUnsubmittedTripList) {
                 $location.path('/unSubmittedTripList')
+            } else if ($scope.calledFromSubmittedTripList) {
+                $location.path('/submittedTripList')
             } else {     
                 $location.path('/survey/'+app.currentRespondent.survey+'/complete/'+app.currentRespondent.uuid);
             }

@@ -113,14 +113,22 @@ angular.module('askApp', ['ngRoute', 'ui', 'ui.bootstrap', 'ngGrid', 'shoppinpal
         .when('/tripSummary/speciesSummary/:speciesName', {
         templateUrl: app.viewPath + 'views/speciesSummary.html',
         controller: 'speciesSummaryCtrl'
+    // })
+    //     .when('/tripSummary/unSubmitted/:uuid', {
+    //     templateUrl: app.viewPath + 'views/tripSummary.html',
+    //     controller: 'tripSummaryCtrl'
+    // })
+    //     .when('/tripSummary/maps/:uuid', {
+    //     templateUrl: app.viewPath + 'views/tripSummary.html',
+    //     controller: 'tripSummaryCtrl'
     })
-        .when('/tripSummary/unSubmitted/:uuid', {
+        .when('/tripSummary/:calledFrom/:uuid', {
         templateUrl: app.viewPath + 'views/tripSummary.html',
         controller: 'tripSummaryCtrl'
     })
-        .when('/tripSummary/maps/:uuid', {
-        templateUrl: app.viewPath + 'views/tripSummary.html',
-        controller: 'tripSummaryCtrl'
+        .when('/submittedTripList', {
+        templateUrl: app.viewPath + 'views/submittedTripList.html',
+        controller: 'submittedTripListCtrl'
     })
         .when('/unSubmittedTripList', {
         templateUrl: app.viewPath + 'views/unSubmittedTripList.html',
